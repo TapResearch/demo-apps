@@ -15,12 +15,22 @@ import com.tapresearch.tapresearchkotlinsdk.TapResearch
 import com.tapresearch.tapresearchkotlinsdk.models.TRError
 import com.tapresearch.tapresearchkotlinsdk.models.TRReward
 import com.tapresearch.tapresearchkotlinsdk.state.TRContentState
+import io.github.cdimascio.dotenv.dotenv
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val yourApiToken = "55fb4402365ad600874cbf9bd959cc96"
-        val yourUserIdentifier = "NewUser"
+        val dotenv = dotenv {
+            directory = "./assets"
+            filename = "env"
+            ignoreIfMalformed = true
+            ignoreIfMissing = true
+        }
+        val yourUserIdentifier = dotenv["USER_IDENTIFIER"]
+        val yourApiToken = dotenv["API_TOKEN"]
+        Log.d("MainActivity", "API Token: $yourApiToken")
+        Log.d("MainActivity", "User identifier: $yourUserIdentifier")
 
         TapResearch.initialize(
             apiToken = yourApiToken,
