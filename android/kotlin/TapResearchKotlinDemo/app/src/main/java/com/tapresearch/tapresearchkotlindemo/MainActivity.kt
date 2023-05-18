@@ -17,7 +17,6 @@ import com.tapresearch.tapresearchkotlinsdk.models.TRReward
 import com.tapresearch.tapresearchkotlinsdk.state.TRContentState
 import io.github.cdimascio.dotenv.dotenv
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +82,7 @@ class MainActivity : ComponentActivity() {
     private fun showRewardToast(rewards: MutableList<TRReward>) {
         var rewardCount = 0
         for (reward: TRReward in rewards) {
+            Log.d("MainActivity", "reward: $reward")
             reward.rewardAmount?.let { rewardCount += it }
         }
 
