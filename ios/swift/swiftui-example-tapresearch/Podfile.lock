@@ -1,0 +1,16 @@
+PODS:
+  - TapResearch (3.0.0-beta1)
+
+DEPENDENCIES:
+  - TapResearch (= 3.0.0-beta1)
+
+SPEC REPOS:
+  trunk:
+    - TapResearch
+
+SPEC CHECKSUMS:
+  TapResearch: 5e8e2269adcab1be5fa08b35e0e8f811e410f4f5
+
+PODFILE CHECKSUM: 32d267ced80cf66ba596b9e04d6d00f79158bef6
+
+COCOAPODS: 1.12.1
