@@ -45,6 +45,8 @@ struct ContentView: View {
                 knownPlacements.append(placementTag)
             }
             TapResearchSDK.showContent(forPlacement: placementTag, delegate: self.tapResearchDelegates)
+        } else {
+            print("Placement \(placementTag) not ready")
         }
     }
 
@@ -62,6 +64,7 @@ struct ContentView: View {
                 HStack {
                     TextField("Placement Tag", text: $placementTagInput)
                         .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.none)
                         .onChange(of: placementTagInput) { _ in
                             if placementTagInput.filter({ $0.isNewline }).isEmpty {
                                 showPlacement(placementTagInput.replacingOccurrences(of: "\n", with: ""))
@@ -114,22 +117,22 @@ class TapResearchDelegates : TapResearchSDKDelegate, TapResearchContentDelegate 
 
     ///---------------------------------------------------------------------------------------------
     func onTapReseachDidError(_ error: TRError) {
-        print("\(#function): \(error.code), \(error.localizedDescription)")
+        print("(TRError) \(#function): \(error.code), \(error.localizedDescription)")
     }
 
     ///---------------------------------------------------------------------------------------------
     func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
-        print("\(#function): \(rewards.count) rewards awarded")
+        print("(TRError) \(#function): \(rewards.count) rewards awarded")
     }
 
     ///---------------------------------------------------------------------------------------------
     func onTapResearchContentShown(forPlacement placement: String) {
-        print("\(#function): \(placement) was shown")
+        print("(TRError) \(#function): \(placement) was shown")
     }
 
     ///---------------------------------------------------------------------------------------------
     func onTapResearchContentDismissed(forPlacement placement: String) {
-        print("\(#function): \(placement) was dismissed")
+        print("(TRError) \(#function): \(placement) was dismissed")
     }
 
 }

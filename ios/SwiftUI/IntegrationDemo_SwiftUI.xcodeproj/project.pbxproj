@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01E1ED6079262C3CCFBC89CC /* Pods_IntegrationDemo_SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BCF501BAAFC83C3F1841B0 /* Pods_IntegrationDemo_SwiftUI.framework */; };
 		270EB2CC2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */; };
 		270EB2CE2A193CA600B775B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CD2A193CA600B775B6 /* ContentView.swift */; };
 		270EB2D02A193CA900B775B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 270EB2CF2A193CA900B775B6 /* Assets.xcassets */; };
@@ -26,10 +27,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		07BCF501BAAFC83C3F1841B0 /* Pods_IntegrationDemo_SwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntegrationDemo_SwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		270EB2C82A193CA600B775B6 /* IntegrationDemo_SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntegrationDemo_SwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationDemo_SwiftUIApp.swift; sourceTree = "<group>"; };
 		270EB2CD2A193CA600B775B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		270EB2CF2A193CA900B775B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		77DE330B2BE58673AA31F074 /* Pods-IntegrationDemo_SwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationDemo_SwiftUI.release.xcconfig"; path = "Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI.release.xcconfig"; sourceTree = "<group>"; };
+		7CA4FB0E6CDDDAB6D3337653 /* Pods-IntegrationDemo_SwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationDemo_SwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01E1ED6079262C3CCFBC89CC /* Pods_IntegrationDemo_SwiftUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +53,8 @@
 			children = (
 				270EB2CA2A193CA600B775B6 /* IntegrationDemo_SwiftUI */,
 				270EB2C92A193CA600B775B6 /* Products */,
+				7F19BA9DBEC8C45B92E10850 /* Pods */,
+				31B8E67DD33CD94BCEE27629 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +74,23 @@
 				270EB2CF2A193CA900B775B6 /* Assets.xcassets */,
 			);
 			path = IntegrationDemo_SwiftUI;
+			sourceTree = "<group>";
+		};
+		31B8E67DD33CD94BCEE27629 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				07BCF501BAAFC83C3F1841B0 /* Pods_IntegrationDemo_SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7F19BA9DBEC8C45B92E10850 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7CA4FB0E6CDDDAB6D3337653 /* Pods-IntegrationDemo_SwiftUI.debug.xcconfig */,
+				77DE330B2BE58673AA31F074 /* Pods-IntegrationDemo_SwiftUI.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,15 +167,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-swiftui-example-tapresearch/Pods-swiftui-example-tapresearch-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-swiftui-example-tapresearch/Pods-swiftui-example-tapresearch-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-swiftui-example-tapresearch/Pods-swiftui-example-tapresearch-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D10A4266FADAAE4AE2F8D468 /* [CP] Check Pods Manifest.lock */ = {
@@ -169,7 +193,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-swiftui-example-tapresearch-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-IntegrationDemo_SwiftUI-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -307,12 +331,13 @@
 		};
 		270EB2D72A193CA900B775B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CA4FB0E6CDDDAB6D3337653 /* Pods-IntegrationDemo_SwiftUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"swiftui-example-tapresearch/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"IntegrationDemo_SwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -335,12 +360,13 @@
 		};
 		270EB2D82A193CA900B775B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77DE330B2BE58673AA31F074 /* Pods-IntegrationDemo_SwiftUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"swiftui-example-tapresearch/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"IntegrationDemo_SwiftUI/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
