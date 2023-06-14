@@ -62,6 +62,7 @@ struct ContentView: View {
                 HStack {
                     TextField("Placement Tag", text: $placementTagInput)
                         .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.none)
                         .onChange(of: placementTagInput) { _ in
                             if placementTagInput.filter({ $0.isNewline }).isEmpty {
                                 showPlacement(placementTagInput.replacingOccurrences(of: "\n", with: ""))
