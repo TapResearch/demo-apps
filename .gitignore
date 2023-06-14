@@ -334,3 +334,7 @@ $RECYCLE.BIN/
 *.lnk
 
 *.aar
+
+Podfile.lock
+Pods
+*.xcworkspace
