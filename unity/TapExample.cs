@@ -6,13 +6,13 @@ using UnityEngine;
 public class TapExample : MonoBehaviour
 {
     private static string testToken = "YOUR_API_TOKEN"; 
-    private static string testUserId = "Nascar";
+    private static string testUserId = "public-demo-test-user";
     
     void Awake()
     { 
         if UNITY_ANDROID
             testToken = "856f987d813389d1243bea2e4731a0fb";  //Public Test Android
-        #elif UNITY_
+        #elif UNITY_IPHONE
             testToken = "0b5dcbae8151c1b82d69697dce004bf2";  //Public Test iOS
         #endif
             
@@ -65,6 +65,5 @@ public class TapExample : MonoBehaviour
             
             TapResearchSDK.ShowContentForPlacement("default-placement", customParameters);
         }
-        
     }
 }
