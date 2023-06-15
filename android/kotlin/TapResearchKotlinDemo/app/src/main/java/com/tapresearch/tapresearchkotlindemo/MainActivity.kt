@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
             ignoreIfMalformed = true
             ignoreIfMissing = true
         }
-        val myUserIdentifier = dotenv["USER_IDENTIFIER"]
+        val myUserIdentifier = "public-demo-test-user"
         val myApiToken = dotenv["API_TOKEN"]
         Log.d("MainActivity", "API Token: $myApiToken")
         Log.d("MainActivity", "User identifier: $myUserIdentifier")
@@ -96,7 +96,6 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
-        const val MAIN = "MAIN"
         const val NORMAL_OFFER = "default-placement-a"
         const val BANNER_OFFER = "banner-placement-a"
         const val INTERSTITIAL_OFFER = "interstitial-placement-a"
