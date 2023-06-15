@@ -59,7 +59,6 @@ dependencies {
     // These will be needed to be added by developers
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.1")
