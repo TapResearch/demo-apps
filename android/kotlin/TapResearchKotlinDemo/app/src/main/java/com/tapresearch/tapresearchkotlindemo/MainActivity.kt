@@ -26,14 +26,14 @@ class MainActivity : ComponentActivity() {
             ignoreIfMalformed = true
             ignoreIfMissing = true
         }
-        val yourUserIdentifier = dotenv["USER_IDENTIFIER"]
-        val yourApiToken = dotenv["API_TOKEN"]
-        Log.d("MainActivity", "API Token: $yourApiToken")
-        Log.d("MainActivity", "User identifier: $yourUserIdentifier")
+        val myUserIdentifier = dotenv["USER_IDENTIFIER"]
+        val myApiToken = dotenv["API_TOKEN"]
+        Log.d("MainActivity", "API Token: $myApiToken")
+        Log.d("MainActivity", "User identifier: $myUserIdentifier")
 
         TapResearch.initialize(
-            apiToken = yourApiToken,
-            userIdentifier = yourUserIdentifier,
+            apiToken = myApiToken,
+            userIdentifier = myUserIdentifier,
             activity = this,
             rewardCallback = { rewards -> showRewardToast(rewards) },
             errorCallback = { trError -> showErrorToast(trError) },
@@ -97,10 +97,9 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         const val MAIN = "MAIN"
-        const val NORMAL_OFFER = "normal-offer"
-        const val BANNER_OFFER = "banner-offer"
-        const val INTERSTITIAL_OFFER = "interstitial-offer"
-        const val PARTIAL_INTERSTITIAL_OFFER = "partial-interstitial-offer"
-        const val USER_IDENTIFIER = "drnkenmonkey22"
+        const val NORMAL_OFFER = "default-placement-a"
+        const val BANNER_OFFER = "banner-placement-a"
+        const val INTERSTITIAL_OFFER = "interstitial-placement-a"
+        const val PARTIAL_INTERSTITIAL_OFFER = "floating-interstitial-placement-a"
     }
 }
