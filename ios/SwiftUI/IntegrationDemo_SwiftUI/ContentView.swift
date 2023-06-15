@@ -17,6 +17,7 @@ struct ContentView: View {
     @State var knownPlacements = [
         "default-placement",
         "interstitial-placement",
+        "floating-interstitial-placement",
         "banner-placement"
     ]
 
