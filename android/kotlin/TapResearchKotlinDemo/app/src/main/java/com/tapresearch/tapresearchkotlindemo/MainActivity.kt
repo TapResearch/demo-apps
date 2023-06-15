@@ -15,19 +15,12 @@ import com.tapresearch.tapresearchkotlinsdk.TapResearch
 import com.tapresearch.tapresearchkotlinsdk.models.TRError
 import com.tapresearch.tapresearchkotlinsdk.models.TRReward
 import com.tapresearch.tapresearchkotlinsdk.state.TRContentState
-import io.github.cdimascio.dotenv.dotenv
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dotenv = dotenv {
-            directory = "./assets"
-            filename = "env"
-            ignoreIfMalformed = true
-            ignoreIfMissing = true
-        }
         val myUserIdentifier = "public-demo-test-user"
-        val myApiToken = dotenv["API_TOKEN"]
+        val myApiToken = "856f987d813389d1243bea2e4731a0fb"
         Log.d("MainActivity", "API Token: $myApiToken")
         Log.d("MainActivity", "User identifier: $myUserIdentifier")
 
