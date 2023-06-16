@@ -7,14 +7,18 @@ public class TapExample : MonoBehaviour
 {
     private static string testToken = "YOUR_API_TOKEN"; 
     private static string testUserId = "public-demo-test-user";
+    private static string placementTag = "default-placement"
     
     void Awake()
     { 
         if UNITY_ANDROID
+            placementTag = "default-placement-a" //Unique Android placement
             testToken = "856f987d813389d1243bea2e4731a0fb";  //Public Test Android
         #elif UNITY_IPHONE
+            placementTag = "default-placement" //Unique iOS placement
             testToken = "0b5dcbae8151c1b82d69697dce004bf2";  //Public Test iOS
         #endif
+            
             
         TapResearchSDK.TapContentShown = TapContentShown;
         TapResearchSDK.TapContentDismissed = TapContentDismissed;
@@ -47,15 +51,15 @@ public class TapExample : MonoBehaviour
 
     public void showSurveyContent()
     {
-        if (TapResearchSDK.CanShowContentForPlacement("default-placement")) //DefaultTest Placement
+        if (TapResearchSDK.CanShowContentForPlacement(placementTag)) 
         {
-            TapResearchSDK.ShowContentForPlacement("default-placement"); //DefaultTest Placement
+            TapResearchSDK.ShowContentForPlacement(placementTag); 
         }
     }
     
     public void showSurveyContentWithParameters()
     {
-        if (TapResearchSDK.CanShowContentForPlacement("default-placement")) //CustomParam Placement
+        if (TapResearchSDK.CanShowContentForPlacement(placementTag)) //CustomParam Placement
         {
             Dictionary<string, string> customParameters = new Dictionary<string,string>(); //Parameters
             customParameters["some_string"] = "a string value";
@@ -63,7 +67,7 @@ public class TapExample : MonoBehaviour
             customParameters.Add("another_string", "it's another string!");
             Debug.Log("-> -> -> -> TapResearch customParameters:" + customParameters);
             
-            TapResearchSDK.ShowContentForPlacement("default-placement", customParameters);
+            TapResearchSDK.ShowContentForPlacement(placementTag, customParameters);
         }
     }
 }
