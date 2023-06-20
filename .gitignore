@@ -339,3 +339,4 @@ Podfile.lock
 Pods
 *.xcworkspace
 xcuserdata
+*.xcuserstate
