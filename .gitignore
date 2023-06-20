@@ -338,3 +338,4 @@ $RECYCLE.BIN/
 Podfile.lock
 Pods
 *.xcworkspace
+xcuserdata
