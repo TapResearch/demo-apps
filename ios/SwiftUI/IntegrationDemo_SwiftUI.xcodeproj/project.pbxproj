@@ -10,6 +10,7 @@
 		270EB2CC2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */; };
 		270EB2CE2A193CA600B775B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CD2A193CA600B775B6 /* ContentView.swift */; };
 		270EB2D02A193CA900B775B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 270EB2CF2A193CA900B775B6 /* Assets.xcassets */; };
+		95945946A52B31D576837D68 /* Pods_IntegrationDemo_SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D852D249FBCCCFF955E2F3E2 /* Pods_IntegrationDemo_SwiftUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +31,9 @@
 		270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationDemo_SwiftUIApp.swift; sourceTree = "<group>"; };
 		270EB2CD2A193CA600B775B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		270EB2CF2A193CA900B775B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		791AB71E0DBBDCDF65D676EF /* Pods-IntegrationDemo_SwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationDemo_SwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
+		CCD175723E35B615325B239A /* Pods-IntegrationDemo_SwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationDemo_SwiftUI.release.xcconfig"; path = "Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI.release.xcconfig"; sourceTree = "<group>"; };
+		D852D249FBCCCFF955E2F3E2 /* Pods_IntegrationDemo_SwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntegrationDemo_SwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95945946A52B31D576837D68 /* Pods_IntegrationDemo_SwiftUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +53,8 @@
 			children = (
 				270EB2CA2A193CA600B775B6 /* IntegrationDemo_SwiftUI */,
 				270EB2C92A193CA600B775B6 /* Products */,
+				B6FC9D847C15F06D78EE6C55 /* Pods */,
+				E3E8E85E5197CE67B9243BC3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +74,24 @@
 				270EB2CF2A193CA900B775B6 /* Assets.xcassets */,
 			);
 			path = IntegrationDemo_SwiftUI;
+			sourceTree = "<group>";
+		};
+		B6FC9D847C15F06D78EE6C55 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				791AB71E0DBBDCDF65D676EF /* Pods-IntegrationDemo_SwiftUI.debug.xcconfig */,
+				CCD175723E35B615325B239A /* Pods-IntegrationDemo_SwiftUI.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E3E8E85E5197CE67B9243BC3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D852D249FBCCCFF955E2F3E2 /* Pods_IntegrationDemo_SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,6 +332,7 @@
 		};
 		270EB2D72A193CA900B775B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 791AB71E0DBBDCDF65D676EF /* Pods-IntegrationDemo_SwiftUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -334,6 +360,7 @@
 		};
 		270EB2D82A193CA900B775B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCD175723E35B615325B239A /* Pods-IntegrationDemo_SwiftUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -45,7 +45,9 @@ struct ContentView: View {
             if !knownPlacements.contains(placementTag) {
                 knownPlacements.append(placementTag)
             }
-            TapResearchSDK.showContent(forPlacement: placementTag, delegate: self.tapResearchDelegates)
+            let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
+
+            TapResearchSDK.showContent(forPlacement: placementTag, delegate: self.tapResearchDelegates, customParameters: customParameters)
         } else {
             print("Placement \(placementTag) not ready")
         }
