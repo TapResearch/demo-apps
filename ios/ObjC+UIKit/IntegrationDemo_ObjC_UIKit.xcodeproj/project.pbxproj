@@ -44,7 +44,7 @@
 		9080F7B529A69C9800FFF90C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9080F7B729A69C9800FFF90C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9080F7B829A69C9800FFF90C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		909B95192A39206A00C8F4CA /* IntegrationDemo_ObjC_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IntegrationDemo_ObjC_UIKit.app; path = "/Users/jeroen/tap3/demo-apps/ios/ObjC+UIKit/build/Debug-iphoneos/IntegrationDemo_ObjC_UIKit.app"; sourceTree = "<absolute>"; };
+		90C254E92A3A5F1D008CD251 /* IntegrationDemo_ObjC_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IntegrationDemo_ObjC_UIKit.app; path = "/Users/jeroen/tap3/demo-apps/ios/ObjC+UIKit/build/Debug-iphoneos/IntegrationDemo_ObjC_UIKit.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,7 @@
 			);
 			name = IntegrationDemo_ObjC_UIKit;
 			productName = IntegrationDemo_ObjC_UIKit;
-			productReference = 909B95192A39206A00C8F4CA /* IntegrationDemo_ObjC_UIKit.app */;
+			productReference = 90C254E92A3A5F1D008CD251 /* IntegrationDemo_ObjC_UIKit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
