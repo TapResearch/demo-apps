@@ -119,7 +119,7 @@ struct ContentView: View {
 class TapResearchDelegates : TapResearchSDKDelegate, TapResearchContentDelegate {
 
     ///---------------------------------------------------------------------------------------------
-    func onTapReseachDidError(_ error: TRError) {
+    func onTapResearchDidError(_ error: TRError) {
         print("(TRError) \(#function): \(error.code), \(error.localizedDescription)")
     }
 
