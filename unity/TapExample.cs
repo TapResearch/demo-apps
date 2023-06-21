@@ -5,11 +5,21 @@ using UnityEngine;
 
 public class TapExample : MonoBehaviour
 {
-    private static string testToken = "f9c1b05047b88acaa9f08f35f4b3dad5"; //Nova-Unity
-    private static string testUserId = "Nascar";
-
+    private static string testToken = "YOUR_API_TOKEN"; 
+    private static string testUserId = "public-demo-test-user";
+    private static string placementTag = "default-placement"
+    
     void Awake()
-    {
+    { 
+        if UNITY_ANDROID
+            placementTag = "default-placement-a" //Unique Android placement
+            testToken = "856f987d813389d1243bea2e4731a0fb";  //Public Test Android
+        #elif UNITY_IPHONE
+            placementTag = "default-placement" //Unique iOS placement
+            testToken = "0b5dcbae8151c1b82d69697dce004bf2";  //Public Test iOS
+        #endif
+            
+            
         TapResearchSDK.TapContentShown = TapContentShown;
         TapResearchSDK.TapContentDismissed = TapContentDismissed;
         TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
@@ -41,9 +51,23 @@ public class TapExample : MonoBehaviour
 
     public void showSurveyContent()
     {
-        if (TapResearchSDK.CanShowContentForPlacement("bd246a420312a623fdb3d1d5ef9fe262")) //DefaultTest Placement
+        if (TapResearchSDK.CanShowContentForPlacement(placementTag)) 
         {
-            TapResearchSDK.ShowContentForPlacement("bd246a420312a623fdb3d1d5ef9fe262"); //DefaultTest Placement
+            TapResearchSDK.ShowContentForPlacement(placementTag); 
+        }
+    }
+    
+    public void showSurveyContentWithParameters()
+    {
+        if (TapResearchSDK.CanShowContentForPlacement(placementTag)) //CustomParam Placement
+        {
+            Dictionary<string, string> customParameters = new Dictionary<string,string>(); //Parameters
+            customParameters["some_string"] = "a string value";
+            customParameters["some_number"] = "a number";   
+            customParameters.Add("another_string", "it's another string!");
+            Debug.Log("-> -> -> -> TapResearch customParameters:" + customParameters);
+            
+            TapResearchSDK.ShowContentForPlacement(placementTag, customParameters);
         }
     }
 }
