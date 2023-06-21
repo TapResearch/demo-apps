@@ -10,7 +10,7 @@
 		270EB2CC2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */; };
 		270EB2CE2A193CA600B775B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CD2A193CA600B775B6 /* ContentView.swift */; };
 		270EB2D02A193CA900B775B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 270EB2CF2A193CA900B775B6 /* Assets.xcassets */; };
-		95945946A52B31D576837D68 /* Pods_IntegrationDemo_SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D852D249FBCCCFF955E2F3E2 /* Pods_IntegrationDemo_SwiftUI.framework */; };
+		90860E0C2A439E8700C252B5 /* TapResearchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 90860E0B2A439E8700C252B5 /* TapResearchSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,9 +31,6 @@
 		270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationDemo_SwiftUIApp.swift; sourceTree = "<group>"; };
 		270EB2CD2A193CA600B775B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		270EB2CF2A193CA900B775B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		791AB71E0DBBDCDF65D676EF /* Pods-IntegrationDemo_SwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationDemo_SwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
-		CCD175723E35B615325B239A /* Pods-IntegrationDemo_SwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationDemo_SwiftUI.release.xcconfig"; path = "Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI.release.xcconfig"; sourceTree = "<group>"; };
-		D852D249FBCCCFF955E2F3E2 /* Pods_IntegrationDemo_SwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntegrationDemo_SwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95945946A52B31D576837D68 /* Pods_IntegrationDemo_SwiftUI.framework in Frameworks */,
+				90860E0C2A439E8700C252B5 /* TapResearchSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,8 +50,6 @@
 			children = (
 				270EB2CA2A193CA600B775B6 /* IntegrationDemo_SwiftUI */,
 				270EB2C92A193CA600B775B6 /* Products */,
-				B6FC9D847C15F06D78EE6C55 /* Pods */,
-				E3E8E85E5197CE67B9243BC3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,24 +71,6 @@
 			path = IntegrationDemo_SwiftUI;
 			sourceTree = "<group>";
 		};
-		B6FC9D847C15F06D78EE6C55 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				791AB71E0DBBDCDF65D676EF /* Pods-IntegrationDemo_SwiftUI.debug.xcconfig */,
-				CCD175723E35B615325B239A /* Pods-IntegrationDemo_SwiftUI.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		E3E8E85E5197CE67B9243BC3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D852D249FBCCCFF955E2F3E2 /* Pods_IntegrationDemo_SwiftUI.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -101,18 +78,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 270EB2D62A193CA900B775B6 /* Build configuration list for PBXNativeTarget "IntegrationDemo_SwiftUI" */;
 			buildPhases = (
-				D10A4266FADAAE4AE2F8D468 /* [CP] Check Pods Manifest.lock */,
 				270EB2C42A193CA600B775B6 /* Sources */,
 				270EB2C52A193CA600B775B6 /* Frameworks */,
 				270EB2C62A193CA600B775B6 /* Resources */,
 				27624FAB2A337DF00044712A /* Embed Frameworks */,
-				2E3CE00184B73FB96825A1E4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = IntegrationDemo_SwiftUI;
+			packageProductDependencies = (
+				90860E0B2A439E8700C252B5 /* TapResearchSDK */,
+			);
 			productName = "swiftui-example-tapresearch";
 			productReference = 270EB2C82A193CA600B775B6 /* IntegrationDemo_SwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -141,6 +119,9 @@
 				Base,
 			);
 			mainGroup = 270EB2BF2A193CA600B775B6;
+			packageReferences = (
+				90860E0A2A439E8700C252B5 /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */,
+			);
 			productRefGroup = 270EB2C92A193CA600B775B6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -160,48 +141,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2E3CE00184B73FB96825A1E4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_SwiftUI/Pods-IntegrationDemo_SwiftUI-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D10A4266FADAAE4AE2F8D468 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IntegrationDemo_SwiftUI-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		270EB2C42A193CA600B775B6 /* Sources */ = {
@@ -332,7 +271,6 @@
 		};
 		270EB2D72A193CA900B775B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 791AB71E0DBBDCDF65D676EF /* Pods-IntegrationDemo_SwiftUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -360,7 +298,6 @@
 		};
 		270EB2D82A193CA900B775B6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CCD175723E35B615325B239A /* Pods-IntegrationDemo_SwiftUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -408,6 +345,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		90860E0A2A439E8700C252B5 /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TapResearch/TapResearch-iOS-SDK";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		90860E0B2A439E8700C252B5 /* TapResearchSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90860E0A2A439E8700C252B5 /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */;
+			productName = TapResearchSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 270EB2C02A193CA600B775B6 /* Project object */;
 }

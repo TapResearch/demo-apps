@@ -145,7 +145,7 @@ NSString *userIdentifier = @"public-demo-test-user";
 //MARK: - TapResearchSDKDelegate
 
 ///---------------------------------------------------------------------------------------------
-- (void)onTapReseachDidError:(TRError * _Nonnull)error {
+- (void)onTapResearchDidError:(TRError * _Nonnull)error {
 	NSLog(@"onTapResearchDidError() -> %@, %ld", error.localizedDescription, (long)error.code);
 }
 

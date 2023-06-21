@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/jeroen/tap3/demo-apps/ios/SwiftUI/IntegrationDemo_SwiftUI.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

@@ -131,8 +131,8 @@ class ViewController : UIViewController,
 	}
 
 	///---------------------------------------------------------------------------------------------
-	func onTapReseachDidError(_ error: TRError) {
-		print("onTapReseachDidError: \(error.userInfo[TRError.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)")
+	func onTapResearchDidError(_ error: TRError) {
+		print("onTapResearchDidError: \(error.userInfo[TRError.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)")
 	}
 
 	//MARK: - TapResearchContentDelegate
