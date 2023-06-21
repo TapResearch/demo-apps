@@ -27,10 +27,10 @@ class ViewController : UIViewController,
 
 	var knownPlacements: [String] = [
 		//"normal-offer",
-		"interstitial-offer",
-		"partial-interstitial-offer",
-		"banner-offer",
-		"invalid-offer"
+        "default-placement",
+        "interstitial-placement",
+        "floating-interstitial-placement",
+        "banner-placement"
 	]
 
 	///---------------------------------------------------------------------------------------------
@@ -70,7 +70,9 @@ class ViewController : UIViewController,
 		guard let text: String = textField.text else { return }
 
 		if TapResearchSDK.canShowContent(forPlacement: text) {
-			TapResearchSDK.showContent(forPlacement: text, delegate: self) { (error: TRError?) in
+            let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
+
+			TapResearchSDK.showContent(forPlacement: text, delegate: self, customParameters: customParameters) { (error: TRError?) in
 				if let error = error {
 					self.placementStatus.text = "\(error.userInfo[TRError.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)"
 				}
