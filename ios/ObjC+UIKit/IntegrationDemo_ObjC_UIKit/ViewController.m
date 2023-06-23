@@ -9,13 +9,9 @@
 #import "PlacementCell.h"
 #import <TapResearchSDK/TapResearchSDK.h>
 
-NSString *apiToken = @"0b5dcbae8151c1b82d69697dce004bf2";
-NSString *userIdentifier = @"public-demo-test-user";
-
 @interface ViewController () <UITextFieldDelegate,
                               UITableViewDelegate,
                               UITableViewDataSource,
-                              TapResearchSDKDelegate,
                               TapResearchContentDelegate
                               >
 
@@ -36,18 +32,11 @@ NSString *userIdentifier = @"public-demo-test-user";
 	[super viewDidLoad];
 
 	self.knownPlacements = @[
-		//@"normal-offer",
 		@"interstitial-offer",
 		@"partial-interstitial-offer",
 		@"banner-offer",
 		@"invalid-offer"
 	].mutableCopy;
-
-	[TapResearchSDK initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(TRError * _Nullable error) {
-		if (error) {
-			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
-		}
-	}];
 
 	self.textField.placeholder = @"Placement Tag";
 	self.textField.delegate = self;
@@ -140,18 +129,6 @@ NSString *userIdentifier = @"public-demo-test-user";
 ///---------------------------------------------------------------------------------------------
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return self.knownPlacements.count;
-}
-
-//MARK: - TapResearchSDKDelegate
-
-///---------------------------------------------------------------------------------------------
-- (void)onTapResearchDidError:(TRError * _Nonnull)error {
-	NSLog(@"onTapResearchDidError() -> %@, %ld", error.localizedDescription, (long)error.code);
-}
-
-///---------------------------------------------------------------------------------------------
-- (void)onTapResearchDidReceiveRewards:(NSArray<TRReward *> * _Nonnull)rewards {
-	NSLog(@"onTapResearchDidReceiveRewards(%@)", rewards);
 }
 
 //MARK: - TapResearchContentDelegate
