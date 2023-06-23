@@ -7,11 +7,14 @@
 
 #import "AppDelegate.h"
 
+NSString *apiToken = @"0b5dcbae8151c1b82d69697dce004bf2";
+NSString *userIdentifier = @"public-demo-test-user";
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-
+	[self initTapResearchSDK];
 	return YES;
 }
 
@@ -27,6 +30,29 @@
 	// Called when the user discards a scene session.
 	// If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
 	// Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+}
+
+//MARK: - Init TapResearchSDK
+
+- (void)initTapResearchSDK {
+
+	[TapResearchSDK initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(TRError * _Nullable error) {
+		if (error) {
+			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
+		}
+	}];
+}
+
+//MARK: - TapResearchSDKDelegate
+
+///---------------------------------------------------------------------------------------------
+- (void)onTapResearchDidError:(TRError * _Nonnull)error {
+	NSLog(@"onTapResearchDidError() -> %@, %ld", error.localizedDescription, (long)error.code);
+}
+
+///---------------------------------------------------------------------------------------------
+- (void)onTapResearchDidReceiveRewards:(NSArray<TRReward *> * _Nonnull)rewards {
+	NSLog(@"onTapResearchDidReceiveRewards(%@)", rewards);
 }
 
 @end

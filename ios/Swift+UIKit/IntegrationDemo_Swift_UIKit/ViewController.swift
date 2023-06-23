@@ -8,16 +8,12 @@
 import UIKit
 import TapResearchSDK
 
-let apiToken: String = "0b5dcbae8151c1b82d69697dce004bf2"
-let userIdentifier: String = "public-demo-test-user"
-
 ///---------------------------------------------------------------------------------------------
 ///---------------------------------------------------------------------------------------------
 class ViewController : UIViewController,
 					   UITextFieldDelegate,
 					   UITableViewDelegate,
 					   UITableViewDataSource,
-					   TapResearchSDKDelegate,
 					   TapResearchContentDelegate
 {
 
@@ -26,7 +22,6 @@ class ViewController : UIViewController,
 	@IBOutlet weak var placementStatus: UILabel!
 
 	var knownPlacements: [String] = [
-		//"normal-offer",
         "default-placement",
         "interstitial-placement",
         "floating-interstitial-placement",
@@ -37,11 +32,6 @@ class ViewController : UIViewController,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		TapResearchSDK.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, sdkDelegate: self) { (error: TRError?) in
-			if let error = error {
-				print(error.localizedDescription as Any)
-			}
-		}
 		textField.placeholder = "Placement Tag"
 		textField.delegate = self
 	}
@@ -121,18 +111,6 @@ class ViewController : UIViewController,
 	///---------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		return PlacementCell.cell(tableView: tableView, placement: knownPlacements[indexPath.row])
-	}
-
-	//MARK: - TapResearchSDKDelegate
-
-	///---------------------------------------------------------------------------------------------
-	func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
-		print("onTapResearchDidReceiveRewards(rewards...)")
-	}
-
-	///---------------------------------------------------------------------------------------------
-	func onTapResearchDidError(_ error: TRError) {
-		print("onTapResearchDidError: \(error.userInfo[TRError.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)")
 	}
 
 	//MARK: - TapResearchContentDelegate

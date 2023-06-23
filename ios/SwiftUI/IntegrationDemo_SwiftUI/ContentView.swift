@@ -26,12 +26,11 @@ struct ContentView: View {
 
     ///---------------------------------------------------------------------------------------------
     init() {
-        print("Using api key \(apiKey)")
+
         tapResearchDelegates = TapResearchDelegates()
         TapResearchSDK.initialize(withAPIToken: apiKey, userIdentifier: userIdInput, sdkDelegate: tapResearchDelegates) { (error: TRError?) in
             if ((error) != nil) {
                 print("Error \(String(describing: error))")
-
             }
         }
     }
