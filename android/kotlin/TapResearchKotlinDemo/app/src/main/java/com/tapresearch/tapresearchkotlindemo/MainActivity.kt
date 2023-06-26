@@ -11,10 +11,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
-import com.tapresearch.tapresearchkotlinsdk.TapResearch
-import com.tapresearch.tapresearchkotlinsdk.models.TRError
-import com.tapresearch.tapresearchkotlinsdk.models.TRReward
-import com.tapresearch.tapresearchkotlinsdk.state.TRContentState
+import com.tapresearch.tapsdk.TapResearch
+import com.tapresearch.tapsdk.callback.TRContentCallback
+import com.tapresearch.tapsdk.callback.TRErrorCallback
+import com.tapresearch.tapsdk.models.TRError
+import com.tapresearch.tapsdk.models.TRPlacement
+import com.tapresearch.tapsdk.models.TRReward
+import com.tapresearch.tapsdk.state.TRContentState
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,9 +30,7 @@ class MainActivity : ComponentActivity() {
         TapResearch.initialize(
             apiToken = myApiToken,
             userIdentifier = myUserIdentifier,
-            activity = this,
-            rewardCallback = { rewards -> showRewardToast(rewards) },
-            errorCallback = { trError -> showErrorToast(trError) },
+            activity = this
         )
         setContent {
             TapResearchKotlinDemoTheme {
@@ -43,14 +44,19 @@ class MainActivity : ComponentActivity() {
                             TapResearch.showContentForPlacement(
                                 placementTag,
                                 application,
-                                contentCallback = { trPlacement, trContentState ->
-                                    run {
-                                        val action =
-                                            if (trContentState == TRContentState.ContentShown) "Content Shown" else "Content Dismissed"
-                                        Log.d("MainActivity", "$action for placement: $trPlacement.tag")
+                                object : TRContentCallback {
+                                    override fun onContentShown(placement: TRPlacement) {
+                                        handleContentCallback(placementTag, TRContentState.ContentShown)
+                                    }
+                                    override fun onContentDismissed(placement: TRPlacement) {
+                                        handleContentCallback(placementTag, TRContentState.ContentDismissed)
                                     }
                                 },
-                                errorCallback = { trError -> showErrorToast(trError) },
+                                object : TRErrorCallback {
+                                    override fun onError(trError: TRError) {
+                                        showErrorToast(trError)
+                                    }
+                                }
                             )
                         },
                         onSetUserIdentifier = { userId ->
@@ -63,6 +69,23 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun handleContentCallback(placementTag: String, trContentState: TRContentState) {
+        Log.d("TapResearchSDK - KTBridge: ", "handleContentCallback")
+        if (trContentState.equals(TRContentState.ContentShown)) {
+            tapResearchContentShown(placementTag)
+        } else {
+            tapResearchDidDismiss(placementTag)
+        }
+    }
+
+    private fun tapResearchDidDismiss(placementTag: String) {
+        TODO("Not yet implemented")
+    }
+
+    private fun tapResearchContentShown(placementTag: String) {
+            TODO("Not yet implemented")
     }
 
     private fun showErrorToast(error: TRError) {
