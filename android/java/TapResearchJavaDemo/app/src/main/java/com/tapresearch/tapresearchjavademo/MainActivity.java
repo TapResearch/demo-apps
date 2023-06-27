@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, offers);
         listView.setAdapter(adapter);
-        TapResearch.initialize(myApiToken, myUserIdentifier, this, new TRRewardCallback() {
+        TapResearch.INSTANCE.initialize(myApiToken, myUserIdentifier, this, new TRRewardCallback() {
             @Override
             public void onReward(List<TRReward> rewards) {
                 showRewardToast(rewards);
@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = offers[position];
-                if (TapResearch.canShowContentForPlacement(selectedItem, new TRErrorCallback() {
+                if (TapResearch.INSTANCE.canShowContentForPlacement(selectedItem, new TRErrorCallback() {
                     @Override
                     public void onError(TRError trError) {
                         Log.d("TRLOG", "Whoops " + trError.toString());
                     }
                 })) {
-                    TapResearch.showContentForPlacement(
+                    TapResearch.INSTANCE.showContentForPlacement(
                             selectedItem,
                             getApplication(),
                             new TRContentCallback() {
@@ -92,20 +92,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showErrorToast(TRError error) {
-        Toast.makeText(MainActivity.this, error.getDescription(), Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, error.description, Toast.LENGTH_LONG).show();
     }
 
     private void showRewardToast(List<TRReward> rewards) {
         int rewardCount = 0;
         for (TRReward reward : rewards) {
             Log.d("MainActivity", "reward: " + reward);
-            if (reward.getRewardAmount() != null) {
-                rewardCount += reward.getRewardAmount();
+            if (reward.rewardAmount != null) {
+                rewardCount += reward.rewardAmount;
             }
         }
 
-        String currencyName = rewards.get(0).getCurrencyName();
-        String eventType = rewards.get(0).getPayoutEventType();
+        String currencyName = rewards.get(0).currencyName;
+        String eventType = rewards.get(0).payoutEventType;
         Toast.makeText(MainActivity.this, "Congrats! You've earned " + rewardCount + " " + currencyName + ". Event type is " + eventType, Toast.LENGTH_LONG).show();
     }
 
