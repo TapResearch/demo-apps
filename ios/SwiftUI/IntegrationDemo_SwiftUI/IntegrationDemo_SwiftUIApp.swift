@@ -44,7 +44,7 @@ class TapResearchSDKDelegates : TapResearchSDKDelegate {
 
 	///---------------------------------------------------------------------------------------------
 	func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
-		print("(TRError) \(#function): \(rewards.count) rewards awarded")
+		print("\(#function): \(rewards.count) rewards awarded")
 
 		var i: Int = 0
 		for reward in rewards {

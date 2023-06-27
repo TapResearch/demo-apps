@@ -18,7 +18,8 @@ struct ContentView: View {
 		"default-placement",
 		"interstitial-placement",
 		"floating-interstitial-placement",
-		"banner-placement"
+		"banner-placement",
+        "capped-and-paced-interstitial"
 	]
 
 	let tapResearchDelegates: TapResearchContentDelegates!
@@ -39,7 +40,11 @@ struct ContentView: View {
 			}
 			let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
 
-			TapResearchSDK.showContent(forPlacement: placementTag, delegate: self.tapResearchDelegates, customParameters: customParameters)
+            TapResearchSDK.showContent(forPlacement: placementTag, delegate: self.tapResearchDelegates, customParameters: customParameters){ (error: TRError?) in
+                if error != nil {
+                    print("Error \(String(describing: error))")
+                }
+            }
 		} else {
 			print("Placement \(placementTag) not ready")
 		}
@@ -112,12 +117,12 @@ class TapResearchContentDelegates : TapResearchContentDelegate {
 
 	///---------------------------------------------------------------------------------------------
 	func onTapResearchContentShown(forPlacement placement: String) {
-		print("(TRError) \(#function): \(placement) was shown")
+		print("\(#function): \(placement) was shown")
 	}
 
 	///---------------------------------------------------------------------------------------------
 	func onTapResearchContentDismissed(forPlacement placement: String) {
-		print("(TRError) \(#function): \(placement) was dismissed")
+		print("\(#function): \(placement) was dismissed")
 	}
 
 }
