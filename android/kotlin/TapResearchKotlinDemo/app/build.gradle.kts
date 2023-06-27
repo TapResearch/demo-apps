@@ -47,15 +47,10 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
-//    packaging {
-//        resources {
-//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-//        }
-//    }
 }
 
 dependencies {
-    implementation(files("libs/tapsdk-release.aar"))
+    implementation("com.tapresearch:tapsdk:3.0.0-beta+")
     // These will be needed to be added by developers
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
