@@ -10,7 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-
+        maven("https://artifactory.tools.tapresearch.io/artifactory/tapresearch-android-sdk/")
         flatDir {
             dirs("libs")
         }
