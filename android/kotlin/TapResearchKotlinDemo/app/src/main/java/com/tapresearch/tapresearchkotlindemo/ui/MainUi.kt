@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.BANNER_OFFER
+import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.CP_INTERSTITIAL_OFFER
 import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.INTERSTITIAL_OFFER
 import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.NORMAL_OFFER
 import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.PARTIAL_INTERSTITIAL_OFFER
@@ -70,6 +71,13 @@ fun MainUi(
                 modifier = Modifier.padding(5.dp),
             ) {
                 Text(text = PARTIAL_INTERSTITIAL_OFFER)
+            }
+
+            Button(
+                onClick = { openPlacement(CP_INTERSTITIAL_OFFER) },
+                modifier = Modifier.padding(5.dp),
+            ) {
+                Text(text = CP_INTERSTITIAL_OFFER)
             }
 
             val showTextField = remember { mutableStateOf(false) }

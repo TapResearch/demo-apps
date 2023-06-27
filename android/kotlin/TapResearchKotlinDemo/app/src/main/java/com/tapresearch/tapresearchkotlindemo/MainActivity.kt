@@ -11,10 +11,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
-import com.tapresearch.tapresearchkotlinsdk.TapResearch
-import com.tapresearch.tapresearchkotlinsdk.models.TRError
-import com.tapresearch.tapresearchkotlinsdk.models.TRReward
-import com.tapresearch.tapresearchkotlinsdk.state.TRContentState
+import com.tapresearch.tapsdk.TapResearch
+import com.tapresearch.tapsdk.callback.TRContentCallback
+import com.tapresearch.tapsdk.callback.TRErrorCallback
+import com.tapresearch.tapsdk.callback.TRRewardCallback
+import com.tapresearch.tapsdk.models.TRError
+import com.tapresearch.tapsdk.models.TRPlacement
+import com.tapresearch.tapsdk.models.TRReward
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,9 +30,17 @@ class MainActivity : ComponentActivity() {
         TapResearch.initialize(
             apiToken = myApiToken,
             userIdentifier = myUserIdentifier,
-            activity = this,
-            rewardCallback = { rewards -> showRewardToast(rewards) },
-            errorCallback = { trError -> showErrorToast(trError) },
+            activity = this@MainActivity,
+            rewardCallback = object : TRRewardCallback {
+                override fun onReward(rewards: MutableList<TRReward>) {
+                    showRewardToast(rewards)
+                }
+            },
+            errorCallback = object : TRErrorCallback {
+                override fun onError(trError: TRError) {
+                    showErrorToast(trError)
+                }
+            },
         )
         setContent {
             TapResearchKotlinDemoTheme {
@@ -40,29 +51,63 @@ class MainActivity : ComponentActivity() {
                 ) {
                     MainUi(
                         openPlacement = { placementTag ->
-                            TapResearch.showContentForPlacement(
-                                placementTag,
-                                application,
-                                contentCallback = { trPlacement, trContentState ->
-                                    run {
-                                        val action =
-                                            if (trContentState == TRContentState.ContentShown) "Content Shown" else "Content Dismissed"
-                                        Log.d("MainActivity", "$action for placement: $trPlacement.tag")
-                                    }
-                                },
-                                errorCallback = { trError -> showErrorToast(trError) },
-                            )
+                            if (TapResearch.canShowContentForPlacement(
+                                    placementTag,
+                                    errorCallback = object : TRErrorCallback {
+                                        override fun onError(trError: TRError) {
+                                            trError.description?.let { Log.e("TRERROR", it) }
+                                        }
+                                    },
+                                )
+                            ) {
+                                TapResearch.showContentForPlacement(
+                                    placementTag,
+                                    application,
+                                    object : TRContentCallback {
+                                        override fun onContentShown(placement: TRPlacement) {
+                                            tapResearchDidDismiss(placement)
+                                        }
+
+                                        override fun onContentDismissed(placement: TRPlacement) {
+                                            tapResearchContentShown(placement)
+                                        }
+                                    },
+                                    object : TRErrorCallback {
+                                        override fun onError(trError: TRError) {
+                                            showErrorToast(trError)
+                                        }
+                                    },
+                                )
+                            }
                         },
                         onSetUserIdentifier = { userId ->
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
-                                errorCallback = { trError -> showErrorToast(trError) },
+                                errorCallback = object : TRErrorCallback {
+                                    override fun onError(trError: TRError) {
+                                        showErrorToast(trError)
+                                    }
+                                },
                             )
                         },
                     )
                 }
             }
         }
+    }
+
+    private fun tapResearchDidDismiss(trPlacement: TRPlacement) {
+        if (trPlacement.error != null) {
+            Log.e("TRERROR", "Error: ${trPlacement.error}")
+        }
+        Log.d("TR", "dismissed: $trPlacement")
+    }
+
+    private fun tapResearchContentShown(trPlacement: TRPlacement) {
+        if (trPlacement.error != null) {
+            Log.e("TRERROR", "Error: ${trPlacement.error}")
+        }
+        Log.d("TR", "shown: $trPlacement")
     }
 
     private fun showErrorToast(error: TRError) {
@@ -72,6 +117,7 @@ class MainActivity : ComponentActivity() {
             Toast.LENGTH_LONG,
         ).show()
     }
+
     private fun showRewardToast(rewards: MutableList<TRReward>) {
         var rewardCount = 0
         for (reward: TRReward in rewards) {
@@ -93,5 +139,6 @@ class MainActivity : ComponentActivity() {
         const val BANNER_OFFER = "banner-placement-a"
         const val INTERSTITIAL_OFFER = "interstitial-placement-a"
         const val PARTIAL_INTERSTITIAL_OFFER = "floating-interstitial-placement-a"
+        const val CP_INTERSTITIAL_OFFER = "capped-and-paced-interstitial-a"
     }
 }

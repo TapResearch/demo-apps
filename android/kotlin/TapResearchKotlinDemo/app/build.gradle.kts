@@ -55,7 +55,7 @@ android {
 }
 
 dependencies {
-    implementation(files("libs/tapresearchkotlinsdk-debug.aar"))
+    implementation(files("libs/tapsdk-release.aar"))
     // These will be needed to be added by developers
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
