@@ -18,6 +18,7 @@ struct ContentView: View {
         "default-placement",
         "interstitial-placement",
         "floating-interstitial-placement",
+        "capped-and-paced-interstitial",
         "banner-placement"
     ]
 
