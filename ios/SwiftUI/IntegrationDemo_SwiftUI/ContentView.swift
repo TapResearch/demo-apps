@@ -22,18 +22,11 @@ struct ContentView: View {
         "banner-placement"
     ]
 
-    let apiKey = "0b5dcbae8151c1b82d69697dce004bf2"
     let tapResearchDelegates: TapResearchDelegates!
 
     ///---------------------------------------------------------------------------------------------
     init() {
-
         tapResearchDelegates = TapResearchDelegates()
-        TapResearchSDK.initialize(withAPIToken: apiKey, userIdentifier: userIdInput, sdkDelegate: tapResearchDelegates) { (error: TRError?) in
-            if ((error) != nil) {
-                print("Error \(String(describing: error))")
-            }
-        }
     }
 
     ///---------------------------------------------------------------------------------------------
@@ -116,17 +109,7 @@ struct ContentView: View {
 
 ///---------------------------------------------------------------------------------------------
 ///---------------------------------------------------------------------------------------------
-class TapResearchDelegates : TapResearchSDKDelegate, TapResearchContentDelegate {
-
-    ///---------------------------------------------------------------------------------------------
-    func onTapResearchDidError(_ error: TRError) {
-        print("(TRError) \(#function): \(error.code), \(error.localizedDescription)")
-    }
-
-    ///---------------------------------------------------------------------------------------------
-    func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
-        print("(TRError) \(#function): \(rewards.count) rewards awarded")
-    }
+class TapResearchDelegates : TapResearchContentDelegate {
 
     ///---------------------------------------------------------------------------------------------
     func onTapResearchContentShown(forPlacement placement: String) {
