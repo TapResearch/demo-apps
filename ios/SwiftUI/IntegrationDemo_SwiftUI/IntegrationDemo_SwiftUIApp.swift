@@ -18,8 +18,12 @@ class swiftui_example_tapresearchApp: App {
 
 	var body: some Scene {
 		WindowGroup {
-			ContentView().onAppear(perform: {
-				self.initTapResearch()
+            ContentView().onAppear(perform: { [self] in
+                TapResearchSDK.initialize(withAPIToken: self.sdkToken, userIdentifier: self.userId, sdkDelegate: self.tapSDKDelegates) { (error: TRError?) in
+                    if let e = error {
+                        print("\(#function): \(e.code), \(e.localizedDescription)")
+                    }
+                }
 			})
 		}
 	}
@@ -27,16 +31,6 @@ class swiftui_example_tapresearchApp: App {
 	///---------------------------------------------------------------------------------------------
 	required init() {
 		tapSDKDelegates = TapResearchSDKDelegates()
-	}
-
-	///---------------------------------------------------------------------------------------------
-	func initTapResearch() {
-
-		TapResearchSDK.initialize(withAPIToken: sdkToken, userIdentifier: userId, sdkDelegate: tapSDKDelegates) { (error: TRError?) in
-			if let error = error {
-				print("\(#function): \(error.code), \(error.localizedDescription)")
-			}
-		}
 	}
 
 }
