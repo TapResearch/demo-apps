@@ -14,7 +14,11 @@ NSString *userIdentifier = @"public-demo-test-user";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-	[self initTapResearchSDK];
+	[TapResearchSDK initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(TRError * _Nullable error) {
+		if (error) {
+			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
+		}
+	}];
 	return YES;
 }
 
@@ -30,17 +34,6 @@ NSString *userIdentifier = @"public-demo-test-user";
 	// Called when the user discards a scene session.
 	// If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
 	// Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-}
-
-//MARK: - Init TapResearchSDK
-
-- (void)initTapResearchSDK {
-
-	[TapResearchSDK initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(TRError * _Nullable error) {
-		if (error) {
-			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
-		}
-	}];
 }
 
 //MARK: - TapResearchSDKDelegate
