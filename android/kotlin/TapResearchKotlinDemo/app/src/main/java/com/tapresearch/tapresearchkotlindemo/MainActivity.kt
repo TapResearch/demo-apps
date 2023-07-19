@@ -15,6 +15,7 @@ import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
 import com.tapresearch.tapsdk.callback.TRRewardCallback
+import com.tapresearch.tapsdk.models.PlacementCustomParameters
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRPlacement
 import com.tapresearch.tapsdk.models.TRReward
@@ -26,6 +27,8 @@ class MainActivity : ComponentActivity() {
         val myApiToken = "856f987d813389d1243bea2e4731a0fb"
         Log.d("MainActivity", "API Token: $myApiToken")
         Log.d("MainActivity", "User identifier: $myUserIdentifier")
+
+        val customParams = PlacementCustomParameters().fromMap(mapOf("thing" to "thing"))
 
         TapResearch.initialize(
             apiToken = myApiToken,
@@ -63,6 +66,7 @@ class MainActivity : ComponentActivity() {
                                 TapResearch.showContentForPlacement(
                                     placementTag,
                                     application,
+                                    customParams,
                                     object : TRContentCallback {
                                         override fun onContentShown(placement: TRPlacement) {
                                             tapResearchDidDismiss(placement)
