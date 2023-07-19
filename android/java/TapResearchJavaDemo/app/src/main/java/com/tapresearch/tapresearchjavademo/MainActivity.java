@@ -29,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String INTERSTITIAL_OFFER = "interstitial-placement-a";
     private static final String FLOATING_INTERSTITIAL_OFFER = "floating-interstitial-placement-a";
     private static final String CP_INTERSTITIAL_OFFER = "capped-and-paced-interstitial-a";
-
-    String[] offers = {NORMAL_OFFER, BANNER_OFFER, INTERSTITIAL_OFFER, PARTIAL_INTERSTITIAL_OFFER, CP_INTERSTITIAL_OFFER};
+    
     String[] offers = {NORMAL_OFFER, BANNER_OFFER, INTERSTITIAL_OFFER, FLOATING_INTERSTITIAL_OFFER, CP_INTERSTITIAL_OFFER};
 
     @Override
