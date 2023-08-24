@@ -70,14 +70,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     MainUi(
                         openPlacement = { placementTag ->
-                            if (!tapSdkReady) {
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    "SDK is not ready yet",
-                                    Toast.LENGTH_LONG,
-                                ).show()
-                                return@MainUi
-                            }
                             if (TapResearch.canShowContentForPlacement(
                                     placementTag,
                                     errorCallback = object : TRErrorCallback {
@@ -99,14 +91,6 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         onSetUserIdentifier = { userId ->
-                            if (!tapSdkReady) {
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    "SDK is not ready yet",
-                                    Toast.LENGTH_LONG,
-                                ).show()
-                                return@MainUi
-                            }
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
                                 errorCallback = object : TRErrorCallback {
