@@ -19,11 +19,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.BANNER_OFFER
-import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.CP_INTERSTITIAL_OFFER
-import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.INTERSTITIAL_OFFER
-import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.NORMAL_OFFER
-import com.tapresearch.tapresearchkotlindemo.MainActivity.Companion.PARTIAL_INTERSTITIAL_OFFER
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
@@ -31,6 +26,7 @@ import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 fun MainUi(
     openPlacement: (placementTag: String) -> Unit,
     onSetUserIdentifier: (identifier: String) -> Unit,
+    buttonOptions: List<String>,
 ) {
     TapResearchKotlinDemoTheme {
         Column(
@@ -45,39 +41,13 @@ fun MainUi(
                 text = "Available Placement",
             )
 
-            Button(
-                onClick = { openPlacement(NORMAL_OFFER) },
-                modifier = Modifier.padding(5.dp),
-            ) {
-                Text(text = NORMAL_OFFER)
-            }
-
-            Button(
-                onClick = { openPlacement(BANNER_OFFER) },
-                modifier = Modifier.padding(5.dp),
-            ) {
-                Text(text = BANNER_OFFER)
-            }
-
-            Button(
-                onClick = { openPlacement(INTERSTITIAL_OFFER) },
-                modifier = Modifier.padding(5.dp),
-            ) {
-                Text(text = INTERSTITIAL_OFFER)
-            }
-
-            Button(
-                onClick = { openPlacement(PARTIAL_INTERSTITIAL_OFFER) },
-                modifier = Modifier.padding(5.dp),
-            ) {
-                Text(text = PARTIAL_INTERSTITIAL_OFFER)
-            }
-
-            Button(
-                onClick = { openPlacement(CP_INTERSTITIAL_OFFER) },
-                modifier = Modifier.padding(5.dp),
-            ) {
-                Text(text = CP_INTERSTITIAL_OFFER)
+            for (option in buttonOptions) {
+                Button(
+                    onClick = { openPlacement(option) },
+                    modifier = Modifier.padding(5.dp),
+                ) {
+                    Text(text = option)
+                }
             }
 
             val showTextField = remember { mutableStateOf(false) }

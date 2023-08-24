@@ -58,9 +58,6 @@ class MainActivity : ComponentActivity() {
                 }
             },
         )
-    }
-
-    private fun doSetContent() {
         setContent {
             TapResearchKotlinDemoTheme {
                 // A surface container using the 'background' color from the theme
@@ -69,6 +66,26 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     MainUi(
+                        openPlacement = {},
+                        onSetUserIdentifier = {},
+                        buttonOptions = listOf("Waiting for SDK to initialize..."),
+                    )
+                }
+            }
+        }
+    }
+
+    private fun doSetContent() {
+        val buttonOptions = resources.getStringArray(R.array.placement_tags)
+        setContent {
+            TapResearchKotlinDemoTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background,
+                ) {
+                    MainUi(
+                        buttonOptions = buttonOptions.toList(),
                         openPlacement = { placementTag ->
                             if (TapResearch.canShowContentForPlacement(
                                     placementTag,
@@ -140,13 +157,5 @@ class MainActivity : ComponentActivity() {
             "Congrats! You've earned $rewardAmount $currencyName. Event type is $eventType",
             Toast.LENGTH_LONG,
         ).show()
-    }
-
-    companion object {
-        const val NORMAL_OFFER = "default-placement-a"
-        const val BANNER_OFFER = "banner-placement-a"
-        const val INTERSTITIAL_OFFER = "interstitial-placement-a"
-        const val PARTIAL_INTERSTITIAL_OFFER = "floating-interstitial-placement-a"
-        const val CP_INTERSTITIAL_OFFER = "capped-and-paced-interstitial-a"
     }
 }
