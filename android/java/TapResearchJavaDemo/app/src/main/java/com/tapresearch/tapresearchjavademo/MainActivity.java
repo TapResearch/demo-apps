@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "MainActivity";
 
     String[] offers = {NORMAL_OFFER, BANNER_OFFER, INTERSTITIAL_OFFER, PARTIAL_INTERSTITIAL_OFFER, CP_INTERSTITIAL_OFFER};
-    private boolean tapSdkReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +39,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "API Token: " + myApiToken);
         Log.d(LOG_TAG, "User identifier: " + myUserIdentifier);
 
-        setContentView(R.layout.activity_main);
-        ListView listView = findViewById(R.id.listView);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, offers);
-        listView.setAdapter(adapter);
         TapResearch.INSTANCE.initialize(myApiToken, myUserIdentifier,
                 MainActivity.this,
                 new TRRewardCallback() {
@@ -63,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTapResearchSdkReady() {
                         Log.d(LOG_TAG, "SDK is ready");
-                        tapSdkReady = true;
+                        doSetContent();
                     }
                 },
                 new TRContentCallback() {
@@ -77,6 +71,16 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(LOG_TAG, "Content dismissed for placement " + placementTag);
                     }
                 });
+
+    }
+
+    private void doSetContent() {
+        setContentView(R.layout.activity_main);
+        ListView listView = findViewById(R.id.listView);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, offers);
+        listView.setAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
