@@ -21,13 +21,13 @@ import com.tapresearch.tapsdk.models.TRReward
 
 class MainActivity : ComponentActivity() {
     val LOG_TAG = "MainActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val myUserIdentifier = "public-demo-test-user"
         val myApiToken = getString(R.string.api_token)
         Log.d(LOG_TAG, "API Token: $myApiToken")
         Log.d(LOG_TAG, "User identifier: $myUserIdentifier")
-        var tapSdkReady = false
         TapResearch.initialize(
             apiToken = getString(R.string.api_token),
             userIdentifier = myUserIdentifier,
@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
             sdkReadyCallback = object : TRSdkReadyCallback {
                 override fun onTapResearchSdkReady() {
                     Log.d(LOG_TAG, "SDK is ready")
-                    tapSdkReady = true
+                    doSetContent()
                 }
             },
             contentCallback = object : TRContentCallback {
@@ -58,6 +58,9 @@ class MainActivity : ComponentActivity() {
                 }
             },
         )
+    }
+
+    private fun doSetContent() {
         setContent {
             TapResearchKotlinDemoTheme {
                 // A surface container using the 'background' color from the theme
