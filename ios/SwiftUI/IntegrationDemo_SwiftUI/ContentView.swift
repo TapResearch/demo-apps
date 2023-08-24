@@ -113,12 +113,12 @@ class TapResearchDelegates : TapResearchContentDelegate {
 
     ///---------------------------------------------------------------------------------------------
     func onTapResearchContentShown(forPlacement placement: String) {
-        print("(TRError) \(#function): \(placement) was shown")
+        print("\(#function): \(placement) was shown")
     }
 
     ///---------------------------------------------------------------------------------------------
     func onTapResearchContentDismissed(forPlacement placement: String) {
-        print("(TRError) \(#function): \(placement) was dismissed")
+        print("\(#function): \(placement) was dismissed")
     }
 
 }
