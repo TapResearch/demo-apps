@@ -17,7 +17,6 @@ import com.tapresearch.tapsdk.callback.TRRewardCallback;
 import com.tapresearch.tapsdk.callback.TRSdkReadyCallback;
 import com.tapresearch.tapsdk.models.TRError;
 import com.tapresearch.tapsdk.models.TRReward;
-import com.tapresearch.tapresearchjavademo.R;
 
 
 import java.util.List;
