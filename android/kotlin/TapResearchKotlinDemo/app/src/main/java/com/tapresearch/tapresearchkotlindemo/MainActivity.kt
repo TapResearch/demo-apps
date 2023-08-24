@@ -49,12 +49,12 @@ class MainActivity : ComponentActivity() {
                 }
             },
             contentCallback = object : TRContentCallback {
-                override fun onContentShown(placementTag: String) {
-                    contentShown(placementTag)
+                override fun onTapResearchContentDismissed(placementTag: String) {
+                    contentDismissed(placementTag)
                 }
 
-                override fun onContentDismissed(placementTag: String) {
-                    contentDismissed(placementTag)
+                override fun onTapResearchContentShown(placementTag: String) {
+                    contentShown(placementTag)
                 }
             },
         )
@@ -146,7 +146,7 @@ class MainActivity : ComponentActivity() {
         var rewardAmount = 0
         for (reward: TRReward in rewards) {
             Log.d(LOG_TAG, "reward: $reward")
-            Log.d(LOG_TAG, "Amount: ${reward?.rewardAmount}")
+            Log.d(LOG_TAG, "Amount: ${reward.rewardAmount}")
             reward.rewardAmount?.let { rewardAmount += it }
         }
 

@@ -50,7 +50,8 @@ android {
 }
 
 dependencies {
-    implementation("com.tapresearch:tapsdk:3.0.0-beta+")
+    implementation("com.tapresearch:tapsdk:3.1.0-beta4")
+//    implementation(files("libs/tapsdk-release.aar"))
     // These will be needed to be added by developers
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
