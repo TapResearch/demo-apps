@@ -17,19 +17,13 @@ import com.tapresearch.tapsdk.callback.TRRewardCallback;
 import com.tapresearch.tapsdk.callback.TRSdkReadyCallback;
 import com.tapresearch.tapsdk.models.TRError;
 import com.tapresearch.tapsdk.models.TRReward;
+import com.tapresearch.tapresearchjavademo.R;
+
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final String NORMAL_OFFER = "default-placement-a";
-    private static final String BANNER_OFFER = "banner-placement-a";
-    private static final String INTERSTITIAL_OFFER = "interstitial-placement-a";
-    private static final String PARTIAL_INTERSTITIAL_OFFER = "partial-interstitial-placement-a";
-    private static final String CP_INTERSTITIAL_OFFER = "capped-and-paced-interstitial-a";
     private static final String LOG_TAG = "MainActivity";
-
-    String[] offers = {NORMAL_OFFER, BANNER_OFFER, INTERSTITIAL_OFFER, PARTIAL_INTERSTITIAL_OFFER, CP_INTERSTITIAL_OFFER};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +66,28 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        setContentView(R.layout.activity_main);
+        ListView listView = findViewById(R.id.listView);
+        String[] placements = {"Waiting for SDK to be ready..."};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, placements);
+        listView.setAdapter(adapter);
+
+
     }
 
     private void doSetContent() {
+        String[] placements = getResources().getStringArray(R.array.placement_tags);
+
         setContentView(R.layout.activity_main);
         ListView listView = findViewById(R.id.listView);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, offers);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, placements);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = offers[position];
+                String selectedItem = placements[position];
                 if (TapResearch.INSTANCE.canShowContentForPlacement(selectedItem, new TRErrorCallback() {
                     @Override
                     public void onTapResearchDidError(TRError trError) {
