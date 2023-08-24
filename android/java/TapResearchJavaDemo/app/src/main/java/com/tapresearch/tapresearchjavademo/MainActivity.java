@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String myUserIdentifier = "public-demo-test-user";
-        String myApiToken = "856f987d813389d1243bea2e4731a0fb";
+        String myApiToken = getString(R.string.api_token);
         Log.d(LOG_TAG, "API Token: " + myApiToken);
         Log.d(LOG_TAG, "User identifier: " + myUserIdentifier);
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, offers);
         listView.setAdapter(adapter);
-        TapResearch.INSTANCE.initialize(getString(R.string.api_token), myUserIdentifier,
+        TapResearch.INSTANCE.initialize(myApiToken, myUserIdentifier,
                 MainActivity.this,
                 new TRRewardCallback() {
                     @Override
