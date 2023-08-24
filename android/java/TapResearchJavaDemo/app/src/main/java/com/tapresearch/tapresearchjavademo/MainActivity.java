@@ -85,10 +85,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = offers[position];
-                if (!tapSdkReady){
-                    Toast.makeText(MainActivity.this, "TapSDK not yet ready", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 if (TapResearch.INSTANCE.canShowContentForPlacement(selectedItem, new TRErrorCallback() {
                     @Override
                     public void onTapResearchDidError(TRError trError) {
