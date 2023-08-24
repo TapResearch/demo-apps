@@ -15,30 +15,46 @@ import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
 import com.tapresearch.tapsdk.callback.TRRewardCallback
+import com.tapresearch.tapsdk.callback.TRSdkReadyCallback
 import com.tapresearch.tapsdk.models.TRError
-import com.tapresearch.tapsdk.models.TRPlacement
 import com.tapresearch.tapsdk.models.TRReward
 
 class MainActivity : ComponentActivity() {
+    val LOG_TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val myUserIdentifier = "public-demo-test-user"
-        val myApiToken = "856f987d813389d1243bea2e4731a0fb"
-        Log.d("MainActivity", "API Token: $myApiToken")
-        Log.d("MainActivity", "User identifier: $myUserIdentifier")
-
+        val myApiToken = getString(R.string.api_token)
+        Log.d(LOG_TAG, "API Token: $myApiToken")
+        Log.d(LOG_TAG, "User identifier: $myUserIdentifier")
+        var tapSdkReady = false
         TapResearch.initialize(
-            apiToken = myApiToken,
+            apiToken = getString(R.string.api_token),
             userIdentifier = myUserIdentifier,
             activity = this@MainActivity,
             rewardCallback = object : TRRewardCallback {
-                override fun onReward(rewards: MutableList<TRReward>) {
+                override fun onTapResearchDidReceiveRewards(rewards: MutableList<TRReward>) {
                     showRewardToast(rewards)
                 }
             },
             errorCallback = object : TRErrorCallback {
-                override fun onError(trError: TRError) {
+                override fun onTapResearchDidError(trError: TRError) {
                     showErrorToast(trError)
+                }
+            },
+            sdkReadyCallback = object : TRSdkReadyCallback {
+                override fun onTapResearchSdkReady() {
+                    Log.d(LOG_TAG, "SDK is ready")
+                    tapSdkReady = true
+                }
+            },
+            contentCallback = object : TRContentCallback {
+                override fun onContentShown(placementTag: String) {
+                    contentShown(placementTag)
+                }
+
+                override fun onContentDismissed(placementTag: String) {
+                    contentDismissed(placementTag)
                 }
             },
         )
@@ -51,11 +67,19 @@ class MainActivity : ComponentActivity() {
                 ) {
                     MainUi(
                         openPlacement = { placementTag ->
+                            if (!tapSdkReady) {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "SDK is not ready yet",
+                                    Toast.LENGTH_LONG,
+                                ).show()
+                                return@MainUi
+                            }
                             if (TapResearch.canShowContentForPlacement(
                                     placementTag,
                                     errorCallback = object : TRErrorCallback {
-                                        override fun onError(trError: TRError) {
-                                            trError.description?.let { Log.e("TRERROR", it) }
+                                        override fun onTapResearchDidError(trError: TRError) {
+                                            trError.description?.let { Log.e(LOG_TAG, it) }
                                         }
                                     },
                                 )
@@ -63,17 +87,8 @@ class MainActivity : ComponentActivity() {
                                 TapResearch.showContentForPlacement(
                                     placementTag,
                                     application,
-                                    object : TRContentCallback {
-                                        override fun onContentShown(placement: TRPlacement) {
-                                            tapResearchDidDismiss(placement)
-                                        }
-
-                                        override fun onContentDismissed(placement: TRPlacement) {
-                                            tapResearchContentShown(placement)
-                                        }
-                                    },
                                     object : TRErrorCallback {
-                                        override fun onError(trError: TRError) {
+                                        override fun onTapResearchDidError(trError: TRError) {
                                             showErrorToast(trError)
                                         }
                                     },
@@ -81,10 +96,18 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         onSetUserIdentifier = { userId ->
+                            if (!tapSdkReady) {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "SDK is not ready yet",
+                                    Toast.LENGTH_LONG,
+                                ).show()
+                                return@MainUi
+                            }
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
                                 errorCallback = object : TRErrorCallback {
-                                    override fun onError(trError: TRError) {
+                                    override fun onTapResearchDidError(trError: TRError) {
                                         showErrorToast(trError)
                                     }
                                 },
@@ -96,21 +119,17 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun tapResearchDidDismiss(trPlacement: TRPlacement) {
-        if (trPlacement.error != null) {
-            Log.e("TRERROR", "Error: ${trPlacement.error}")
-        }
-        Log.d("TR", "dismissed: $trPlacement")
+    private fun contentDismissed(tag: String) {
+        Log.d(LOG_TAG, "dismissed: $tag")
     }
 
-    private fun tapResearchContentShown(trPlacement: TRPlacement) {
-        if (trPlacement.error != null) {
-            Log.e("TRERROR", "Error: ${trPlacement.error}")
-        }
-        Log.d("TR", "shown: $trPlacement")
+    private fun contentShown(tag: String) {
+        Log.d(LOG_TAG, "shown: $tag")
     }
 
     private fun showErrorToast(error: TRError) {
+        Log.d(LOG_TAG, "error: $error")
+        Log.d(LOG_TAG, "error: ${error.javaClass.kotlin.qualifiedName}")
         Toast.makeText(
             this@MainActivity,
             error.description,
@@ -119,17 +138,19 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun showRewardToast(rewards: MutableList<TRReward>) {
-        var rewardCount = 0
+        Log.d(LOG_TAG, "rewards: $rewards")
+        var rewardAmount = 0
         for (reward: TRReward in rewards) {
-            Log.d("MainActivity", "reward: $reward")
-            reward.rewardAmount?.let { rewardCount += it }
+            Log.d(LOG_TAG, "reward: $reward")
+            Log.d(LOG_TAG, "Amount: ${reward?.rewardAmount}")
+            reward.rewardAmount?.let { rewardAmount += it }
         }
 
         val currencyName = rewards.first().currencyName
         val eventType = rewards.first().payoutEventType
         Toast.makeText(
             this@MainActivity,
-            "Congrats! You've earned $rewardCount $currencyName. Event type is $eventType",
+            "Congrats! You've earned $rewardAmount $currencyName. Event type is $eventType",
             Toast.LENGTH_LONG,
         ).show()
     }

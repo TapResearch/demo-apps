@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TapResearchKotlinDemo</string>
+    <string name="api_token">856f987d813389d1243bea2e4731a0fb</string>
 </resources>
