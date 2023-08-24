@@ -10,7 +10,7 @@
 		270EB2CC2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */; };
 		270EB2CE2A193CA600B775B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CD2A193CA600B775B6 /* ContentView.swift */; };
 		270EB2D02A193CA900B775B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 270EB2CF2A193CA900B775B6 /* Assets.xcassets */; };
-		90860E0C2A439E8700C252B5 /* TapResearchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 90860E0B2A439E8700C252B5 /* TapResearchSDK */; };
+		906C91862A97FF1B006AC61C /* TapResearchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 906C91852A97FF1B006AC61C /* TapResearchSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,7 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90860E0C2A439E8700C252B5 /* TapResearchSDK in Frameworks */,
+				906C91862A97FF1B006AC61C /* TapResearchSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +89,7 @@
 			);
 			name = IntegrationDemo_SwiftUI;
 			packageProductDependencies = (
-				90860E0B2A439E8700C252B5 /* TapResearchSDK */,
+				906C91852A97FF1B006AC61C /* TapResearchSDK */,
 			);
 			productName = "swiftui-example-tapresearch";
 			productReference = 270EB2C82A193CA600B775B6 /* IntegrationDemo_SwiftUI.app */;
@@ -120,7 +120,7 @@
 			);
 			mainGroup = 270EB2BF2A193CA600B775B6;
 			packageReferences = (
-				90860E0A2A439E8700C252B5 /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */,
+				906C91842A97FF1B006AC61C /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */,
 			);
 			productRefGroup = 270EB2C92A193CA600B775B6 /* Products */;
 			projectDirPath = "";
@@ -347,7 +347,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		90860E0A2A439E8700C252B5 /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */ = {
+		906C91842A97FF1B006AC61C /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TapResearch/TapResearch-iOS-SDK";
 			requirement = {
@@ -358,9 +358,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		90860E0B2A439E8700C252B5 /* TapResearchSDK */ = {
+		906C91852A97FF1B006AC61C /* TapResearchSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 90860E0A2A439E8700C252B5 /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */;
+			package = 906C91842A97FF1B006AC61C /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */;
 			productName = TapResearchSDK;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -75,7 +75,7 @@
 
 	if (placementTag && placementTag.length > 0) {
 		if ([TapResearchSDK canShowContentForPlacement:placementTag]) {
-			[TapResearchSDK showContentForPlacement:placementTag delegate:self completion:^(TRError * _Nullable error) {
+			[TapResearchSDK showContentForPlacement:placementTag delegate:self completion:^(NSError * _Nullable error) {
 				if (error) {
 					self.placementStatus.text = [NSString stringWithFormat:@"%ld, %@", (long)error.code, error.localizedDescription];
 				}
@@ -110,7 +110,7 @@
 
 	NSString *placementTag = self.knownPlacements[indexPath.row];
 	if ([TapResearchSDK canShowContentForPlacement: placementTag]) {
-		[TapResearchSDK showContentForPlacement:placementTag delegate:self customParameters:@{@"custom_param_1" : @"test text", @"custom_param_2" : @"大家好", @"custom_param_3" : @12} completion:^(TRError * _Nullable error) {
+		[TapResearchSDK showContentForPlacement:placementTag delegate:self customParameters:@{@"custom_param_1" : @"test text", @"custom_param_2" : @"大家好", @"custom_param_3" : @12} completion:^(NSError * _Nullable error) {
 			if (error) {
 				NSLog(@"Error on showContent: %ld, %@", (long)error.code, error.localizedDescription);
 			}

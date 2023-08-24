@@ -14,7 +14,7 @@ NSString *userIdentifier = @"public-demo-test-user";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-	[TapResearchSDK initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(TRError * _Nullable error) {
+	[TapResearchSDK initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(NSError * _Nullable error) {
 		if (error) {
 			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
 		}
@@ -39,7 +39,7 @@ NSString *userIdentifier = @"public-demo-test-user";
 //MARK: - TapResearchSDKDelegate
 
 ///---------------------------------------------------------------------------------------------
-- (void)onTapResearchDidError:(TRError * _Nonnull)error {
+- (void)onTapResearchDidError:(NSError * _Nonnull)error {
 	NSLog(@"onTapResearchDidError() -> %@, %ld", error.localizedDescription, (long)error.code);
 }
 
@@ -47,5 +47,16 @@ NSString *userIdentifier = @"public-demo-test-user";
 - (void)onTapResearchDidReceiveRewards:(NSArray<TRReward *> * _Nonnull)rewards {
 	NSLog(@"onTapResearchDidReceiveRewards(%@)", rewards);
 }
+
+///---------------------------------------------------------------------------------------------
+- (void)onTapResearchSdkReady {
+    
+    NSLog(@"onTapResearchSdkReady()");
+    NSError *error = [TapResearchSDK sendUserAttributesWithAttributes:@{@"attribute1" : @"some attribute", @"a_number" : @12}];
+    if (error) {
+        NSLog(@"Error on send user attributes: %ld, %@", (long)error.code, error.localizedDescription);
+    }
+}
+
 
 @end

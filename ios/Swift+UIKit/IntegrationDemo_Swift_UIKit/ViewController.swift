@@ -62,9 +62,9 @@ class ViewController : UIViewController,
 		if TapResearchSDK.canShowContent(forPlacement: text) {
             let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
 
-			TapResearchSDK.showContent(forPlacement: text, delegate: self, customParameters: customParameters) { (error: TRError?) in
+			TapResearchSDK.showContent(forPlacement: text, delegate: self, customParameters: customParameters) { (error: NSError?) in
 				if let error = error {
-					self.placementStatus.text = "\(error.userInfo[TRError.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)"
+					self.placementStatus.text = "\(error.code) \(error.localizedDescription)"
 				}
 				else {
 					if !(self.knownPlacements as NSArray).contains(text) {
@@ -89,8 +89,10 @@ class ViewController : UIViewController,
 		self.tableView.deselectRow(at: indexPath, animated: true)
 
 		if TapResearchSDK.canShowContent(forPlacement: knownPlacements[indexPath.row]) {
-			TapResearchSDK.showContent(forPlacement: knownPlacements[indexPath.row], delegate: self, customParameters: ["custom_param_1" : "test text", "custom_param_2" : "大家好", "custom_param_3" : 12]) { (error: TRError?) in
-				print("Error on showContent: \(error?.userInfo[TRError.TapResearchErrorCodeString] ?? "(No code)") \(error?.localizedDescription ?? "No error description")")
+			TapResearchSDK.showContent(forPlacement: knownPlacements[indexPath.row], delegate: self, customParameters: ["custom_param_1" : "test text", "custom_param_2" : "大家好", "custom_param_3" : 12]) { (error: NSError?) in
+                if let error = error {
+                    print("Error on showContent: \(error.code) \(error.localizedDescription)")
+                }
 			}
 		}
 		else {
