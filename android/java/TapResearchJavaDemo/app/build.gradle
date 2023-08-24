@@ -32,8 +32,8 @@ android {
 }
 
 dependencies {
-
-    implementation 'com.tapresearch:tapsdk:3.0.0-beta+'
+    implementation 'com.tapresearch:tapsdk:3.1.0-beta4'
+//    implementation(files("libs/tapsdk-release.aar"))
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

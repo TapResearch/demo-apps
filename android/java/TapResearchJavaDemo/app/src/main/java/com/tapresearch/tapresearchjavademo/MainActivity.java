@@ -56,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 },
                 new TRContentCallback() {
                     @Override
-                    public void onContentShown(String placementTag) {
+                    public void onTapResearchContentShown(String placementTag) {
                         Log.d(LOG_TAG, "Content shown for placement " + placementTag);
                     }
 
                     @Override
-                    public void onContentDismissed(String placementTag) {
+                    public void onTapResearchContentDismissed(String placementTag) {
                         Log.d(LOG_TAG, "Content dismissed for placement " + placementTag);
                     }
                 });
