@@ -19,6 +19,7 @@ import com.tapresearch.tapsdk.models.TRError;
 import com.tapresearch.tapsdk.models.TRReward;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,6 +51,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTapResearchSdkReady() {
                         Log.d(LOG_TAG, "SDK is ready");
+                        HashMap<String, Object> userAttributes = new HashMap<>();
+                        userAttributes.put("age", 25);
+                        userAttributes.put("VIP", true);
+                        userAttributes.put("name", "John Doe");
+                        TapResearch.INSTANCE.sendUserAttributes(userAttributes, new TRErrorCallback() {
+                            @Override
+                            public void onTapResearchDidError(TRError trError) {
+                                Log.d(LOG_TAG, "Error sending user attributes: " + trError.toString());
+                            }
+                        });
                         doSetContent();
                     }
                 },

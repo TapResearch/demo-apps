@@ -45,6 +45,13 @@ class MainActivity : ComponentActivity() {
             sdkReadyCallback = object : TRSdkReadyCallback {
                 override fun onTapResearchSdkReady() {
                     Log.d(LOG_TAG, "SDK is ready")
+                    val userAttributes: HashMap<String, Any> = HashMap()
+                    userAttributes["age"] = 25
+                    userAttributes["VIP"] = true
+                    userAttributes["name"] = "John Doe"
+                    TapResearch.sendUserAttributes(
+                        userAttributes,
+                    ) { trError -> showErrorToast(trError) }
                     doSetContent()
                 }
             },
