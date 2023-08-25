@@ -18,6 +18,7 @@ import com.tapresearch.tapsdk.callback.TRRewardCallback
 import com.tapresearch.tapsdk.callback.TRSdkReadyCallback
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
+import java.time.Instant
 
 class MainActivity : ComponentActivity() {
     val LOG_TAG = "MainActivity"
@@ -49,6 +50,7 @@ class MainActivity : ComponentActivity() {
                     userAttributes["age"] = 25
                     userAttributes["VIP"] = true
                     userAttributes["name"] = "John Doe"
+                    userAttributes["first_seen"] = Instant.now().toString()
                     TapResearch.sendUserAttributes(
                         userAttributes,
                     ) { trError -> showErrorToast(trError) }

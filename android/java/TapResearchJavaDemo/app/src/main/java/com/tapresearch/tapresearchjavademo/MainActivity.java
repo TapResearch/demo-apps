@@ -19,6 +19,7 @@ import com.tapresearch.tapsdk.models.TRError;
 import com.tapresearch.tapsdk.models.TRReward;
 
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                         userAttributes.put("age", 25);
                         userAttributes.put("VIP", true);
                         userAttributes.put("name", "John Doe");
+                        userAttributes.put("first_seen", Instant.now().toString());
+
                         TapResearch.INSTANCE.sendUserAttributes(userAttributes, new TRErrorCallback() {
                             @Override
                             public void onTapResearchDidError(TRError trError) {
