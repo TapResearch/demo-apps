@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TapResearchKotlinDemo</string>
+    <string name="api_token">856f987d813389d1243bea2e4731a0fb</string>
+    <string-array name="placement_tags">
+        <item>default-placement-a</item>
+        <item>banner-placement-a</item>
+        <item>interstitial-placement-a</item>
+        <item>floating-interstitial-placement-a</item>
+        <item>capped-and-paced-interstitial-a</item>
+    </string-array>
 </resources>

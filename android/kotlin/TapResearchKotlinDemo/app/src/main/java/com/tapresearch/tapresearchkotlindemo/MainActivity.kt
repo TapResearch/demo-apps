@@ -15,30 +15,55 @@ import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
 import com.tapresearch.tapsdk.callback.TRRewardCallback
+import com.tapresearch.tapsdk.callback.TRSdkReadyCallback
 import com.tapresearch.tapsdk.models.TRError
-import com.tapresearch.tapsdk.models.TRPlacement
 import com.tapresearch.tapsdk.models.TRReward
+import java.time.Instant
 
 class MainActivity : ComponentActivity() {
+    val LOG_TAG = "MainActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val myUserIdentifier = "public-demo-test-user"
-        val myApiToken = "856f987d813389d1243bea2e4731a0fb"
-        Log.d("MainActivity", "API Token: $myApiToken")
-        Log.d("MainActivity", "User identifier: $myUserIdentifier")
-
+        val myApiToken = getString(R.string.api_token)
+        Log.d(LOG_TAG, "API Token: $myApiToken")
+        Log.d(LOG_TAG, "User identifier: $myUserIdentifier")
         TapResearch.initialize(
-            apiToken = myApiToken,
+            apiToken = getString(R.string.api_token),
             userIdentifier = myUserIdentifier,
             activity = this@MainActivity,
             rewardCallback = object : TRRewardCallback {
-                override fun onReward(rewards: MutableList<TRReward>) {
+                override fun onTapResearchDidReceiveRewards(rewards: MutableList<TRReward>) {
                     showRewardToast(rewards)
                 }
             },
             errorCallback = object : TRErrorCallback {
-                override fun onError(trError: TRError) {
+                override fun onTapResearchDidError(trError: TRError) {
                     showErrorToast(trError)
+                }
+            },
+            sdkReadyCallback = object : TRSdkReadyCallback {
+                override fun onTapResearchSdkReady() {
+                    Log.d(LOG_TAG, "SDK is ready")
+                    val userAttributes: HashMap<String, Any> = HashMap()
+                    userAttributes["age"] = 25
+                    userAttributes["VIP"] = true
+                    userAttributes["name"] = "John Doe"
+                    userAttributes["first_seen"] = Instant.now().toString()
+                    TapResearch.sendUserAttributes(
+                        userAttributes,
+                    ) { trError -> showErrorToast(trError) }
+                    doSetContent()
+                }
+            },
+            contentCallback = object : TRContentCallback {
+                override fun onTapResearchContentDismissed(placementTag: String) {
+                    contentDismissed(placementTag)
+                }
+
+                override fun onTapResearchContentShown(placementTag: String) {
+                    contentShown(placementTag)
                 }
             },
         )
@@ -50,12 +75,32 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     MainUi(
+                        openPlacement = {},
+                        onSetUserIdentifier = {},
+                        buttonOptions = listOf("Waiting for SDK to initialize..."),
+                    )
+                }
+            }
+        }
+    }
+
+    private fun doSetContent() {
+        val buttonOptions = resources.getStringArray(R.array.placement_tags)
+        setContent {
+            TapResearchKotlinDemoTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background,
+                ) {
+                    MainUi(
+                        buttonOptions = buttonOptions.toList(),
                         openPlacement = { placementTag ->
                             if (TapResearch.canShowContentForPlacement(
                                     placementTag,
                                     errorCallback = object : TRErrorCallback {
-                                        override fun onError(trError: TRError) {
-                                            trError.description?.let { Log.e("TRERROR", it) }
+                                        override fun onTapResearchDidError(trError: TRError) {
+                                            trError.description?.let { Log.e(LOG_TAG, it) }
                                         }
                                     },
                                 )
@@ -63,17 +108,8 @@ class MainActivity : ComponentActivity() {
                                 TapResearch.showContentForPlacement(
                                     placementTag,
                                     application,
-                                    object : TRContentCallback {
-                                        override fun onContentShown(placement: TRPlacement) {
-                                            tapResearchDidDismiss(placement)
-                                        }
-
-                                        override fun onContentDismissed(placement: TRPlacement) {
-                                            tapResearchContentShown(placement)
-                                        }
-                                    },
                                     object : TRErrorCallback {
-                                        override fun onError(trError: TRError) {
+                                        override fun onTapResearchDidError(trError: TRError) {
                                             showErrorToast(trError)
                                         }
                                     },
@@ -84,7 +120,7 @@ class MainActivity : ComponentActivity() {
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
                                 errorCallback = object : TRErrorCallback {
-                                    override fun onError(trError: TRError) {
+                                    override fun onTapResearchDidError(trError: TRError) {
                                         showErrorToast(trError)
                                     }
                                 },
@@ -96,21 +132,17 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun tapResearchDidDismiss(trPlacement: TRPlacement) {
-        if (trPlacement.error != null) {
-            Log.e("TRERROR", "Error: ${trPlacement.error}")
-        }
-        Log.d("TR", "dismissed: $trPlacement")
+    private fun contentDismissed(tag: String) {
+        Log.d(LOG_TAG, "dismissed: $tag")
     }
 
-    private fun tapResearchContentShown(trPlacement: TRPlacement) {
-        if (trPlacement.error != null) {
-            Log.e("TRERROR", "Error: ${trPlacement.error}")
-        }
-        Log.d("TR", "shown: $trPlacement")
+    private fun contentShown(tag: String) {
+        Log.d(LOG_TAG, "shown: $tag")
     }
 
     private fun showErrorToast(error: TRError) {
+        Log.d(LOG_TAG, "error: $error")
+        Log.d(LOG_TAG, "error: ${error.javaClass.kotlin.qualifiedName}")
         Toast.makeText(
             this@MainActivity,
             error.description,
@@ -119,26 +151,20 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun showRewardToast(rewards: MutableList<TRReward>) {
-        var rewardCount = 0
+        Log.d(LOG_TAG, "rewards: $rewards")
+        var rewardAmount = 0
         for (reward: TRReward in rewards) {
-            Log.d("MainActivity", "reward: $reward")
-            reward.rewardAmount?.let { rewardCount += it }
+            Log.d(LOG_TAG, "reward: $reward")
+            Log.d(LOG_TAG, "Amount: ${reward.rewardAmount}")
+            reward.rewardAmount?.let { rewardAmount += it }
         }
 
         val currencyName = rewards.first().currencyName
         val eventType = rewards.first().payoutEventType
         Toast.makeText(
             this@MainActivity,
-            "Congrats! You've earned $rewardCount $currencyName. Event type is $eventType",
+            "Congrats! You've earned $rewardAmount $currencyName. Event type is $eventType",
             Toast.LENGTH_LONG,
         ).show()
-    }
-
-    companion object {
-        const val NORMAL_OFFER = "default-placement-a"
-        const val BANNER_OFFER = "banner-placement-a"
-        const val INTERSTITIAL_OFFER = "interstitial-placement-a"
-        const val PARTIAL_INTERSTITIAL_OFFER = "floating-interstitial-placement-a"
-        const val CP_INTERSTITIAL_OFFER = "capped-and-paced-interstitial-a"
     }
 }
