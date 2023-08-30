@@ -107,9 +107,15 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(LOG_TAG, "Whoops " + trError.toString());
                     }
                 })) {
+                    HashMap<String, Object> customParameters = new HashMap<>();
+                    customParameters.put("age", 25);
+                    customParameters.put("VIP", true);
+                    customParameters.put("name", "John Doe");
+                    customParameters.put("first_seen", Instant.now().toString());
                     TapResearch.INSTANCE.showContentForPlacement(
                             selectedItem,
                             getApplication(),
+                            customParameters,
                             new TRErrorCallback() {
                                 @Override
                                 public void onTapResearchDidError(TRError trError) {

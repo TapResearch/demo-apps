@@ -105,9 +105,15 @@ class MainActivity : ComponentActivity() {
                                     },
                                 )
                             ) {
+                                val customParameters: HashMap<String, Any> = HashMap()
+                                customParameters["age"] = 25
+                                customParameters["VIP"] = true
+                                customParameters["name"] = "John Doe"
+
                                 TapResearch.showContentForPlacement(
                                     placementTag,
                                     application,
+                                    customParameters,
                                     object : TRErrorCallback {
                                         override fun onTapResearchDidError(trError: TRError) {
                                             showErrorToast(trError)
