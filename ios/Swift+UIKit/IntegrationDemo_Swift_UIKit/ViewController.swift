@@ -89,7 +89,7 @@ class ViewController : UIViewController,
 		self.tableView.deselectRow(at: indexPath, animated: true)
 
 		if TapResearchSDK.canShowContent(forPlacement: knownPlacements[indexPath.row]) {
-			TapResearchSDK.showContent(forPlacement: knownPlacements[indexPath.row], delegate: self, customParameters: ["custom_param_1" : "test text", "custom_param_2" : "大家好", "custom_param_3" : 12]) { (error: NSError?) in
+			TapResearchSDK.showContent(forPlacement: knownPlacements[indexPath.row], delegate: self, customParameters: ["custom_param_1" : "test text", "custom_param_3" : 12]) { (error: NSError?) in
                 if let error = error {
                     print("Error on showContent: \(error.code) \(error.localizedDescription)")
                 }

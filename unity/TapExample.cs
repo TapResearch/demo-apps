@@ -5,18 +5,17 @@ using UnityEngine;
 
 public class TapExample : MonoBehaviour
 {
-    private static string testToken; 
-    private static string testUserId = "public-demo-test-user";
+    private static string tapAPIToken; 
+    private static string tapPlayerUserId = "public-demo-test-user";
     private static string placementTag = "home-screen"
     
     void Awake()
     { 
         if UNITY_ANDROID
-            testToken = "856f987d813389d1243bea2e4731a0fb";  //Public Test Android
+            tapAPIToken = "856f987d813389d1243bea2e4731a0fb";  // Public Test Android, replace with your own API token
         #elif UNITY_IPHONE
-            testToken = "0b5dcbae8151c1b82d69697dce004bf2";  //Public Test iOS
+            tapAPIToken = "0b5dcbae8151c1b82d69697dce004bf2";  // Public Test iOS, replace with your own API token
         #endif
-            
             
         TapResearchSDK.TapContentShown = TapContentShown;
         TapResearchSDK.TapContentDismissed = TapContentDismissed;
@@ -24,12 +23,11 @@ public class TapExample : MonoBehaviour
         TapResearchSDK.TapResearchDidError = TapResearchDidError;
         TapResearchSDK.TapResearchSdkReady = TapSdkReady;
 
-
-        TapResearchSDK.Configure(testToken, testUserId);
+        TapResearchSDK.Configure(tapAPIToken, tapPlayerUserId);
     }
 
-
     // START Callbacks
+    
     public void TapContentShown()
     {
         Debug.Log("Survey Content Opened");
@@ -42,7 +40,7 @@ public class TapExample : MonoBehaviour
 
     public void TapSdkReady()
     {
-        Debug.Log("Survey Content Dismissed, going to send user attributes");
+        Debug.Log("TapResearchSDK ready, going to send user attributes");
 
         Dictionary<string, object> userAttributes = new Dictionary<string, object>();
         userAttributes["some_string"] = "a string value";
@@ -69,6 +67,7 @@ public class TapExample : MonoBehaviour
     }
 
     // END Callbacks
+
     public void showSurveyContent()
     {
         if (TapResearchSDK.CanShowContentForPlacement(placementTag)) 
@@ -82,11 +81,11 @@ public class TapExample : MonoBehaviour
         if (TapResearchSDK.CanShowContentForPlacement(placementTag)) //CustomParam Placement
         {
             Dictionary<string, string> customParameters = new Dictionary<string,string>(); //Parameters
-            customParameters["some_string"] = "a string value";
-            customParameters["some_number"] = "a number";   
+            customParameters["player_attribute"] = "my-vip";
+            customParameters["data_value"] = "integer";
+            customParameters["another_number"] = 12;   
             customParameters.Add("another_string", "it's another string!");
-            Debug.Log("-> -> -> -> TapResearch customParameters:" + customParameters);
-            
+              
             TapResearchSDK.ShowContentForPlacement(placementTag, customParameters);
         }
     }
