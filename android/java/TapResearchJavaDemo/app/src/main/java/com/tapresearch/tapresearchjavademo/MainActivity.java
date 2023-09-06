@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 })) {
                     HashMap<String, Object> customParameters = new HashMap<>();
                     customParameters.put("age", 25);
-                    customParameters.put("VIP", true);
+                    customParameters.put("VIP", "true");
                     customParameters.put("name", "John Doe");
                     customParameters.put("first_seen", Instant.now().toString());
                     TapResearch.INSTANCE.showContentForPlacement(
