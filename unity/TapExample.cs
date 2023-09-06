@@ -5,29 +5,31 @@ using UnityEngine;
 
 public class TapExample : MonoBehaviour
 {
-    private static string testToken = "YOUR_API_TOKEN"; 
+    private static string testToken; 
     private static string testUserId = "public-demo-test-user";
-    private static string placementTag = "default-placement"
+    private static string placementTag = "home-screen"
     
     void Awake()
     { 
         if UNITY_ANDROID
-            placementTag = "default-placement-a" //Unique Android placement
             testToken = "856f987d813389d1243bea2e4731a0fb";  //Public Test Android
         #elif UNITY_IPHONE
-            placementTag = "default-placement" //Unique iOS placement
             testToken = "0b5dcbae8151c1b82d69697dce004bf2";  //Public Test iOS
         #endif
             
             
         TapResearchSDK.TapContentShown = TapContentShown;
         TapResearchSDK.TapContentDismissed = TapContentDismissed;
-        TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
+        TapResearchSDK.TapResearchRewardReceived = TapResearchRewardsReceived;
         TapResearchSDK.TapResearchDidError = TapResearchDidError;
+        TapResearchSDK.TapResearchSdkReady = TapSdkReady;
+
 
         TapResearchSDK.Configure(testToken, testUserId);
     }
-    
+
+
+    // START Callbacks
     public void TapContentShown()
     {
         Debug.Log("Survey Content Opened");
@@ -37,8 +39,25 @@ public class TapExample : MonoBehaviour
     {
         Debug.Log("Survey Content Dismissed");
     }
-    
-    private void TapResearchRewardReceived(TRReward[] rewards) {
+
+    public void TapSdkReady()
+    {
+        Debug.Log("Survey Content Dismissed, going to send user attributes");
+
+        Dictionary<string, object> userAttributes = new Dictionary<string, object>();
+        userAttributes["some_string"] = "a string value";
+        userAttributes["some_number"] = "12";
+        userAttributes["another_number"] = 12;
+        userAttributes["boolean"] = "true";
+        DateTime now = DateTime.UtcNow;
+        string iso8601String = now.ToString("o");
+        userAttributes["iso8601_date"] = iso8601String;
+        userAttributes.Add("another_string", "it's another string!");
+
+        TapResearchSDK.SendUserAttributes(userAttributes);
+    }
+
+    private void TapResearchRewardsReceived(TRReward[] rewards) {
         foreach (TRReward reward in rewards)
         {
             Debug.Log("Tap Rewards: You've earned " + reward.RewardAmount + " " + reward.CurrencyName + ". " + reward.TransactionIdentifier);
@@ -49,6 +68,7 @@ public class TapExample : MonoBehaviour
         Debug.Log(("TapResearch Error:" + error.ErrorCode + " " + error.ErrorDescription + ""));
     }
 
+    // END Callbacks
     public void showSurveyContent()
     {
         if (TapResearchSDK.CanShowContentForPlacement(placementTag)) 
