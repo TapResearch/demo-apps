@@ -165,7 +165,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 27696401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6507eb698e8ff4e338d2eb255c877248, type: 3}
+  m_Script: {fileID: 11500000, guid: 59940cd0d37c247ecaab4a01946d060f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &27696405
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 27696401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02174dca1533d40298aa59a15cf0bff8, type: 3}
+  m_Script: {fileID: 11500000, guid: ae4778e7f35ae42a78144fd91909fb8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &138152790
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 27696404}
+      - m_Target: {fileID: 27696405}
         m_TargetAssemblyTypeName: PlacementMenu, Assembly-CSharp
         m_MethodName: ShowEarnCenter
         m_Mode: 1
@@ -374,8 +374,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Home Screen
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fa207228b5d4543dea37b938185360b4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: fa207228b5d4543dea37b938185360b4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -509,8 +509,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Surveys
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -942,7 +942,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 27696404}
+      - m_Target: {fileID: 27696405}
         m_TargetAssemblyTypeName: PlacementMenu, Assembly-CSharp
         m_MethodName: ShowSurveys
         m_Mode: 1
@@ -1076,7 +1076,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 27696404}
+      - m_Target: {fileID: 27696405}
         m_TargetAssemblyTypeName: PlacementMenu, Assembly-CSharp
         m_MethodName: ShowHomeScreen
         m_Mode: 1
@@ -1186,8 +1186,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Earn Center
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 27696404}
+      - m_Target: {fileID: 27696405}
         m_TargetAssemblyTypeName: PlacementMenu, Assembly-CSharp
         m_MethodName: ShowInterstitial
         m_Mode: 1
@@ -1558,8 +1558,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
