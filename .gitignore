@@ -341,3 +341,8 @@ Pods
 xcuserdata
 *.xcuserdatad
 *.xcuserstate
+unity/UnityDemoMenu/Library
+unity/UnityDemoMenu/Temp
+unity/UnityDemoMenu/Assets/TapResearchSDK
+*.meta
+unity/UnityDemoMenu/UserSettings
