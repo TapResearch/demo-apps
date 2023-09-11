@@ -38,10 +38,6 @@
   <ItemGroup>
      <Compile Include="Assets/TapResearchExample/PlacementMenu.cs" />
      <Compile Include="Assets/TapResearchExample/TapExample.cs" />
-     <Compile Include="Assets/TapResearchSDK/Plugins/TapResearch/TRReward.cs" />
-     <Compile Include="Assets/TapResearchSDK/Plugins/TapResearch/TRError.cs" />
-     <Compile Include="Assets/TapResearchSDK/Plugins/TapResearch/TapResearch.cs" />
-     <None Include="Assets/TapResearchSDK/Plugins/iOS/TapResearchSDKUnityBridge.mm" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/_Development/Unity/Hub/Editor/2021.3.27f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
