@@ -374,8 +374,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Home Screen
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fa207228b5d4543dea37b938185360b4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: fa207228b5d4543dea37b938185360b4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -509,8 +509,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Surveys
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 354405022}
   - component: {fileID: 354405021}
   m_Layer: 5
-  m_Name: QAMenu
+  m_Name: PlacementMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1186,8 +1186,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Earn Center
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1558,8 +1558,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 9ed8b9f9aa94d4ba8900edc63ee84fc7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
