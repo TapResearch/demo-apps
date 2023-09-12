@@ -165,7 +165,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 27696401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 455ab2cbf01c04985ac1be2406424c2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 56b03d3ab376e4767a5ba33f8a4284c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &27696405
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 27696401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9f18596a6174a42b68fedea5243fe9, type: 3}
+  m_Script: {fileID: 11500000, guid: 249b00977a87f48f2a04ae7471f298df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &138152790
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 27696405}
+      - m_Target: {fileID: 27696404}
         m_TargetAssemblyTypeName: PlacementMenu, Assembly-CSharp
         m_MethodName: ShowEarnCenter
         m_Mode: 1
@@ -942,7 +942,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 27696405}
+      - m_Target: {fileID: 27696404}
         m_TargetAssemblyTypeName: PlacementMenu, Assembly-CSharp
         m_MethodName: ShowSurveys
         m_Mode: 1
@@ -1076,7 +1076,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 27696405}
+      - m_Target: {fileID: 27696404}
         m_TargetAssemblyTypeName: PlacementMenu, Assembly-CSharp
         m_MethodName: ShowHomeScreen
         m_Mode: 1
@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 27696405}
+      - m_Target: {fileID: 27696404}
         m_TargetAssemblyTypeName: PlacementMenu, Assembly-CSharp
         m_MethodName: ShowInterstitial
         m_Mode: 1
