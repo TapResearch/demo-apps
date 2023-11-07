@@ -57,15 +57,7 @@ class MainActivity : ComponentActivity() {
                     doSetContent()
                 }
             },
-            contentCallback = object : TRContentCallback {
-                override fun onTapResearchContentDismissed(placementTag: String) {
-                    contentDismissed(placementTag)
-                }
 
-                override fun onTapResearchContentShown(placementTag: String) {
-                    contentShown(placementTag)
-                }
-            },
         )
         setContent {
             TapResearchKotlinDemoTheme {
@@ -97,6 +89,7 @@ class MainActivity : ComponentActivity() {
                         buttonOptions = buttonOptions.toList(),
                         openPlacement = { placementTag ->
                             if (TapResearch.canShowContentForPlacement(
+                                    application,
                                     placementTag,
                                     errorCallback = object : TRErrorCallback {
                                         override fun onTapResearchDidError(trError: TRError) {
@@ -113,6 +106,15 @@ class MainActivity : ComponentActivity() {
                                 TapResearch.showContentForPlacement(
                                     placementTag,
                                     application,
+                                    contentCallback = object : TRContentCallback {
+                                        override fun onTapResearchContentDismissed(placementTag: String) {
+                                            contentDismissed(placementTag)
+                                        }
+
+                                        override fun onTapResearchContentShown(placementTag: String) {
+                                            contentShown(placementTag)
+                                        }
+                                    },
                                     customParameters,
                                     object : TRErrorCallback {
                                         override fun onTapResearchDidError(trError: TRError) {
@@ -125,11 +127,6 @@ class MainActivity : ComponentActivity() {
                         onSetUserIdentifier = { userId ->
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
-                                errorCallback = object : TRErrorCallback {
-                                    override fun onTapResearchDidError(trError: TRError) {
-                                        showErrorToast(trError)
-                                    }
-                                },
                             )
                         },
                     )
@@ -158,7 +155,7 @@ class MainActivity : ComponentActivity() {
 
     private fun showRewardToast(rewards: MutableList<TRReward>) {
         Log.d(LOG_TAG, "rewards: $rewards")
-        var rewardAmount = 0
+        var rewardAmount = 0.0
         for (reward: TRReward in rewards) {
             Log.d(LOG_TAG, "reward: $reward")
             Log.d(LOG_TAG, "Amount: ${reward.rewardAmount}")
