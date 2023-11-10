@@ -14,6 +14,10 @@ dependencyResolutionManagement {
         flatDir {
             dirs("libs")
         }
+        maven { url = uri("https://gdpr-sdk-android-prod.launch.liveramp.com") }
+        maven { url = uri("https://pl-sdk-android-prod.launch.liveramp.com") }
+        maven { url = uri("https://sdk-android-prod.launch.liveramp.com") }
+
     }
 }
 

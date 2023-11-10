@@ -50,7 +50,7 @@ android {
 }
 
 dependencies {
-    implementation("com.tapresearch:tapsdk:3.2.0-beta1")
+    implementation("com.tapresearch:tapsdk:3.2.0-beta2")
 //    implementation(files("libs/tapsdk-release.aar"))
     // These will be needed to be added by developers
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
@@ -70,4 +70,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation("com.liveramp:mobilesdk:v1.1.14") { isTransitive = true }
+    implementation("com.liveramp:ats:v1.4.3") { isTransitive = true }
+    implementation("com.iabtcf:iabtcf-decoder:2.0.10")
 }
