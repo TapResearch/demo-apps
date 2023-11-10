@@ -7,18 +7,9 @@
 
 #import "AppDelegate.h"
 
-NSString *apiToken = @"0b5dcbae8151c1b82d69697dce004bf2";
-NSString *userIdentifier = @"public-demo-test-user";
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-	[TapResearchSDK initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(NSError * _Nullable error) {
-		if (error) {
-			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
-		}
-	}];
 	return YES;
 }
 
@@ -35,28 +26,5 @@ NSString *userIdentifier = @"public-demo-test-user";
 	// If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
 	// Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 }
-
-//MARK: - TapResearchSDKDelegate
-
-///---------------------------------------------------------------------------------------------
-- (void)onTapResearchDidError:(NSError * _Nonnull)error {
-	NSLog(@"onTapResearchDidError() -> %@, %ld", error.localizedDescription, (long)error.code);
-}
-
-///---------------------------------------------------------------------------------------------
-- (void)onTapResearchDidReceiveRewards:(NSArray<TRReward *> * _Nonnull)rewards {
-	NSLog(@"onTapResearchDidReceiveRewards(%@)", rewards);
-}
-
-///---------------------------------------------------------------------------------------------
-- (void)onTapResearchSdkReady {
-    
-    NSLog(@"onTapResearchSdkReady()");
-    NSError *error = [TapResearchSDK sendUserAttributesWithAttributes:@{@"attribute1" : @"some attribute", @"a_number" : @12}];
-    if (error) {
-        NSLog(@"Error on send user attributes: %ld, %@", (long)error.code, error.localizedDescription);
-    }
-}
-
 
 @end

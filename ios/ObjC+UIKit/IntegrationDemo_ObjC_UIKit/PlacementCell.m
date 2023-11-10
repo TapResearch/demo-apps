@@ -14,11 +14,8 @@
 
 @end
 
-///---------------------------------------------------------------------------------------------
-///---------------------------------------------------------------------------------------------
 @implementation PlacementCell
 
-///---------------------------------------------------------------------------------------------
 + (PlacementCell*)cellForTableView:(UITableView*)tableView andPlacementTag:(NSString*)tag {
 
 	static NSString *cellId = @"PlacementCell";
@@ -30,7 +27,6 @@
 	return cell;
 }
 
-///---------------------------------------------------------------------------------------------
 - (void)fillCellWithPlacementTag:(NSString*)tag {
 
 	self.title.text = tag;

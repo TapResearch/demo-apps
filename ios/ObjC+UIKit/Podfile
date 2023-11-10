@@ -5,7 +5,7 @@ target 'IntegrationDemo_ObjC_UIKit' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for swiftui-example-tapresearch
-  pod 'TapResearch', '3.1.0-beta1'
+  # Pods for TapResearch
+  pod 'TapResearch', '3.2.0-beta1-15'
 
 end
