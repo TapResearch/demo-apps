@@ -4,8 +4,8 @@
 //
 //  Created by Jeroen Verbeek on 2/22/23.
 //
-
 import UIKit
+import TapResearchSDK
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

@@ -38,7 +38,7 @@ class swiftui_example_tapresearchApp: App {
 ///---------------------------------------------------------------------------------------------
 ///---------------------------------------------------------------------------------------------
 class TapResearchSDKDelegates : TapResearchSDKDelegate {
-    
+
 	///---------------------------------------------------------------------------------------------
 	func onTapResearchDidError(_ error: NSError) {
 		print("\(#function): \(error.code), \(error.localizedDescription)")
@@ -51,10 +51,6 @@ class TapResearchSDKDelegates : TapResearchSDKDelegate {
 
     ///---------------------------------------------------------------------------------------------
     func onTapResearchSdkReady() {
-
-        if let error: NSError = TapResearchSDK.sendUserAttributes(attributes: ["attribute1" : "some player attribute", "a_number" : 12]) {
-            print("sendUserAttributes: \(error.code) \(error.localizedDescription)")
-        }
         print("\(#function)")
     }
 
