@@ -17,7 +17,7 @@ class ViewController : UIViewController, UITextFieldDelegate, UITableViewDelegat
 	var knownPlacements: [String] = [
 		"default-placement",
 		"interstitial-placement",
-		"banner-placemenet",
+		"banner-placement",
 		"floating-interstitial-placement"
 	]
 

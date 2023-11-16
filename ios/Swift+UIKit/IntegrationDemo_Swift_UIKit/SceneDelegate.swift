@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TapResearchSDK
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

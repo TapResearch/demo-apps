@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import TapResearchSDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
