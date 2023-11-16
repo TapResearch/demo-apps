@@ -69,10 +69,6 @@ NSString *userIdentifier = @"some-user-identifier";
 - (void)onTapResearchSdkReady {
 
 	NSLog(@"onTapResearchSdkReady()");
-//	NSError *error = [TapResearchSDK sendUserAttributesWithAttributes:@{@"attribute1" : @"some attribute", @"a_number" : @12}];
-//	if (error) {
-//		NSLog(@"Error on send user attributes: %ld, %@", (long)error.code, error.localizedDescription);
-//	}
 }
 
 @end
