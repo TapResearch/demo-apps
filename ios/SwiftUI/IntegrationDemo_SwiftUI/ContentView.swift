@@ -34,13 +34,13 @@ struct ContentView: View {
 
         guard placementTag.count > 0 else { return }
 
-        if TapResearchSDK.canShowContent(forPlacement: placementTag) {
+        if TapResearch.canShowContent(forPlacement: placementTag) {
             if !knownPlacements.contains(placementTag) {
                 knownPlacements.append(placementTag)
             }
             let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
 
-            TapResearchSDK.showContent(forPlacement: placementTag, delegate: self.tapResearchDelegates, customParameters: customParameters)
+            TapResearch.showContent(forPlacement: placementTag, delegate: self.tapResearchDelegates, customParameters: customParameters)
         } else {
             print("Placement \(placementTag) not ready")
         }
@@ -50,7 +50,7 @@ struct ContentView: View {
     func updateUserId(_ userId: String) {
 
         guard userId.count > 0 else { return }
-        TapResearchSDK.setUserIdentifier(userId)
+        TapResearch.setUserIdentifier(userId)
     }
 
     ///---------------------------------------------------------------------------------------------

@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard let _ = (scene as? UIWindowScene) else { return }
 
 		// Initialize TapResearch
-		TapResearchSDK.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, sdkDelegate: tapDelegates) { (error: NSError?) in
+		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, sdkDelegate: tapDelegates) { (error: NSError?) in
 			if let e = error {
 				print(e.localizedDescription as Any)
 			}

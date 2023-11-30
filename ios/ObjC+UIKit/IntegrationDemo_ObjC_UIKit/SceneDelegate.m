@@ -21,7 +21,7 @@ NSString *userIdentifier = @"some-user-identifier";
 	// If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
 	// This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-	[TapResearchSDK initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(NSError * _Nullable error) {
+	[TapResearch initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(NSError * _Nullable error) {
 		if (error) {
 			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
 		}
@@ -67,8 +67,12 @@ NSString *userIdentifier = @"some-user-identifier";
 }
 
 - (void)onTapResearchSdkReady {
-
 	NSLog(@"onTapResearchSdkReady()");
+
+	NSError *error = [TapResearch sendUserAttributesWithAttributes: @{@"Number" : @12, @"String" : @"Some text", @"Boolean" : @"true"}];
+	if (error) {
+		NSLog(@"Error sending user attributes: %ld %@", (long)error.code, error.localizedDescription);
+	}
 }
 
 @end

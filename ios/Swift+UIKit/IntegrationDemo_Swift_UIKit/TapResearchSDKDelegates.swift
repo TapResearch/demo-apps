@@ -20,6 +20,10 @@ class TapResearchDelegates: TapResearchSDKDelegate {
 
 	func onTapResearchSdkReady() {
 		print("onTapResearchSdkReady()")
+
+		if let error: NSError = TapResearch.sendUserAttributes(attributes: ["Number" : 12, "String" : "Some text", "Boolean" : "true"]) {
+			print("Error sending user attributes: \(error.code) \(error.localizedDescription)")
+		}
 	}
 
 }

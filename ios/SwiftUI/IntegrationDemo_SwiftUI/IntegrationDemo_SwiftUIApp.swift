@@ -19,7 +19,7 @@ class swiftui_example_tapresearchApp: App {
 	var body: some Scene {
 		WindowGroup {
             ContentView().onAppear(perform: { [self] in
-                TapResearchSDK.initialize(withAPIToken: self.sdkToken, userIdentifier: self.userId, sdkDelegate: self.tapSDKDelegates) { (error: NSError?) in
+                TapResearch.initialize(withAPIToken: self.sdkToken, userIdentifier: self.userId, sdkDelegate: self.tapSDKDelegates) { (error: NSError?) in
                     if let e = error {
                         print("\(#function): \(e.code), \(e.localizedDescription)")
                     }
@@ -52,6 +52,10 @@ class TapResearchSDKDelegates : TapResearchSDKDelegate {
     ///---------------------------------------------------------------------------------------------
     func onTapResearchSdkReady() {
         print("\(#function)")
+		
+		if let error: NSError = TapResearch.sendUserAttributes(attributes: ["Number" : 12, "String" : "Some text", "Boolean" : "true"]) {
+			print("Error sending user attributes: \(error.code) \(error.localizedDescription)")
+		}
     }
 
 }

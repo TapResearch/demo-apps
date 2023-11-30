@@ -48,9 +48,9 @@ class ViewController : UIViewController, UITextFieldDelegate, UITableViewDelegat
 	@IBAction func showPlacement() {
 		guard let text: String = textField.text else { return }
 
-		if TapResearchSDK.canShowContent(forPlacement: text) {
+		if TapResearch.canShowContent(forPlacement: text) {
 			//let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
-			TapResearchSDK.showContent(forPlacement: text, delegate: self/*, customParameters: customParameters*/) { (error: NSError?) in
+			TapResearch.showContent(forPlacement: text, delegate: self/*, customParameters: customParameters*/) { (error: NSError?) in
 				if let error = error {
 					self.placementStatus.text = "\(error.code) \(error.localizedDescription)"
 				}
@@ -75,8 +75,8 @@ class ViewController : UIViewController, UITextFieldDelegate, UITableViewDelegat
 		
 		self.tableView.deselectRow(at: indexPath, animated: true)
 
-		if TapResearchSDK.canShowContent(forPlacement: knownPlacements[indexPath.row]) {
-			TapResearchSDK.showContent(forPlacement: knownPlacements[indexPath.row], delegate: self, customParameters: ["custom_param_1" : "test text", "custom_param_3" : 12]) { (error: NSError?) in
+		if TapResearch.canShowContent(forPlacement: knownPlacements[indexPath.row]) {
+			TapResearch.showContent(forPlacement: knownPlacements[indexPath.row], delegate: self, customParameters: ["custom_param_1" : "test text", "custom_param_3" : 12]) { (error: NSError?) in
                 if let error = error {
                     print("Error on showContent: \(error.code) \(error.localizedDescription)")
                 }
