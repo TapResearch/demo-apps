@@ -7,14 +7,11 @@
 
 import UIKit
 
-///---------------------------------------------------------------------------------------------
-///---------------------------------------------------------------------------------------------
 class PlacementCell : UITableViewCell {
 	
 	@IBOutlet weak var title: UILabel!
 	@IBOutlet weak var subLabel: UILabel!
 	
-	///---------------------------------------------------------------------------------------------
 	class func cell(tableView: UITableView, placement: String) -> PlacementCell {
 		
 		var cell: PlacementCell? = tableView.dequeueReusableCell(withIdentifier: "PlacementCell") as? PlacementCell
@@ -25,9 +22,8 @@ class PlacementCell : UITableViewCell {
 		return cell!
 	}
 
-	///---------------------------------------------------------------------------------------------
 	func fillCell(placement: String) {
-		
+
 		title.text = placement
 		subLabel.text = ""
 	}

@@ -19,7 +19,7 @@ class swiftui_example_tapresearchApp: App {
 	var body: some Scene {
 		WindowGroup {
             ContentView().onAppear(perform: { [self] in
-                TapResearchSDK.initialize(withAPIToken: self.sdkToken, userIdentifier: self.userId, sdkDelegate: self.tapSDKDelegates) { (error: NSError?) in
+                TapResearch.initialize(withAPIToken: self.sdkToken, userIdentifier: self.userId, sdkDelegate: self.tapSDKDelegates) { (error: NSError?) in
                     if let e = error {
                         print("\(#function): \(e.code), \(e.localizedDescription)")
                     }
@@ -38,7 +38,7 @@ class swiftui_example_tapresearchApp: App {
 ///---------------------------------------------------------------------------------------------
 ///---------------------------------------------------------------------------------------------
 class TapResearchSDKDelegates : TapResearchSDKDelegate {
-    
+
 	///---------------------------------------------------------------------------------------------
 	func onTapResearchDidError(_ error: NSError) {
 		print("\(#function): \(error.code), \(error.localizedDescription)")
@@ -51,11 +51,11 @@ class TapResearchSDKDelegates : TapResearchSDKDelegate {
 
     ///---------------------------------------------------------------------------------------------
     func onTapResearchSdkReady() {
-
-        if let error: NSError = TapResearchSDK.sendUserAttributes(attributes: ["attribute1" : "some player attribute", "a_number" : 12]) {
-            print("sendUserAttributes: \(error.code) \(error.localizedDescription)")
-        }
         print("\(#function)")
+		
+		if let error: NSError = TapResearch.sendUserAttributes(attributes: ["Number" : 12, "String" : "Some text", "Boolean" : "true"]) {
+			print("Error sending user attributes: \(error.code) \(error.localizedDescription)")
+		}
     }
 
 }

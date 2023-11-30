@@ -6,8 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <TapResearchSDK/TapResearchSDK.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, TapResearchSDKDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @end
