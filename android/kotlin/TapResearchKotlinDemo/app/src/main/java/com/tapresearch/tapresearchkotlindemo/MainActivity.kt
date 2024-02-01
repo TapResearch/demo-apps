@@ -11,62 +11,58 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
+import com.tapresearch.tapsdk.TapInitOptions
 import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
-import com.tapresearch.tapsdk.callback.TRRewardCallback
-import com.tapresearch.tapsdk.callback.TRSdkReadyCallback
+import com.tapresearch.tapsdk.callback.TRQQDataCallback
+import com.tapresearch.tapsdk.models.QuickQuestion
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
-import java.time.Instant
 
 class MainActivity : ComponentActivity() {
     val LOG_TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myUserIdentifier = "public-demo-test-user"
-        val myApiToken = getString(R.string.api_token)
+        val myUserIdentifier = "" // Insert your user identifier here
+        val myApiToken = "" // Insert your API token here
+
+        // Log if the user identifier and API token are set
         Log.d(LOG_TAG, "API Token: $myApiToken")
         Log.d(LOG_TAG, "User identifier: $myUserIdentifier")
-        TapResearch.initialize(
-            apiToken = getString(R.string.api_token),
-            userIdentifier = myUserIdentifier,
-            activity = this@MainActivity,
-            rewardCallback = object : TRRewardCallback {
-                override fun onTapResearchDidReceiveRewards(rewards: MutableList<TRReward>) {
-                    showRewardToast(rewards)
-                }
-            },
-            errorCallback = object : TRErrorCallback {
-                override fun onTapResearchDidError(trError: TRError) {
-                    showErrorToast(trError)
-                }
-            },
-            sdkReadyCallback = object : TRSdkReadyCallback {
-                override fun onTapResearchSdkReady() {
-                    Log.d(LOG_TAG, "SDK is ready")
-                    val userAttributes: HashMap<String, Any> = HashMap()
-                    userAttributes["age"] = 25
-                    userAttributes["VIP"] = true
-                    userAttributes["name"] = "John Doe"
-                    userAttributes["first_seen"] = Instant.now().toString()
-                    TapResearch.sendUserAttributes(
-                        userAttributes,
-                    ) { trError -> showErrorToast(trError) }
-                    doSetContent()
-                }
-            },
-            contentCallback = object : TRContentCallback {
-                override fun onTapResearchContentDismissed(placementTag: String) {
-                    contentDismissed(placementTag)
-                }
 
-                override fun onTapResearchContentShown(placementTag: String) {
-                    contentShown(placementTag)
-                }
+        TapResearch.initialize(
+            apiToken = "7f84af37b07c01f84ce3cc3e62fc6310",
+            userIdentifier = "public-demo-test-user-2",
+            activity = this@MainActivity,
+            errorCallback = { trError -> showErrorToast(trError) },
+            sdkReadyCallback = {
+                showContent()
+                Toast.makeText(
+                    this@MainActivity,
+                    "SDK is ready",
+                    Toast.LENGTH_LONG,
+                ).show()
+                Log.d("MainActivity", "SDK is ready")
             },
+            rewardCallback = { rewards ->
+                showRewardToast(rewards)
+            },
+            initOptions = TapInitOptions(
+                // Uncomment the following lines to set user attributes
+//                userAttributes = hashMapOf(
+//                    "is_vip" to 1,
+//                ),
+//                clearPreviousAttributes = true,
+            ),
+            tapDataCallback = object : TRQQDataCallback {
+                override fun onQuickQuestionDataReceived(data: QuickQuestion) {
+                    Log.d("MainActivity", "QQ data received: $data")
+                }
+            }
         )
+
         setContent {
             TapResearchKotlinDemoTheme {
                 // A surface container using the 'background' color from the theme
@@ -78,13 +74,28 @@ class MainActivity : ComponentActivity() {
                         openPlacement = {},
                         onSetUserIdentifier = {},
                         buttonOptions = listOf("Waiting for SDK to initialize..."),
+                        sendUserAttributes = {
+                            TapResearch.sendUserAttributes(
+                                userAttributes =
+                                hashMapOf(
+                                    "testStatus" to "VIP",
+                                    "testInt" to 2,
+                                ),
+                                errorCallback =
+                                object : TRErrorCallback {
+                                    override fun onTapResearchDidError(trError: TRError) {
+                                        showErrorToast(trError)
+                                    }
+                                },
+                            )
+                        },
                     )
                 }
             }
         }
     }
 
-    private fun doSetContent() {
+    private fun showContent() {
         val buttonOptions = resources.getStringArray(R.array.placement_tags)
         setContent {
             TapResearchKotlinDemoTheme {
@@ -96,36 +107,49 @@ class MainActivity : ComponentActivity() {
                     MainUi(
                         buttonOptions = buttonOptions.toList(),
                         openPlacement = { placementTag ->
-                            if (TapResearch.canShowContentForPlacement(
-                                    placementTag,
-                                    errorCallback = object : TRErrorCallback {
-                                        override fun onTapResearchDidError(trError: TRError) {
-                                            trError.description?.let { Log.e(LOG_TAG, it) }
-                                        }
-                                    },
+                            // Test for Custom Parameters
+                            val customParams: HashMap<String, Any> =
+                                hashMapOf(
+                                    "testKey" to "testValue",
                                 )
-                            ) {
-                                val customParameters: HashMap<String, Any> = HashMap()
-                                customParameters["age"] = 25
-                                customParameters["VIP"] = "true"
-                                customParameters["name"] = "John Doe"
+                            TapResearch.showContentForPlacement(
+                                tag = placementTag,
+                                application = application,
+                                customParameters = null,
+                                contentCallback =
+                                object : TRContentCallback {
+                                    override fun onTapResearchContentShown(placementTag: String) {
+                                        Log.d("MainActivity", "Content shown for $placementTag")
+                                    }
 
-                                TapResearch.showContentForPlacement(
-                                    placementTag,
-                                    application,
-                                    customParameters,
-                                    object : TRErrorCallback {
-                                        override fun onTapResearchDidError(trError: TRError) {
-                                            showErrorToast(trError)
-                                        }
-                                    },
-                                )
-                            }
+                                    override fun onTapResearchContentDismissed(placementTag: String) {
+                                        Log.d(
+                                            "MainActivity",
+                                            "Content dismissed for $placementTag",
+                                        )
+                                    }
+                                },
+                                errorCallback = object : TRErrorCallback {
+                                    override fun onTapResearchDidError(trError: TRError) {
+                                        showErrorToast(trError)
+                                    }
+                                },
+                            )
                         },
                         onSetUserIdentifier = { userId ->
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
-                                errorCallback = object : TRErrorCallback {
+                            )
+                        },
+                        sendUserAttributes = {
+                            TapResearch.sendUserAttributes(
+                                userAttributes =
+                                hashMapOf(
+                                    "testStatus" to "VIP",
+                                    "testInt" to 2,
+                                ),
+                                errorCallback =
+                                object : TRErrorCallback {
                                     override fun onTapResearchDidError(trError: TRError) {
                                         showErrorToast(trError)
                                     }
@@ -158,7 +182,7 @@ class MainActivity : ComponentActivity() {
 
     private fun showRewardToast(rewards: MutableList<TRReward>) {
         Log.d(LOG_TAG, "rewards: $rewards")
-        var rewardAmount = 0
+        var rewardAmount = 0f
         for (reward: TRReward in rewards) {
             Log.d(LOG_TAG, "reward: $reward")
             Log.d(LOG_TAG, "Amount: ${reward.rewardAmount}")

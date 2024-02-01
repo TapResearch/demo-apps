@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.tapresearch.tapresearchkotlindemo"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.tapresearch.tapresearchkotlindemo"
         minSdk = 27
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -50,10 +50,14 @@ android {
 }
 
 dependencies {
-    implementation("com.tapresearch:tapsdk:3.1.0-beta4")
-//    implementation(files("libs/tapsdk-release.aar"))
+    implementation("com.tapresearch:tapsdk:3.2.1")
+
     // These will be needed to be added by developers
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
+    implementation ("androidx.lifecycle:lifecycle-process:2.6.1")
+    implementation ("com.google.android.gms:play-services-ads-identifier:18.0.1")
+
+    // Demo App Dependencies
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
