@@ -24,11 +24,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard let _ = (scene as? UIWindowScene) else { return }
 
 		// Initialize TapResearch
-		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, sdkDelegate: tapDelegates) { (error: NSError?) in
-			if let e = error {
-				print(e.localizedDescription as Any)
+		let dict: [AnyHashable:Any] = ["some_string" : "a string value", "some_number" : 12]
+		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, userAttributes: dict, clearPreviousAttributes: true, sdkDelegate: self) { (error: Error?) in
+			if let error = error {
+				print(error.localizedDescription as Any)
+			}
+			else {
+				print("Intialized - waiting to be ready")
 			}
 		}
+
+		// Initialize TapResearchSDK without passing user attributes:
+		//TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, sdkDelegate: tapDelegates) { (error: NSError?) in
+		//	if let e = error {
+		//		print(e.localizedDescription as Any)
+		//	}
+		//}
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {

@@ -14,6 +14,10 @@ class TapResearchDelegates: TapResearchSDKDelegate {
 		print("onTapResearchDidReceiveRewards(rewards...)")
 	}
 
+	func onTapResearchQuickQuestionResponse(_ qqPayload: TRQQDataPayload) {
+		print("onTapResearchQuickQuestionResponse(responses...)")
+	}
+
 	func onTapResearchDidError(_ error: NSError) {
 		print("onTapResearchDidError: \(error.code) \(error.localizedDescription)")
 	}

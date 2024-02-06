@@ -21,11 +21,25 @@ NSString *userIdentifier = @"some-user-identifier";
 	// If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
 	// This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-	[TapResearch initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(NSError * _Nullable error) {
+	[TapResearch initializeWithAPIToken:apiToken
+						 userIdentifier:userIdentifier
+						 userAttributes:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"a string value", @12, nil]
+																	forKeys:[NSArray arrayWithObjects:@"some_string", @"some_number", nil]
+										]
+				clearPreviousAttributes:YES
+							sdkDelegate:self
+							 completion:^(NSError * _Nullable error) {
 		if (error) {
 			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
 		}
 	}];
+
+	// Initialize TapResearchSDK without passing user attributes:
+	//[TapResearch initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(NSError * _Nullable error) {
+	//	if (error) {
+	//		NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
+	//	}
+	//}];
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
@@ -64,6 +78,10 @@ NSString *userIdentifier = @"some-user-identifier";
 
 - (void)onTapResearchDidReceiveRewards:(NSArray<TRReward *> * _Nonnull)rewards {
 	NSLog(@"onTapResearchDidReceiveRewards(%@)", rewards);
+}
+
+- (void)onTapResearchQuickQuestionResponse:(TRQQDataPayload *)qqPayload {
+	NSLog(@"[%@] onTapResearchQuickQuestionResponse(%@)", NSDate.now.description, qqPayload);
 }
 
 - (void)onTapResearchSdkReady {
