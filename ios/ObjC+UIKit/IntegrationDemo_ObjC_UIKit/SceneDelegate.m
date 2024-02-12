@@ -7,8 +7,8 @@
 
 #import "SceneDelegate.h"
 
-NSString *apiToken = @"100e9133abc21471c8cd373587e07515";
-NSString *userIdentifier = @"some-user-identifier";
+NSString *apiToken = @"0b5dcbae8151c1b82d69697dce004bf2"; // Replace with your own token
+NSString *userIdentifier = @"some-user-identifier999"; // Replace with your own app's player user id
 
 @interface SceneDelegate ()
 
@@ -87,7 +87,8 @@ NSString *userIdentifier = @"some-user-identifier";
 - (void)onTapResearchSdkReady {
 	NSLog(@"onTapResearchSdkReady()");
 
-	NSError *error = [TapResearch sendUserAttributesWithAttributes: @{@"Number" : @12, @"String" : @"Some text", @"Boolean" : @"true"} clearPreviousAttributes:NO];
+	NSError *error = [TapResearch sendUserAttributesWithAttributes:@{@"Number" : @12, @"String" : @"Some text", @"Boolean" : @"true"}
+										   clearPreviousAttributes:NO];
 	if (error) {
 		NSLog(@"Error sending user attributes: %ld %@", (long)error.code, error.localizedDescription);
 	}
