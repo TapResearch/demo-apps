@@ -8,7 +8,7 @@
 import Foundation
 import TapResearchSDK
 
-class TapResearchDelegates: TapResearchSDKDelegate {
+class TapResearchDelegates: NSObject, TapResearchSDKDelegate {
 
 	func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
 		print("onTapResearchDidReceiveRewards(rewards...)")
@@ -25,7 +25,7 @@ class TapResearchDelegates: TapResearchSDKDelegate {
 	func onTapResearchSdkReady() {
 		print("onTapResearchSdkReady()")
 
-		if let error: NSError = TapResearch.sendUserAttributes(attributes: ["Number" : 12, "String" : "Some text", "Boolean" : "true"], clearAtti) {
+		if let error: NSError = TapResearch.sendUserAttributes(attributes: ["Number" : 12, "String" : "Some text", "Boolean" : "true"], clearPreviousAttributes: false) {
 			print("Error sending user attributes: \(error.code) \(error.localizedDescription)")
 		}
 	}
