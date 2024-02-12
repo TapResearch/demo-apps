@@ -8,125 +8,106 @@
 import SwiftUI
 import TapResearchSDK
 
-///---------------------------------------------------------------------------------------------
-///---------------------------------------------------------------------------------------------
 struct ContentView: View {
 
-    @State var placementTagInput = ""
-    @State var userIdInput = "public-demo-test-user"
-    @State var knownPlacements = [
-        "default-placement",
-        "interstitial-placement",
-        "floating-interstitial-placement",
-        "capped-and-paced-interstitial",
-        "banner-placement"
-    ]
+	@State var placementTagInput = ""
+	@Binding var userId: String
+	@State var knownPlacements = [
+		"awesome-zone",
+		"default-placement",
+		"interstitial-placement",
+		"floating-interstitial-placement",
+		"capped-and-paced-interstitial",
+		"banner-placement"
+	]
 
-    let tapResearchDelegates: TapResearchDelegates!
+	let contentDelegate: TapResearchContentDelegates = TapResearchContentDelegates()
 
-    ///---------------------------------------------------------------------------------------------
-    init() {
-        tapResearchDelegates = TapResearchDelegates()
-    }
+	func showPlacement(_ placementTag: String) {
 
-    ///---------------------------------------------------------------------------------------------
-    func showPlacement(_ placementTag: String) {
+		guard placementTag.count > 0 else { return }
 
-        guard placementTag.count > 0 else { return }
+		if TapResearch.canShowContent(forPlacement: placementTag) {
+			if !knownPlacements.contains(placementTag) {
+				knownPlacements.append(placementTag)
+			}
+			let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
+			TapResearch.showContent(forPlacement: placementTag, delegate: contentDelegate, customParameters: customParameters)
+		}
+		else {
+			print("Placement \(placementTag) not ready")
+		}
+	}
 
-        if TapResearch.canShowContent(forPlacement: placementTag) {
-            if !knownPlacements.contains(placementTag) {
-                knownPlacements.append(placementTag)
-            }
-            let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
+	func updateuserIdInput(_ userIdInput: String) {
 
-            TapResearch.showContent(forPlacement: placementTag, delegate: self.tapResearchDelegates, customParameters: customParameters)
-        } else {
-            print("Placement \(placementTag) not ready")
-        }
-    }
+		guard userIdInput.count > 0 else { return }
+		TapResearch.setUserIdentifier(userIdInput)
+	}
 
-    ///---------------------------------------------------------------------------------------------
-    func updateUserId(_ userId: String) {
+	var body: some View {
 
-        guard userId.count > 0 else { return }
-        TapResearch.setUserIdentifier(userId)
-    }
+		VStack {
+			VStack {
+				HStack {
+					TextField("Placement Tag", text: $placementTagInput)
+						.textFieldStyle(.roundedBorder)
+						.autocapitalization(.none)
+						.onChange(of: placementTagInput) { _ in
+							if placementTagInput.filter({ $0.isNewline }).isEmpty {
+								showPlacement(placementTagInput.replacingOccurrences(of: "\n", with: ""))
+							}
+						}
 
-    ///---------------------------------------------------------------------------------------------
-    var body: some View {
-        VStack {
-            VStack {
-                HStack {
-                    TextField("Placement Tag", text: $placementTagInput)
-                        .textFieldStyle(.roundedBorder)
-                        .autocapitalization(.none)
-                        .onChange(of: placementTagInput) { _ in
-                            if placementTagInput.filter({ $0.isNewline }).isEmpty {
-                                showPlacement(placementTagInput.replacingOccurrences(of: "\n", with: ""))
-                            }
-                        }
+					Button(action: { showPlacement(placementTagInput) } ) {
+						Text("Show Placement")
+							.frame(minWidth: 130, maxWidth: 130)
+					}
+					.buttonStyle(.borderedProminent)
+				}
 
-                    Button(action: { showPlacement(placementTagInput) } ) {
-                        Text("Show Placement")
-                            .frame(minWidth: 130, maxWidth: 130)
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
+				HStack {
+					TextField("User Id", text: $userId)
+						.textFieldStyle(.roundedBorder)
+						.onChange(of: userId) { _ in
+							if userId.filter({ $0.isNewline }).isEmpty {
+								updateuserIdInput(userId.replacingOccurrences(of: "\n", with: ""))
+							}
+						}
+					Button(action: { updateuserIdInput(userId) } ) {
+						Text("Update User Id")
+							.frame(minWidth: 130, maxWidth: 130)
+					}
+					.buttonStyle(.borderedProminent)
+				}
+			}
+			.padding()
 
-                HStack {
-                    TextField("User Id", text: $userIdInput)
-                        .textFieldStyle(.roundedBorder)
-                        .onChange(of: userIdInput) { _ in
-                            if userIdInput.filter({ $0.isNewline }).isEmpty {
-                                updateUserId(userIdInput.replacingOccurrences(of: "\n", with: ""))
-                            }
-                        }
-                    Button(action: { updateUserId(userIdInput) } ) {
-                        Text("Update User Id")
-                            .frame(minWidth: 130, maxWidth: 130)
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-            }.padding()
-
-            List {
-                Section("Known Placments") {
-                    ForEach(knownPlacements, id: \.self) { placementTag in
-                        Text(placementTag)
-                            .onTapGesture {
-                                showPlacement(placementTag)
-                            }
-                    }
-                }
-            }
-            .listStyle(.plain)
-            .cornerRadius(7, antialiased: true)
-        }
-    }
+			List {
+				Section("Known Placments") {
+					ForEach(knownPlacements, id: \.self) { placementTag in
+						Text(placementTag)
+							.onTapGesture {
+								showPlacement(placementTag)
+							}
+					}
+				}
+			}
+			.listStyle(.plain)
+			.cornerRadius(7, antialiased: true)
+		}
+	}
 
 }
 
-///---------------------------------------------------------------------------------------------
-///---------------------------------------------------------------------------------------------
-class TapResearchDelegates : TapResearchContentDelegate {
+//MARK: - Preview
 
-    ///---------------------------------------------------------------------------------------------
-    func onTapResearchContentShown(forPlacement placement: String) {
-        print("\(#function): \(placement) was shown")
-    }
-
-    ///---------------------------------------------------------------------------------------------
-    func onTapResearchContentDismissed(forPlacement placement: String) {
-        print("\(#function): \(placement) was dismissed")
-    }
-
-}
-
-///---------------------------------------------------------------------------------------------
-///---------------------------------------------------------------------------------------------
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+
+	@State static var userId: String = "public-demo-test-user"
+
+	static var previews: some View {
+		ContentView(userId: $userId)
+	}
+
 }

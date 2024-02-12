@@ -12,8 +12,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	var window: UIWindow?
 
-	let apiToken: String = "0b5dcbae8151c1b82d69697dce004bf2"
-	let userIdentifier: String = "public-demo-user"
+	let apiToken: String = "0b5dcbae8151c1b82d69697dce004bf2" // Replace with your own token
+	let userIdentifier: String = "public-demo-user" // Replace with your own app's player user id
 
 	let tapDelegates: TapResearchDelegates = TapResearchDelegates()
 
@@ -24,11 +24,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard let _ = (scene as? UIWindowScene) else { return }
 
 		// Initialize TapResearch
-		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, sdkDelegate: tapDelegates) { (error: NSError?) in
-			if let e = error {
-				print(e.localizedDescription as Any)
+		let dict: [AnyHashable:Any] = ["some_string" : "a string value", "some_number" : 12]
+		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, userAttributes: dict, clearPreviousAttributes: true, sdkDelegate:tapDelegates) { (error: Error?) in
+			if let error = error {
+				print(error.localizedDescription as Any)
+			}
+			else {
+				print("Intialized - waiting to be ready")
 			}
 		}
+
+		// Initialize TapResearchSDK without passing user attributes:
+		//TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, sdkDelegate: tapDelegates) { (error: NSError?) in
+		//	if let e = error {
+		//		print(e.localizedDescription as Any)
+		//	}
+		//}
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
