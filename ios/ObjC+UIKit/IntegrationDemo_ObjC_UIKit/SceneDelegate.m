@@ -87,7 +87,7 @@ NSString *userIdentifier = @"some-user-identifier";
 - (void)onTapResearchSdkReady {
 	NSLog(@"onTapResearchSdkReady()");
 
-	NSError *error = [TapResearch sendUserAttributesWithAttributes: @{@"Number" : @12, @"String" : @"Some text", @"Boolean" : @"true"}];
+	NSError *error = [TapResearch sendUserAttributesWithAttributes: @{@"Number" : @12, @"String" : @"Some text", @"Boolean" : @"true"} clearPreviousAttributes:NO];
 	if (error) {
 		NSLog(@"Error sending user attributes: %ld %@", (long)error.code, error.localizedDescription);
 	}

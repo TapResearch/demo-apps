@@ -10,6 +10,9 @@
 		270EB2CC2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */; };
 		270EB2CE2A193CA600B775B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270EB2CD2A193CA600B775B6 /* ContentView.swift */; };
 		270EB2D02A193CA900B775B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 270EB2CF2A193CA900B775B6 /* Assets.xcassets */; };
+		900CBA932B76FE8E009D01D7 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900CBA922B76FE8E009D01D7 /* MainContentView.swift */; };
+		900CBA952B76FEB8009D01D7 /* TapResearchSDKDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900CBA942B76FEB8009D01D7 /* TapResearchSDKDelegates.swift */; };
+		900CBA9B2B77007F009D01D7 /* TapResearchContentDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900CBA9A2B77007F009D01D7 /* TapResearchContentDelegates.swift */; };
 		906C91862A97FF1B006AC61C /* TapResearchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 906C91852A97FF1B006AC61C /* TapResearchSDK */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +34,9 @@
 		270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationDemo_SwiftUIApp.swift; sourceTree = "<group>"; };
 		270EB2CD2A193CA600B775B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		270EB2CF2A193CA900B775B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		900CBA922B76FE8E009D01D7 /* MainContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
+		900CBA942B76FEB8009D01D7 /* TapResearchSDKDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapResearchSDKDelegates.swift; sourceTree = "<group>"; };
+		900CBA9A2B77007F009D01D7 /* TapResearchContentDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapResearchContentDelegates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +71,10 @@
 			isa = PBXGroup;
 			children = (
 				270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */,
+				900CBA922B76FE8E009D01D7 /* MainContentView.swift */,
 				270EB2CD2A193CA600B775B6 /* ContentView.swift */,
+				900CBA942B76FEB8009D01D7 /* TapResearchSDKDelegates.swift */,
+				900CBA9A2B77007F009D01D7 /* TapResearchContentDelegates.swift */,
 				270EB2CF2A193CA900B775B6 /* Assets.xcassets */,
 			);
 			path = IntegrationDemo_SwiftUI;
@@ -103,7 +112,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					270EB2C72A193CA600B775B6 = {
 						CreatedOnToolsVersion = 14.3;
@@ -148,7 +157,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				270EB2CE2A193CA600B775B6 /* ContentView.swift in Sources */,
+				900CBA9B2B77007F009D01D7 /* TapResearchContentDelegates.swift in Sources */,
 				270EB2CC2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift in Sources */,
+				900CBA952B76FEB8009D01D7 /* TapResearchSDKDelegates.swift in Sources */,
+				900CBA932B76FE8E009D01D7 /* MainContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +171,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -191,6 +204,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -219,6 +233,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -251,6 +266,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -352,7 +368,7 @@
 			repositoryURL = "https://github.com/TapResearch/TapResearch-iOS-SDK";
 			requirement = {
 				kind = exactVersion;
-				version = "3.2.0-beta2";
+				version = 3.2.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
