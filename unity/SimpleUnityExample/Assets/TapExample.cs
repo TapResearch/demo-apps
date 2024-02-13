@@ -5,35 +5,30 @@ using UnityEngine;
 
 public class TapExample : MonoBehaviour
 {
-    private static string tapAPIToken; 
+    private static string tapAPIToken = "0b5dcbae8151c1b82d69697dce004bf2"; 
     private static string tapPlayerUserId = "public-demo-test-user";
-    private static string placementTag = "home-screen"
+    private static string placementTag = "home-screen";
     
     void Awake()
-    { 
-        if UNITY_ANDROID
-            tapAPIToken = "856f987d813389d1243bea2e4731a0fb";  // Public Test Android, replace with your own API token
-        #elif UNITY_IPHONE
-            tapAPIToken = "0b5dcbae8151c1b82d69697dce004bf2";  // Public Test iOS, replace with your own API token
-        #endif
-            
+    {         
         TapResearchSDK.TapContentShown = TapContentShown;
         TapResearchSDK.TapContentDismissed = TapContentDismissed;
-        TapResearchSDK.TapResearchRewardReceived = TapResearchRewardsReceived;
+        TapResearchSDK.TapResearchQQResponseReceived = TapQQResponseReceived;
+        TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
         TapResearchSDK.TapResearchDidError = TapResearchDidError;
-        TapResearchSDK.TapResearchSdkReady = TapSdkReady;
+        TapResearchSDK.TapResearchSdkReady =  TapSdkReady;
 
         TapResearchSDK.Configure(tapAPIToken, tapPlayerUserId);
     }
 
     // START Callbacks
     
-    public void TapContentShown()
+    public void TapContentShown(string placementTag)
     {
         Debug.Log("Survey Content Opened");
     }
 
-    public void TapContentDismissed()
+    public void TapContentDismissed(string placementTag)
     {
         Debug.Log("Survey Content Dismissed");
     }
@@ -47,7 +42,7 @@ public class TapExample : MonoBehaviour
         userAttributes["some_number"] = "12";
         userAttributes["another_number"] = 12;
         userAttributes["boolean"] = "true";
-        DateTime now = DateTime.UtcNow;
+        System.DateTime now = System.DateTime.UtcNow;
         string iso8601String = now.ToString("o");
         userAttributes["iso8601_date"] = iso8601String;
         userAttributes.Add("another_string", "it's another string!");
@@ -55,7 +50,12 @@ public class TapExample : MonoBehaviour
         TapResearchSDK.SendUserAttributes(userAttributes);
     }
 
-    private void TapResearchRewardsReceived(TRReward[] rewards) {
+    private void TapQQResponseReceived(TRPayloadObject payload) {
+        Debug.Log("TRQQDataPayload received!");
+    }
+
+
+    private void TapResearchRewardReceived(TRReward[] rewards) {
         foreach (TRReward reward in rewards)
         {
             Debug.Log("Tap Rewards: You've earned " + reward.RewardAmount + " " + reward.CurrencyName + ". " + reward.TransactionIdentifier);
@@ -70,17 +70,22 @@ public class TapExample : MonoBehaviour
 
     public void showSurveyContent()
     {
-        if (TapResearchSDK.CanShowContentForPlacement(placementTag)) 
+        Debug.Log("TapResearchSDK showSurveyContent() checking if content can show");
+        if (TapResearchSDK.CanShowContent(placementTag)) 
         {
+            Debug.Log("TapResearchSDK showSurveyContent() showing content");
             TapResearchSDK.ShowContentForPlacement(placementTag); 
+        }
+        else {
+            Debug.Log("TapResearchSDK showSurveyContent() content can't show");
         }
     }
     
     public void showSurveyContentWithParameters()
     {
-        if (TapResearchSDK.CanShowContentForPlacement(placementTag)) //CustomParam Placement
+        if (TapResearchSDK.CanShowContent(placementTag)) //CustomParam Placement
         {
-            Dictionary<string, string> customParameters = new Dictionary<string,string>(); //Parameters
+            Dictionary<string, object> customParameters = new Dictionary<string,object>(); //Parameters
             customParameters["player_attribute"] = "my-vip";
             customParameters["data_value"] = "integer";
             customParameters["another_number"] = 12;   
@@ -89,4 +94,11 @@ public class TapExample : MonoBehaviour
             TapResearchSDK.ShowContentForPlacement(placementTag, customParameters);
         }
     }
+
+    public void OnButtonClick()
+    {
+        Debug.Log("TapResearchSDK OnButtonClick() attempting to show content");
+        showSurveyContent();
+    }
+
 }
