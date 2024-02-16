@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.tapresearch:tapsdk:3.1.0-beta4'
+    implementation 'com.tapresearch:tapsdk:3.2.1'
 //    implementation(files("libs/tapsdk-release.aar"))
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
