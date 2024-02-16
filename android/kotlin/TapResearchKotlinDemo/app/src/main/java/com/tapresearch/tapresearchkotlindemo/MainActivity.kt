@@ -33,8 +33,8 @@ class MainActivity : ComponentActivity() {
         Log.d(LOG_TAG, "User identifier: $myUserIdentifier")
 
         TapResearch.initialize(
-            apiToken = "7f84af37b07c01f84ce3cc3e62fc6310",
-            userIdentifier = "public-demo-test-user-2",
+            apiToken = myApiToken,
+            userIdentifier = myUserIdentifier,
             activity = this@MainActivity,
             errorCallback = { trError -> showErrorToast(trError) },
             sdkReadyCallback = {
