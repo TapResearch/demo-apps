@@ -27,6 +27,7 @@ fun MainUi(
     openPlacement: (placementTag: String) -> Unit,
     onSetUserIdentifier: (identifier: String) -> Unit,
     buttonOptions: List<String>,
+    sendUserAttributes: () -> Unit,
 ) {
     TapResearchKotlinDemoTheme {
         Column(
@@ -59,6 +60,13 @@ fun MainUi(
                 modifier = Modifier.padding(5.dp),
             ) {
                 Text(text = if (showTextField.value) "Hide User Identifier Input" else "Set User Identifier")
+            }
+
+            Button(
+                onClick = { sendUserAttributes() },
+                modifier = Modifier.padding(5.dp),
+            ) {
+                Text(text = "Send User Attributes")
             }
 
             if (showTextField.value) {
