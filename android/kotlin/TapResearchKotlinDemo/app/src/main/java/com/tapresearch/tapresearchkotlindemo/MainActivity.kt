@@ -16,7 +16,7 @@ import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
 import com.tapresearch.tapsdk.callback.TRQQDataCallback
-import com.tapresearch.tapsdk.models.QuickQuestion
+import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
 
@@ -25,8 +25,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myUserIdentifier = "" // Insert your user identifier here
-        val myApiToken = "" // Insert your API token here
+        val myUserIdentifier = "public-demo-test-user" // Insert your user identifier here
+        val myApiToken = "598434dd894c54a98bb7e14915090f58" // Insert your API token here
 
         // Log if the user identifier and API token are set
         Log.d(LOG_TAG, "API Token: $myApiToken")
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
 //                clearPreviousAttributes = true,
             ),
             tapDataCallback = object : TRQQDataCallback {
-                override fun onQuickQuestionDataReceived(data: QuickQuestion) {
+                override fun onQuickQuestionDataReceived(data: QQPayload) {
                     Log.d("MainActivity", "QQ data received: $data")
                 }
             }
