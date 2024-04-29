@@ -6,6 +6,6 @@ target 'IntegrationDemo_ObjC_UIKit' do
   use_frameworks!
 
   # Pods for TapResearch
-  pod 'TapResearch', '3.2.3'
+  pod 'TapResearch', '3.2.5'
 
 end

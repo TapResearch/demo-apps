@@ -67,7 +67,9 @@
 	NSString *placementTag = self.textField.text;
 
 	if (placementTag && placementTag.length > 0) {
-		if ([TapResearch canShowContentForPlacement:placementTag]) {
+		if ([TapResearch canShowContentForPlacement:placementTag error:^(NSError * _Nullable error) {
+			// Handle error, this is an optional error block
+		}]) {
 			[TapResearch showContentForPlacement:placementTag delegate:self completion:^(NSError * _Nullable error) {
 				if (error) {
 					self.placementStatus.text = [NSString stringWithFormat:@"%ld, %@", (long)error.code, error.localizedDescription];
@@ -100,7 +102,9 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 	NSString *placementTag = self.knownPlacements[indexPath.row];
-	if ([TapResearch canShowContentForPlacement: placementTag]) {
+	if ([TapResearch canShowContentForPlacement: placementTag error:^(NSError * _Nullable error) {
+		// Handle error, this is an optional error block
+	}]) {
 		[TapResearch showContentForPlacement:placementTag delegate:self customParameters:@{@"custom_param_1" : @"test text", @"custom_param_3" : @12} completion:^(NSError * _Nullable error) {
 			if (error) {
 				NSLog(@"Error on showContent: %ld, %@", (long)error.code, error.localizedDescription);
