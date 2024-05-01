@@ -50,7 +50,7 @@ android {
 }
 
 dependencies {
-    implementation("com.tapresearch:tapsdk:3.2.1")
+    implementation("com.tapresearch:tapsdk:3.2.6")
 
     // These will be needed to be added by developers
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
