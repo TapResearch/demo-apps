@@ -50,7 +50,7 @@ public class TapExample : MonoBehaviour
         TapResearchSDK.SendUserAttributes(userAttributes);
     }
 
-    private void TapQQResponseReceived(TRPayloadObject payload) {
+    private void TapQQResponseReceived(TRQQDataPayload payload) {
         Debug.Log("TRQQDataPayload received!");
     }
 

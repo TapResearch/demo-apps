@@ -2,10 +2,9 @@
     <string name="app_name">TapResearchKotlinDemo</string>
     <string name="api_token">856f987d813389d1243bea2e4731a0fb</string>
     <string-array name="placement_tags">
-        <item>insert-placement-0</item>
-        <item>insert-placement-1</item>
-        <item>insert-placement-2</item>
-        <item>insert-placement-3</item>
-        <item>insert-placement-4</item>
+        <item>home-screen</item>
+        <item>earn-center</item>
+        <item>banner-placement</item>
+        <item>awesome-zone</item>
     </string-array>
 </resources>

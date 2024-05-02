@@ -16,17 +16,18 @@ import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
 import com.tapresearch.tapsdk.callback.TRQQDataCallback
-import com.tapresearch.tapsdk.models.QuickQuestion
+import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
+import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
-    val LOG_TAG = "MainActivity"
+    val LOG_TAG = "DebugMainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myUserIdentifier = "" // Insert your user identifier here
-        val myApiToken = "" // Insert your API token here
+        val myUserIdentifier = "user-id-"+ Random.nextInt() // Insert your user identifier here
+        val myApiToken = "fb28e5e0572876db0790ecaf6c588598" // Insert your API token here
 
         // Log if the user identifier and API token are set
         Log.d(LOG_TAG, "API Token: $myApiToken")
@@ -38,13 +39,13 @@ class MainActivity : ComponentActivity() {
             activity = this@MainActivity,
             errorCallback = { trError -> showErrorToast(trError) },
             sdkReadyCallback = {
-                showContent()
+
                 Toast.makeText(
                     this@MainActivity,
                     "SDK is ready",
                     Toast.LENGTH_LONG,
                 ).show()
-                Log.d("MainActivity", "SDK is ready")
+                Log.d(LOG_TAG, "SDK is ready")
             },
             rewardCallback = { rewards ->
                 showRewardToast(rewards)
@@ -57,46 +58,14 @@ class MainActivity : ComponentActivity() {
 //                clearPreviousAttributes = true,
             ),
             tapDataCallback = object : TRQQDataCallback {
-                override fun onQuickQuestionDataReceived(data: QuickQuestion) {
-                    Log.d("MainActivity", "QQ data received: $data")
+                override fun onQuickQuestionDataReceived(data: QQPayload) {
+                    Log.d(LOG_TAG, "QQ data received: $data")
                 }
             }
         )
 
-        setContent {
-            TapResearchKotlinDemoTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    MainUi(
-                        openPlacement = {},
-                        onSetUserIdentifier = {},
-                        buttonOptions = listOf("Waiting for SDK to initialize..."),
-                        sendUserAttributes = {
-                            TapResearch.sendUserAttributes(
-                                userAttributes =
-                                hashMapOf(
-                                    "testStatus" to "VIP",
-                                    "testInt" to 2,
-                                ),
-                                errorCallback =
-                                object : TRErrorCallback {
-                                    override fun onTapResearchDidError(trError: TRError) {
-                                        showErrorToast(trError)
-                                    }
-                                },
-                            )
-                        },
-                    )
-                }
-            }
-        }
-    }
-
-    private fun showContent() {
         val buttonOptions = resources.getStringArray(R.array.placement_tags)
+
         setContent {
             TapResearchKotlinDemoTheme {
                 // A surface container using the 'background' color from the theme
@@ -114,17 +83,16 @@ class MainActivity : ComponentActivity() {
                                 )
                             TapResearch.showContentForPlacement(
                                 tag = placementTag,
-                                application = application,
                                 customParameters = null,
                                 contentCallback =
                                 object : TRContentCallback {
                                     override fun onTapResearchContentShown(placementTag: String) {
-                                        Log.d("MainActivity", "Content shown for $placementTag")
+                                        Log.d(LOG_TAG, "Content shown for $placementTag")
                                     }
 
                                     override fun onTapResearchContentDismissed(placementTag: String) {
                                         Log.d(
-                                            "MainActivity",
+                                            LOG_TAG,
                                             "Content dismissed for $placementTag",
                                         )
                                     }
@@ -196,5 +164,10 @@ class MainActivity : ComponentActivity() {
             "Congrats! You've earned $rewardAmount $currencyName. Event type is $eventType",
             Toast.LENGTH_LONG,
         ).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(LOG_TAG, "onDestroy()")
     }
 }
