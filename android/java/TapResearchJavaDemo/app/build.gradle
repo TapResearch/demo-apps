@@ -10,7 +10,7 @@ android {
         applicationId "com.tapresearch.tapresearchjavademo"
         minSdk 26
         targetSdk 33
-        versionCode 1
+        versionCode 3
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -26,14 +26,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
-    implementation 'com.tapresearch:tapsdk:3.2.6'
-//    implementation(files("libs/tapsdk-release.aar"))
+    implementation 'com.tapresearch:tapsdk:3.2.7'
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">TapResearchJavaDemo</string>
-    <string name="api_token">856f987d813389d1243bea2e4731a0fb</string>
+    <string name="api_token">fb28e5e0572876db0790ecaf6c588598</string>
     <string-array name="placement_tags">
-        <item>default-placement-a</item>
-        <item>banner-placement-a</item>
-        <item>interstitial-placement-a</item>
-        <item>floating-interstitial-placement-a</item>
-        <item>capped-and-paced-interstitial-a</item>
+        <item>home-screen</item>
+        <item>earn-center</item>
+        <item>awesome-zone</item>
+        <item>banner-placement</item>
     </string-array>
 </resources>

@@ -9,9 +9,9 @@ android {
 
     defaultConfig {
         applicationId = "com.tapresearch.tapresearchkotlindemo"
-        minSdk = 27
+        minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = 2
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -41,16 +41,22 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
     }
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 dependencies {
-    implementation("com.tapresearch:tapsdk:3.2.6")
+    implementation("com.tapresearch:tapsdk:3.2.7")
 
     // These will be needed to be added by developers
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
