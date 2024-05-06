@@ -27,12 +27,16 @@ struct ContentView: View {
 
 		guard placementTag.count > 0 else { return }
 
-		if TapResearch.canShowContent(forPlacement: placementTag) {
+		if TapResearch.canShowContent(forPlacement: placementTag, error: { (error: NSError?) in
+			// Do something with the error, this is an optional error block.
+		}) {
 			if !knownPlacements.contains(placementTag) {
 				knownPlacements.append(placementTag)
 			}
 			let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
-			TapResearch.showContent(forPlacement: placementTag, delegate: contentDelegate, customParameters: customParameters)
+			TapResearch.showContent(forPlacement: placementTag, delegate: contentDelegate, customParameters: customParameters) { (error: NSError?) in
+				// Do something with the error, this is an optional completion block.
+			}
 		}
 		else {
 			print("Placement \(placementTag) not ready")
@@ -42,7 +46,12 @@ struct ContentView: View {
 	func updateuserIdInput(_ userIdInput: String) {
 
 		guard userIdInput.count > 0 else { return }
-		TapResearch.setUserIdentifier(userIdInput)
+		TapResearch.setUserIdentifier(userIdInput) { (error: NSError?) in
+			// Send user attributes when you need to
+			if let error = TapResearch.sendUserAttributes(attributes: ["app-user": userIdInput, "roller-type": "high", "roller-type-valid-until": Date().timeIntervalSince1970 + (3.0 * 60.0 * 60.0)]) {
+				// Do something on completion or with the error
+			}
+		}
 	}
 
 	var body: some View {

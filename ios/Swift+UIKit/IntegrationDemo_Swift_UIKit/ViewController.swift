@@ -48,7 +48,10 @@ class ViewController : UIViewController, UITextFieldDelegate, UITableViewDelegat
 	@IBAction func showPlacement() {
 		guard let text: String = textField.text else { return }
 
-		if TapResearch.canShowContent(forPlacement: text) {
+		let canShow: Bool = TapResearch.canShowContent(forPlacement: text) { (error: NSError?) in
+			// Handle error, this is an optional error block, if there is an error false is returned by function.
+		}
+		if canShow {
 			//let customParameters = ["param1": 123, "param2": "abc"] as [String : Any]
 			TapResearch.showContent(forPlacement: text, delegate: self/*, customParameters: customParameters*/) { (error: NSError?) in
 				if let error = error {
