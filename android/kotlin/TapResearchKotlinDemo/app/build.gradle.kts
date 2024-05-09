@@ -59,13 +59,14 @@ dependencies {
     implementation("com.tapresearch:tapsdk:3.2.7")
 
     // These will be needed to be added by developers
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation ("androidx.lifecycle:lifecycle-process:2.6.1")
     implementation ("com.google.android.gms:play-services-ads-identifier:18.0.1")
+    implementation("androidx.core:core-ktx:1.10.1")
 
     // Demo App Dependencies
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.1")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))

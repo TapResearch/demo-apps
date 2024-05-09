@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TapResearchKotlinDemo</string>
+    <string name="app_name">KotlinDemo</string>
     <string name="api_token">856f987d813389d1243bea2e4731a0fb</string>
     <string-array name="placement_tags">
         <item>home-screen</item>
