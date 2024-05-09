@@ -51,6 +51,22 @@
 -keep interface androidx.** {*;}
 -dontwarn androidx.**
 
+-keep class kotlinx.** {*;}
+-keep interface kotlinx.** {*;}
+-dontwarn kotlinx.**
+
+-keep class android.** {*;}
+-keep interface android.** {*;}
+-dontwarn android.**
+
+-keep class com.google.** {*;}
+-keep interface com.google.** {*;}
+-dontwarn com.google.**
+
+-keep class com.android.** {*;}
+-keep interface com.android.** {*;}
+-dontwarn com.android.**
+
 -keep class com.unity3d.** {*;}
 -keep interface com.unity3d.** {*;}
 

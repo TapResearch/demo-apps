@@ -20,7 +20,54 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep public class com.tapresearch.tapsdk.TapResearch {
-    public *;
+# ProGuard rules for TapResearch
+-keep class com.tapresearch.** {*;}
+-keep interface com.tapresearch.** {*;}
+-keepattributes Exceptions, MethodParameters
+-keepattributes LocalVariableTable,LocalVariableTypeTable
+-keepparameternames
+
+# Preserve all annotations.
+-keepattributes *Annotation*
+
+-dontwarn android.app.Activity
+
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
 }
--keepclasseswithmembernames class com.tapresearch.tapsdk.TapResearch
+
+# Keep filenames and line numbers for stack traces
+-keepattributes SourceFile,LineNumberTable
+
+# Keep JavascriptInterface for WebView bridge
+-keepattributes JavascriptInterface
+
+# Sometimes keepattributes is not enough to keep annotations
+-keep class android.webkit.JavascriptInterface {
+   *;
+}
+
+-keep class androidx.** {*;}
+-keep interface androidx.** {*;}
+-dontwarn androidx.**
+
+-keep class kotlinx.** {*;}
+-keep interface kotlinx.** {*;}
+-dontwarn kotlinx.**
+
+-keep class android.** {*;}
+-keep interface android.** {*;}
+-dontwarn android.**
+
+-keep class com.google.** {*;}
+-keep interface com.google.** {*;}
+-dontwarn com.google.**
+
+-keep class com.android.** {*;}
+-keep interface com.android.** {*;}
+-dontwarn com.android.**
+
+-keep class com.unity3d.** {*;}
+-keep interface com.unity3d.** {*;}
+
+-keepattributes Signature, *Annotation*
