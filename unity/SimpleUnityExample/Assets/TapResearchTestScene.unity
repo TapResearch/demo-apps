@@ -438,7 +438,6 @@ GameObject:
   - component: {fileID: 1773238927}
   - component: {fileID: 1773238926}
   - component: {fileID: 1773238925}
-  - component: {fileID: 1773238928}
   m_Layer: 0
   m_Name: Survey Button
   m_TagString: Untagged
@@ -511,8 +510,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1773238928}
+      - m_Target: {fileID: 11500000, guid: 4eee9665423d342bc829e5c1ab6bf441, type: 3}
         m_TargetAssemblyTypeName: TapExample, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1831191344}
+        m_TargetAssemblyTypeName: TapResearchExample, Assembly-CSharp
         m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
@@ -561,18 +572,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773238923}
   m_CullTransparentMesh: 0
---- !u!114 &1773238928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773238923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4e10835163524f848e9983857ed58b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1831191339
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +584,7 @@ GameObject:
   - component: {fileID: 1831191342}
   - component: {fileID: 1831191341}
   - component: {fileID: 1831191340}
+  - component: {fileID: 1831191344}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -674,3 +674,15 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1831191344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831191339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eee9665423d342bc829e5c1ab6bf441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
