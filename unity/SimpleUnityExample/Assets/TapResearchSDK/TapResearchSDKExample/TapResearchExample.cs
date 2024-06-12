@@ -5,13 +5,21 @@ using UnityEngine;
 
 public class TapResearchExample : MonoBehaviour
 {
-    private static string tapAPIToken = "fb28e5e0572876db0790ecaf6c588598";
-    private static string tapPlayerUserId = "public-demo-test-user";
-    private static string placementTag = "earn-center";
-    
+    public TRScreenFader screenFader;
+    public TROrientationChanger orientationChanger;
+    public TRWaiter waiter;
+
+    #if UNITY_ANDROID
+    private static string tapAPIToken = "YOUR_ANDROID_API_TOKEN"; // Public Test Android, replace with your own API token
+    #elif UNITY_IPHONE
+    private static string tapAPIToken = "YOUR_IOS_API_TOKEN";  // Public Test iOS, replace with your own API token
+    #endif
+    private static string tapPlayerUserId = "GAME_USER_IDENTIFIER";
+    private static string placementTag = "PLACEMENT_TAG";
+                
     void Awake()
     {
-
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         Debug.Log("TapResearchExample: About to initialize Tap SDK");
         TapResearchSDK.TapContentShown = TapContentShown;
         TapResearchSDK.TapContentDismissed = TapContentDismissed;
@@ -19,7 +27,7 @@ public class TapResearchExample : MonoBehaviour
         TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
         TapResearchSDK.TapResearchDidError = TapResearchDidError;
         TapResearchSDK.TapResearchSdkReady =  TapSdkReady;
-
+        screenFader.SetAlpha(0.0f);
         TapResearchSDK.Configure(tapAPIToken, tapPlayerUserId);
     }
 
@@ -33,7 +41,8 @@ public class TapResearchExample : MonoBehaviour
     public void TapContentDismissed(string placementTag)
     {
         Debug.Log("TapResearchExample: Survey Content Dismissed");
-    }
+        orientationChanger.SetLandscapeLeft(OnOrientationChangedToLandscapeLeft);
+     }
 
     public void TapSdkReady()
     {
@@ -73,10 +82,12 @@ public class TapResearchExample : MonoBehaviour
 
     public void showSurveyContent()
     {
+
         if (TapResearchSDK.CanShowContent(placementTag)) 
         {
-            Debug.Log("TapResearchExample: TapResearchSDK showSurveyContent() showing content");
-            TapResearchSDK.ShowContentForPlacement(placementTag); 
+            Debug.Log("TapResearchExample: TapResearchSDK showSurveyContent() fading to black");
+            //Debug.Log("TapResearchExample: TapResearchSDK showSurveyContent() showing content");
+            screenFader.FadeToBlack(OnFadeToBlackComplete);
         }
         else {
             Debug.Log("TapResearchExample: TapResearchSDK showSurveyContent() content not available");
@@ -92,7 +103,7 @@ public class TapResearchExample : MonoBehaviour
             customParameters["data_value"] = "integer";
             customParameters["another_number"] = 12;   
             customParameters.Add("another_string", "it's another string!");
-              
+            
             TapResearchSDK.ShowContentForPlacement(placementTag, customParameters);
         }
     }
@@ -101,6 +112,29 @@ public class TapResearchExample : MonoBehaviour
     {
         Debug.Log("TapResearchExample: TapResearchSDK OnButtonClick() attempting to show content");
         showSurveyContent();
+    }
+
+    // Fader and orientation callbacks
+
+    private void OnFadeToBlackComplete()
+    {
+        Debug.Log("Unity C# TestButton: Fade to black complete!");
+        orientationChanger.SetPortrait(OnOrientationChangedToPortrait);
+    }
+
+    private void OnOrientationChangedToPortrait()
+    {
+        Debug.Log("Unity C# TestButton: OnOrientationChangedToPortrait complete, showing survey modal!!");
+        TapResearchSDK.ShowContentForPlacement(placementTag); 
+    }
+    
+    private void OnOrientationChangedToLandscapeLeft()
+    {
+        Debug.Log("Unity C# TestButton: OnOrientationChangedToLandscapeLeft complete, fading from black!!");
+        waiter.Wait(1.0f, () => {
+            Debug.Log("Unity C# TestButton: Waiter done"); 
+            screenFader.FadeFromBlack(() => { Debug.Log("Unity C# TestButton: fade from black complete!"); });
+        });
     }
 
 }
