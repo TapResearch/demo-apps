@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.tapresearch.tapresearchjavademo"
-        minSdk 24
+        minSdk 23
         targetSdk 33
         versionCode 3
         versionName "1.0"
@@ -31,7 +31,7 @@ android {
 dependencies {
 
     // required by tap research sdk
-    implementation 'com.tapresearch:tapsdk:3.3.0'
+    implementation 'com.tapresearch:tapsdk:3.4.0'
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
     implementation 'androidx.lifecycle:lifecycle-process:2.6.1'
     implementation 'androidx.core:core-ktx:1.10.1'
