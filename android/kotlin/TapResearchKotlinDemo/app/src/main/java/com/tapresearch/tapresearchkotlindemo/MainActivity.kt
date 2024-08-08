@@ -37,8 +37,8 @@ class MainActivity : ComponentActivity() {
             apiToken = myApiToken,
             userIdentifier = myUserIdentifier,
             activity = this@MainActivity,
-            errorListener = { trError -> showErrorToast(trError) },
-            sdkReadyListener = {
+            errorCallback = { trError -> showErrorToast(trError) },
+            sdkReadyCallback = {
 
                 Toast.makeText(
                     this@MainActivity,
@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                 ).show()
                 Log.d(LOG_TAG, "SDK is ready")
             },
-            rewardListener = { rewards ->
+            rewardCallback = { rewards ->
                 showRewardToast(rewards)
             },
             initOptions = TapInitOptions(
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
 //                ),
 //                clearPreviousAttributes = true,
             ),
-            quickQuestionListener = object : TRQQDataCallback {
+            tapDataCallback = object : TRQQDataCallback {
                 override fun onQuickQuestionDataReceived(data: QQPayload) {
                     Log.d(LOG_TAG, "QQ data received: $data")
                 }
@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
                             TapResearch.showContentForPlacement(
                                 tag = placementTag,
                                 customParameters = null,
-                                contentListener =
+                                contentCallback =
                                 object : TRContentCallback {
                                     override fun onTapResearchContentShown(placementTag: String) {
                                         Log.d(LOG_TAG, "Content shown for $placementTag")
@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
                                 },
-                                errorListener = object : TRErrorCallback {
+                                errorCallback = object : TRErrorCallback {
                                     override fun onTapResearchDidError(trError: TRError) {
                                         showErrorToast(trError)
                                     }
@@ -116,7 +116,7 @@ class MainActivity : ComponentActivity() {
                                     "testStatus" to "VIP",
                                     "testInt" to 2,
                                 ),
-                                errorListener =
+                                errorCallback =
                                 object : TRErrorCallback {
                                     override fun onTapResearchDidError(trError: TRError) {
                                         showErrorToast(trError)
