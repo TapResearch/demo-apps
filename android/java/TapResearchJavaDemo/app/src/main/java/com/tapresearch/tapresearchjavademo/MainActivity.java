@@ -124,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         },
                         customParameters,
-                        this::showError
+                        this::showError,
+                        null
                 );
             }
             // Feedback toast for item click.
