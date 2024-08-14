@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
 //                ),
 //                clearPreviousAttributes = true,
             ),
-            tapDataCallback = object : TRQQDataCallback {
+            qqDataCallback = object : TRQQDataCallback {
                 override fun onQuickQuestionDataReceived(data: QQPayload) {
                     Log.d(LOG_TAG, "QQ data received: $data")
                 }

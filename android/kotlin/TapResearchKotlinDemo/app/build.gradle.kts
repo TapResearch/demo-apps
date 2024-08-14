@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.tapresearch.tapresearchkotlindemo"
-        minSdk = 24
+        minSdk = 23
         targetSdk = 34
         versionCode = 2
         versionName = "1.0"
@@ -59,7 +59,7 @@ android {
 dependencies {
 
     // required by tap research sdk
-    implementation("com.tapresearch:tapsdk:3.3.3")
+    implementation("com.tapresearch:tapsdk:3.3.4")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation ("androidx.lifecycle:lifecycle-process:2.6.1")
     implementation ("com.google.android.gms:play-services-ads-identifier:18.0.1")
