@@ -8,8 +8,6 @@
 import UIKit
 import TapResearchSDK
 
-///---------------------------------------------------------------------------------------------
-///---------------------------------------------------------------------------------------------
 class NativeWallViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TapResearchContentDelegate, TapResearchSurveysDelegate {
 
 	var placementTag: String!
@@ -19,7 +17,6 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 	@IBOutlet weak var networkBanner: UIView!
 	@IBOutlet weak var spinner: UIActivityIndicatorView!
 
-	///---------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -33,7 +30,6 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 
 	//MARK: - Table delegate and datasource
 
-	///---------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
 		self.tableView.deselectRow(at: indexPath, animated: true)
@@ -49,12 +45,10 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return surveys.count
 	}
 
-	///---------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		let survey: TRSurvey = surveys[indexPath.row]
@@ -79,12 +73,10 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 
 	//MARK: - TapResearch content delegates
 
-	///---------------------------------------------------------------------------------------------
 	func onTapResearchContentShown(forPlacement placement: String) {
 		print("[\(Date())] onTapResearchContentShown(\(placement))")
 	}
 
-	///---------------------------------------------------------------------------------------------
 	func onTapResearchContentDismissed(forPlacement placement: String) {
 		print("[\(Date())] onTapResearchContentDismissed(\(placement))")
 		DispatchQueue.main.async(execute: { () -> Void in
