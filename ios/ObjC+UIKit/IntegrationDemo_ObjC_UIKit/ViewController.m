@@ -8,6 +8,7 @@
 #import "ViewController.h"
 #import "PlacementCell.h"
 #import <TapResearchSDK/TapResearchSDK.h>
+#import "NativeWallViewController.h"
 
 @interface ViewController () <UITextFieldDelegate,
                               UITableViewDelegate,
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *placementStatus;
 
 @property (strong, nonatomic) NSMutableArray *knownPlacements;
+@property NSString *surveysPlacement;
 
 @end
 
@@ -34,6 +36,7 @@
 		@"banner-placemenet",
 		@"floating-interstitial-placement"
 	].mutableCopy;
+	self.surveysPlacement = @"earn-center";
 
 	self.textField.placeholder = @"Placement Tag";
 	self.textField.delegate = self;
@@ -42,7 +45,17 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
+	UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
+	[self.navigationItem setRightBarButtonItem:button];
 	[self.tableView reloadData];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+	if ([segue.identifier isEqualToString:@"ShowSurveys"]) {
+		NativeWallViewController *vc = ((NativeWallViewController*)segue.destinationViewController);
+		vc.placementTag = self.surveysPlacement;
+	}
 }
 
 //MARK: - UITextFieldDelegate
@@ -61,6 +74,10 @@
 }
 
 //MARK: - Actions and button handlers
+
+-(void)refresh {
+	[self.tableView reloadData];
+}
 
 - (IBAction)showPlacement {
 
@@ -94,34 +111,62 @@
 //MARK: - Tableview delegate and datasource
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-	return [PlacementCell cellForTableView:tableView andPlacementTag:self.knownPlacements[indexPath.row]];
+
+	if (indexPath.section == 0) {
+		return [PlacementCell cellForTableView:tableView placementTag:self.knownPlacements[indexPath.row] andInfo:nil];
+	}
+	else {
+		return [PlacementCell cellForTableView:tableView placementTag:self.surveysPlacement andInfo:nil];
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-	NSString *placementTag = self.knownPlacements[indexPath.row];
-	if ([TapResearch canShowContentForPlacement: placementTag error:^(NSError * _Nullable error) {
-		// Handle error, this is an optional error block
-	}]) {
-		[TapResearch showContentForPlacement:placementTag delegate:self customParameters:@{@"custom_param_1" : @"test text", @"custom_param_3" : @12} completion:^(NSError * _Nullable error) {
-			if (error) {
-				NSLog(@"Error on showContent: %ld, %@", (long)error.code, error.localizedDescription);
-			}
-		}];
+	if (indexPath.section == 0) {
+		NSString *placementTag = self.knownPlacements[indexPath.row];
+		if ([TapResearch canShowContentForPlacement: placementTag error:^(NSError * _Nullable error) {
+			// Handle error, this is an optional error block
+		}]) {
+			[TapResearch showContentForPlacement:placementTag delegate:self customParameters:@{@"custom_param_1" : @"test text", @"custom_param_3" : @12} completion:^(NSError * _Nullable error) {
+				if (error) {
+					NSLog(@"Error on showContent: %ld, %@", (long)error.code, error.localizedDescription);
+				}
+			}];
+		}
+		else {
+			NSLog(@"Placement not ready");
+		}
 	}
-	 else {
-		NSLog(@"Placement not ready");
+	else if (indexPath.section == 1) {
+		[self performSegueWithIdentifier:@"ShowSurveys" sender:self.surveysPlacement];
 	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return @"Known Placements";
+
+	if (section == 0) {
+		return @"Known Placements";
+	}
+	return @"Surveys";
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
+	BOOL hasSurveys = [TapResearch hasSurveysFor:self.surveysPlacement errorHandler:^(NSError * _Nullable error) { }];
+	if (hasSurveys) {
+		return 2;
+	}
+	return 1;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.knownPlacements.count;
+
+	if (section == 0) {
+		return self.knownPlacements.count;
+	}
+	return 1;
 }
 
 //MARK: - TapResearchContentDelegate
