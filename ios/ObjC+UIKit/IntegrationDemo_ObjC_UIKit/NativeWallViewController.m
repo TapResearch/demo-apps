@@ -57,7 +57,7 @@
 	NSString *surveyId = survey.surveyIdentifier;
 
 	if ([TapResearch canShowSurveyWithSurveyId:surveyId forPlacementTag:self.placementTag]) {
-		//[TapResearch showSurveyWithSurveyId:surveyId placementTag:self.placementTag delegate:self customParameters: @{@"key":@"value"} errorHandler:^(NSError * _Nullable) {
+		//[TapResearch showSurveyWithSurveyId:surveyId placementTag:self.placementTag delegate:self customParameters: @{@"key":@"value"} errorHandler:^(NSError * _Nullable error) {
 		[TapResearch showSurveyWithSurveyId:surveyId placementTag:self.placementTag delegate:self errorHandler:^(NSError * _Nullable error) {
 			if (error) {
 				NSLog(@"Error: %@ %@", error.userInfo[TapResearch.TapResearchErrorCodeString], error.localizedDescription);

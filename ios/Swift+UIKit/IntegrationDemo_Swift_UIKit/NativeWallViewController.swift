@@ -36,6 +36,7 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 
 		let surveyId = surveys[indexPath.row].surveyIdentifier
 		if TapResearch.canShowSurvey(surveyId: surveyId, forPlacementTag: placementTag) {
+			TapResearch.showSurvey(surveyId: surveyId, placementTag: placementTag, delegate: self, customParameters: ["key":"value"]) { (error: NSError?) in
 			TapResearch.showSurvey(surveyId: surveyId, placementTag: placementTag, delegate: self) { (error: NSError?) in
 				if let error = error {
 					print("Error: \(error.userInfo[TapResearch.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)")
