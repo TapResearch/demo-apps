@@ -16,21 +16,22 @@
 
 @implementation PlacementCell
 
-+ (PlacementCell*)cellForTableView:(UITableView*)tableView andPlacementTag:(NSString*)tag {
++ (PlacementCell*)cellForTableView:(UITableView*)tableView placementTag:(NSString*)tag andInfo:(NSString*)info {
 
 	static NSString *cellId = @"PlacementCell";
 	PlacementCell *cell = (PlacementCell *)[tableView dequeueReusableCellWithIdentifier:cellId];
 	if (!cell) {
 		cell = [[PlacementCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
 	}
-	[cell fillCellWithPlacementTag:tag];
+	[cell fillCellWithPlacementTag:tag andInfo:info];
 	return cell;
 }
 
-- (void)fillCellWithPlacementTag:(NSString*)tag {
+- (void)fillCellWithPlacementTag:(NSString*)placement andInfo:(NSString*)info {
 
-	self.title.text = tag;
-	self.subLabel.text = nil;
+	self.accessibilityLabel = placement;
+	self.title.text = placement;
+	self.subLabel.text = info;
 }
 
 @end

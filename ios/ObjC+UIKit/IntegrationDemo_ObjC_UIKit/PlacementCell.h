@@ -9,7 +9,6 @@
 
 @interface PlacementCell : UITableViewCell
 
-+ (PlacementCell*)cellForTableView:(UITableView*)tableView andPlacementTag:(NSString*)tag;
-- (void)fillCellWithPlacementTag:(NSString*)tag;
++ (PlacementCell*)cellForTableView:(UITableView*)tableView placementTag:(NSString*)tag andInfo:(NSString*)info;
 
 @end
