@@ -8,25 +8,29 @@ public class TapResearchExample : MonoBehaviour
     public TRScreenFader screenFader;
     public TROrientationChanger orientationChanger;
     public TRWaiter waiter;
+    public string surveysPlacementTag;
+    public GameObject surveysButton;
 
     #if UNITY_ANDROID
-    private static string tapAPIToken = "YOUR_ANDROID_API_TOKEN"; // Public Test Android, replace with your own API token
+    private static string tapAPIToken = "fb28e5e0572876db0790ecaf6c588598"; // Public Test Android, replace with your own API token
     #elif UNITY_IPHONE
-    private static string tapAPIToken = "YOUR_IOS_API_TOKEN";  // Public Test iOS, replace with your own API token
+    private static string tapAPIToken = "100e9133abc21471c8cd373587e07515";  // Public Test iOS, replace with your own API token
+    #else 
+    private static string tapAPIToken = "NotAvailebleInEditor";  // Public Test iOS, replace with your own API token
     #endif
-    private static string tapPlayerUserId = "GAME_USER_IDENTIFIER";
-    private static string placementTag = "PLACEMENT_TAG";
+    private static string tapPlayerUserId = "public-test-user";
+    private static string placementTag = "earn-center";
                 
     void Awake()
     {
-        Screen.orientation = ScreenOrientation.LandscapeLeft;
+        Screen.orientation = ScreenOrientation.Portrait;//.LandscapeLeft;
         Debug.Log("TapResearchExample: About to initialize Tap SDK");
         TapResearchSDK.TapContentShown = TapContentShown;
         TapResearchSDK.TapContentDismissed = TapContentDismissed;
         TapResearchSDK.TapResearchQQResponseReceived = TapQQResponseReceived;
         TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
         TapResearchSDK.TapResearchDidError = TapResearchDidError;
-        TapResearchSDK.TapResearchSdkReady =  TapSdkReady;
+        TapResearchSDK.TapResearchSdkReady = TapSdkReady;
         screenFader.SetAlpha(0.0f);
         TapResearchSDK.Configure(tapAPIToken, tapPlayerUserId);
     }
@@ -41,30 +45,39 @@ public class TapResearchExample : MonoBehaviour
     public void TapContentDismissed(string placementTag)
     {
         Debug.Log("TapResearchExample: Survey Content Dismissed");
-        orientationChanger.SetLandscapeLeft(OnOrientationChangedToLandscapeLeft);
+        orientationChanger.SetPortrait(OnOrientationChangedToLandscapeLeft);//.SetLandscapeLeft(OnOrientationChangedToLandscapeLeft);
      }
 
     public void TapSdkReady()
     {
-        Debug.Log("TapResearchExample: TapResearchSDK ready, going to send user attributes");
+		if (TapResearchSDK.IsReady()) // There is no need for this here, it is just for illustration
+		{
+            Debug.Log("TapResearchExample: TapResearchSDK ready, going to send user attributes...");
 
-        Dictionary<string, object> userAttributes = new Dictionary<string, object>();
-        userAttributes["some_string"] = "a string value";
-        userAttributes["some_number"] = "12";
-        userAttributes["another_number"] = 12;
-        userAttributes["boolean"] = "true";
-        System.DateTime now = System.DateTime.UtcNow;
-        string iso8601String = now.ToString("o");
-        userAttributes["iso8601_date"] = iso8601String;
-        userAttributes.Add("another_string", "it's another string!");
+            Dictionary<string, object> userAttributes = new Dictionary<string, object>();
+            userAttributes["some_string"] = "a string value";
+            userAttributes["some_number"] = "12";
+            userAttributes["another_number"] = 12;
+            userAttributes["boolean"] = "true";
+            System.DateTime now = System.DateTime.UtcNow;
+            string iso8601String = now.ToString("o");
+            userAttributes["iso8601_date"] = iso8601String;
+            userAttributes.Add("another_string", "it's another string!");
+    
+            TapResearchSDK.SendUserAttributes(userAttributes, true);
 
-        TapResearchSDK.SendUserAttributes(userAttributes, true);
+            if (TapResearchSDK.HasSurveys(placementTag)) {
+                surveysButton.SetActive(true);
+            }
+            else {
+                surveysButton.SetActive(false);
+            }
+        }
     }
 
     private void TapQQResponseReceived(TRQQDataPayload payload) {
         Debug.Log("TapResearchExample: TRQQDataPayload received! placement: " + payload.PlacementTag + " userIdentifier: " + payload.UserIdentifier);
     }
-
 
     private void TapResearchRewardReceived(TRReward[] rewards) {
 
@@ -75,14 +88,13 @@ public class TapResearchExample : MonoBehaviour
     }
     
     private void TapResearchDidError(TRError error) {
-        Debug.Log(("TapResearchExample: TapResearch Error:" + error.ErrorCode + " " + error.ErrorDescription + ""));
+        Debug.Log("TapResearchExample: TapResearch Error:" + error.ErrorCode + " " + error.ErrorDescription + "");
     }
 
     // END Callbacks
 
     public void showSurveyContent()
     {
-
         if (TapResearchSDK.CanShowContent(placementTag)) 
         {
             Debug.Log("TapResearchExample: TapResearchSDK showSurveyContent() fading to black");
@@ -119,20 +131,21 @@ public class TapResearchExample : MonoBehaviour
     private void OnFadeToBlackComplete()
     {
         Debug.Log("Unity C# TestButton: Fade to black complete!");
-        orientationChanger.SetPortrait(OnOrientationChangedToPortrait);
+        orientationChanger.SetAutoRotate(OnOrientationChangedForSurveys);        
+        //If you don't want to auto-rotate you can force it into portrait for example: orientationChanger.SetPortrait(OnOrientationChangedForSurveys);
     }
 
-    private void OnOrientationChangedToPortrait()
+    private void OnOrientationChangedForSurveys()
     {
-        Debug.Log("Unity C# TestButton: OnOrientationChangedToPortrait complete, showing survey modal!!");
+        Debug.Log("Unity C# TestButton: OnOrientationChangedForSurveys complete, showing survey modal!!");
         TapResearchSDK.ShowContentForPlacement(placementTag); 
     }
-    
+        
     private void OnOrientationChangedToLandscapeLeft()
     {
         Debug.Log("Unity C# TestButton: OnOrientationChangedToLandscapeLeft complete, fading from black!!");
         waiter.Wait(1.0f, () => {
-            Debug.Log("Unity C# TestButton: Waiter done"); 
+            // Debug.Log("Unity C# TestButton: Waiter done"); 
             screenFader.FadeFromBlack(() => { Debug.Log("Unity C# TestButton: fade from black complete!"); });
         });
     }
