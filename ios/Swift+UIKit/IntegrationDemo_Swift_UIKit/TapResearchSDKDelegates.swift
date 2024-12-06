@@ -8,25 +8,27 @@
 import Foundation
 import TapResearchSDK
 
-class TapResearchDelegates: NSObject, TapResearchSDKDelegate {
+class TapResearchDelegates: NSObject, TapResearchSDKDelegate, LogPrint {
 
+	// Optional
 	func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
-		print("onTapResearchDidReceiveRewards(rewards...)")
+		logPrint("number of rewards = \(rewards.count)")
 	}
 
+	// Optional
 	func onTapResearchQuickQuestionResponse(_ qqPayload: TRQQDataPayload) {
-		print("onTapResearchQuickQuestionResponse(responses...)")
+		logPrint()
 	}
 
 	func onTapResearchDidError(_ error: NSError) {
-		print("onTapResearchDidError: \(error.code) \(error.localizedDescription)")
+		logPrint("\(error.code) \(error.localizedDescription)")
 	}
 
 	func onTapResearchSdkReady() {
-		print("onTapResearchSdkReady()")
+		logPrint()
 
 		if let error: NSError = TapResearch.sendUserAttributes(attributes: ["Number" : 12, "String" : "Some text", "Boolean" : "true"], clearPreviousAttributes: false) {
-			print("Error sending user attributes: \(error.code) \(error.localizedDescription)")
+			logPrint("Error sending user attributes: \(error.code) \(error.localizedDescription)")
 		}
 	}
 

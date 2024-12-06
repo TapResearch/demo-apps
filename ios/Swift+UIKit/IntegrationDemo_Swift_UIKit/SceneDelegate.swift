@@ -8,7 +8,7 @@
 import UIKit
 import TapResearchSDK
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, LogPrint {
 
 	var window: UIWindow?
 
@@ -27,10 +27,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		let dict: [AnyHashable:Any] = ["some_string" : "a string value", "some_number" : 12]
 		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, userAttributes: dict, clearPreviousAttributes: true, sdkDelegate:tapDelegates) { (error: Error?) in
 			if let error = error {
-				print(error.localizedDescription as Any)
+				self.logPrint(error.localizedDescription)
 			}
 			else {
-				print("Intialized - waiting to be ready")
+				self.logPrint("Intialized - waiting to be ready")
 			}
 		}
 

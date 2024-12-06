@@ -8,7 +8,14 @@
 import UIKit
 import TapResearchSDK
 
-class NativeWallViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TapResearchContentDelegate, TapResearchSurveysDelegate {
+class NativeWallViewController: UIViewController,
+								UITableViewDelegate,
+								UITableViewDataSource,
+								TapResearchContentDelegate,
+								TapResearchSurveysDelegate,
+								TapResearchRewardDelegate,
+								LogPrint
+{
 
 	var placementTag: String!
 	var surveys: [TRSurvey] = []
@@ -26,6 +33,16 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 			spinner.stopAnimating()
 		}
 		TapResearch.setSurveysDelegate(self)
+
+		self.navigationItem.hidesBackButton = true
+		let button: UIBarButtonItem = UIBarButtonItem(title: "Back", image: UIImage(systemName: "chevron.left"), target: self, action: #selector(back))
+		self.navigationItem.leftBarButtonItem = button
+	}
+
+	@objc func back() {
+
+		TapResearch.setSurveysDelegate(nil)
+		self.navigationController?.popViewController(animated: true)
 	}
 
 	//MARK: - Table delegate and datasource
@@ -39,7 +56,7 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 			//TapResearch.showSurvey(surveyId: surveyId, placementTag: placementTag, delegate: self, customParameters: ["key":"value"]) { (error: NSError?) in
 			TapResearch.showSurvey(surveyId: surveyId, placementTag: placementTag, delegate: self) { (error: NSError?) in
 				if let error = error {
-					print("Error: \(error.userInfo[TapResearch.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)")
+					self.logPrint("Error: \(error.userInfo[TapResearch.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)")
 					// do something with the error
 				}
 			}
@@ -62,7 +79,7 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 
 	/// ---------------------------------------------------------------------------------------------
 	func onTapResearchSurveysRefreshed(forPlacement placementTag: String) {
-		print("placement surveys refreshed for \(placementTag)")
+		logPrint("Placement surveys refreshed for \(placementTag)")
 
 		surveys = TapResearch.getSurveys(for: placementTag)
 		tableView.reloadData()
@@ -75,13 +92,17 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 	//MARK: - TapResearch content delegates
 
 	func onTapResearchContentShown(forPlacement placement: String) {
-		print("[\(Date())] onTapResearchContentShown(\(placement))")
+		logPrint("placement = \(placement)")
 	}
 
 	func onTapResearchContentDismissed(forPlacement placement: String) {
-		print("[\(Date())] onTapResearchContentDismissed(\(placement))")
-		DispatchQueue.main.async(execute: { () -> Void in
-		})
+		logPrint("placement = \(placement)")
+	}
+
+	//MARK: - TapResearchRewardDelegate
+
+	func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
+		logPrint("number of rewards = \(rewards.count)")
 	}
 
 }
