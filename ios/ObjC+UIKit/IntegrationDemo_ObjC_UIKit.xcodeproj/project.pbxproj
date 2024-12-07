@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		902455D82D0413DA00034193 /* NSObject+LogPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = 902455D72D0413DA00034193 /* NSObject+LogPrint.m */; };
 		90260F4D2A0F019F00F6FCDF /* PlacementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90260F4C2A0F019F00F6FCDF /* PlacementCell.m */; };
 		9080F7A829A69C9700FFF90C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F7A729A69C9700FFF90C /* AppDelegate.m */; };
 		9080F7AB29A69C9700FFF90C /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F7AA29A69C9700FFF90C /* SceneDelegate.m */; };
@@ -32,6 +33,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		902455D52D03AD3700034193 /* IntegrationDemo_ObjC_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntegrationDemo_ObjC_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		902455D62D0413CE00034193 /* NSObject+LogPrint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+LogPrint.h"; sourceTree = "<group>"; };
+		902455D72D0413DA00034193 /* NSObject+LogPrint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+LogPrint.m"; sourceTree = "<group>"; };
 		90260F4B2A0F019F00F6FCDF /* PlacementCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacementCell.h; sourceTree = "<group>"; };
 		90260F4C2A0F019F00F6FCDF /* PlacementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacementCell.m; sourceTree = "<group>"; };
 		9080F7A629A69C9700FFF90C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -45,7 +49,6 @@
 		9080F7B529A69C9800FFF90C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9080F7B729A69C9800FFF90C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9080F7B829A69C9800FFF90C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		90C871D82CA3405800873E22 /* IntegrationDemo_ObjC_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IntegrationDemo_ObjC_UIKit.app; path = "/Users/jeroen/orca/demo-apps/ios/ObjC+UIKit/build/Debug-iphoneos/IntegrationDemo_ObjC_UIKit.app"; sourceTree = "<absolute>"; };
 		90C871DB2CA340C700873E22 /* NativeWallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeWallViewController.h; sourceTree = "<group>"; };
 		90C871DC2CA340C700873E22 /* NativeWallViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeWallViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,12 +76,15 @@
 			children = (
 				9080F7A529A69C9700FFF90C /* IntegrationDemo_ObjC_UIKit */,
 				519A26B928DAC56A5F8E8411 /* Frameworks */,
+				902455D52D03AD3700034193 /* IntegrationDemo_ObjC_UIKit.app */,
 			);
 			sourceTree = "<group>";
 		};
 		9080F7A529A69C9700FFF90C /* IntegrationDemo_ObjC_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				902455D62D0413CE00034193 /* NSObject+LogPrint.h */,
+				902455D72D0413DA00034193 /* NSObject+LogPrint.m */,
 				9080F7A629A69C9700FFF90C /* AppDelegate.h */,
 				9080F7A729A69C9700FFF90C /* AppDelegate.m */,
 				9080F7A929A69C9700FFF90C /* SceneDelegate.h */,
@@ -116,7 +122,7 @@
 			);
 			name = IntegrationDemo_ObjC_UIKit;
 			productName = IntegrationDemo_ObjC_UIKit;
-			productReference = 90C871D82CA3405800873E22 /* IntegrationDemo_ObjC_UIKit.app */;
+			productReference = 902455D52D03AD3700034193 /* IntegrationDemo_ObjC_UIKit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -175,6 +181,7 @@
 				9080F7B929A69C9800FFF90C /* main.m in Sources */,
 				9080F7AB29A69C9700FFF90C /* SceneDelegate.m in Sources */,
 				90C871DD2CA340C700873E22 /* NativeWallViewController.m in Sources */,
+				902455D82D0413DA00034193 /* NSObject+LogPrint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
