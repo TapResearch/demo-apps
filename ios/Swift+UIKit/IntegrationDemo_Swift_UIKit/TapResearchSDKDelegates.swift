@@ -11,14 +11,14 @@ import TapResearchSDK
 class TapResearchDelegates: NSObject, TapResearchSDKDelegate, LogPrint {
 
 	// Optional
-	func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
-		logPrint("number of rewards = \(rewards.count)")
-	}
+//	func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
+//		logPrint("number of rewards = \(rewards.count)")
+//	}
 
 	// Optional
-	func onTapResearchQuickQuestionResponse(_ qqPayload: TRQQDataPayload) {
-		logPrint()
-	}
+//	func onTapResearchQuickQuestionResponse(_ qqPayload: TRQQDataPayload) {
+//		logPrint()
+//	}
 
 	func onTapResearchDidError(_ error: NSError) {
 		logPrint("\(error.code) \(error.localizedDescription)")

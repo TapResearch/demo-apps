@@ -43,6 +43,8 @@ class ViewController : UIViewController,
 		super.viewWillAppear(animated)
 
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
+		TapResearch.setRewardDelegate(self)
+		TapResearch.setQuickQuestionDelegate(self)
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

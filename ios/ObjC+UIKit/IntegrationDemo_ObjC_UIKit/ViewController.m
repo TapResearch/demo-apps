@@ -9,12 +9,15 @@
 #import "PlacementCell.h"
 #import <TapResearchSDK/TapResearchSDK.h>
 #import "NativeWallViewController.h"
+#import "NSObject+LogPrint.h"
 
 @interface ViewController () <UITextFieldDelegate,
-                              UITableViewDelegate,
-                              UITableViewDataSource,
-                              TapResearchContentDelegate
-                              >
+							  UITableViewDelegate,
+							  UITableViewDataSource,
+							  TapResearchContentDelegate,
+							  TapResearchRewardDelegate,
+							  TapResearchQuickQuestionDelegate
+							  >
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
@@ -48,6 +51,8 @@
 	UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
 	[self.navigationItem setRightBarButtonItem:button];
 	[self.tableView reloadData];
+	[TapResearch setRewardDelegate:self];
+	[TapResearch setQuickQuestionDelegate:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -131,15 +136,16 @@
 		}]) {
 			[TapResearch showContentForPlacement:placementTag delegate:self customParameters:@{@"custom_param_1" : @"test text", @"custom_param_3" : @12} completion:^(NSError * _Nullable error) {
 				if (error) {
-					NSLog(@"Error on showContent: %ld, %@", (long)error.code, error.localizedDescription);
+					[self logPrint:[NSString stringWithFormat:@"Error on showContent: %ld, %@", (long)error.code, error.localizedDescription] function:__FUNCTION__];
 				}
 			}];
 		}
 		else {
-			NSLog(@"Placement not ready");
+			[self logPrint:@"Placement not ready" function:__FUNCTION__];
 		}
 	}
 	else if (indexPath.section == 1) {
+		[TapResearch setRewardDelegate:nil];
 		[self performSegueWithIdentifier:@"ShowSurveys" sender:self.surveysPlacement];
 	}
 }
@@ -172,11 +178,23 @@
 //MARK: - TapResearchContentDelegate
 
 - (void)onTapResearchContentDismissedForPlacement:(NSString * _Nonnull)placement {
-	NSLog(@"onTapResearchContentDismissedForPlacement(%@)", placement);
+	[self logPrint:[NSString stringWithFormat:@"placement = %@", placement] function:__FUNCTION__];
 }
 
 - (void)onTapResearchContentShownForPlacement:(NSString * _Nonnull)placement {
-	NSLog(@"onTapResearchContentShownForPlacement(%@)", placement);
+	[self logPrint:[NSString stringWithFormat:@"placement = %@", placement] function:__FUNCTION__];
+}
+
+//MARK: - TapResearchRewardDelegate
+
+- (void)onTapResearchDidReceiveRewards:(NSArray<TRReward *> * _Nonnull)rewards {
+	[self logPrint:[NSString stringWithFormat:@"number of rewards = %lu", (unsigned long)rewards.count] function:__FUNCTION__];
+}
+
+//MARK: - TapResearchQuickQuestionDelegate
+
+- (void)onTapResearchQuickQuestionResponse:(TRQQDataPayload *)qqPayload {
+	[self logPrint:@" recieved a qq response" function:__FUNCTION__];
 }
 
 @end

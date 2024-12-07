@@ -6,10 +6,12 @@
 //
 
 #import "AppDelegate.h"
+#import "NSObject+LogPrint.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	[self logPrint:@"test" function: __FUNCTION__];
 	return YES;
 }
 

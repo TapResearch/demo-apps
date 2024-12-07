@@ -6,6 +6,7 @@
 //
 
 #import "SceneDelegate.h"
+#import "NSObject+LogPrint.h"
 
 NSString *apiToken = @"0b5dcbae8151c1b82d69697dce004bf2"; // Replace with your own token
 NSString *userIdentifier = @"some-user-identifier999"; // Replace with your own app's player user id
@@ -30,14 +31,14 @@ NSString *userIdentifier = @"some-user-identifier999"; // Replace with your own 
 							sdkDelegate:self
 							 completion:^(NSError * _Nullable error) {
 		if (error) {
-			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
+			[self logPrint:[NSString stringWithFormat:@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription] function: __FUNCTION__];
 		}
 	}];
 
 	// Initialize TapResearchSDK without passing user attributes:
 	//[TapResearch initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(NSError * _Nullable error) {
 	//	if (error) {
-	//		NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
+	//		[self logPrint:[NSString stringWithFormat:@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription] function: __FUNCTION__];
 	//	}
 	//}];
 }
@@ -72,25 +73,28 @@ NSString *userIdentifier = @"some-user-identifier999"; // Replace with your own 
 
 //MARK: - TapResearchSDKDelegate
 
+// Optional
+//- (void)onTapResearchDidReceiveRewards:(NSArray<TRReward *> * _Nonnull)rewards {
+//	[self logPrint:[NSString stringWithFormat:@"number of rewards = %lu", (unsigned long)rewards.count] function:__FUNCTION__];
+//}
+
+// Optional
+//- (void)onTapResearchQuickQuestionResponse:(TRQQDataPayload *)qqPayload {
+//	[self logPrint:@" recieved a qq response" function:__FUNCTION__];
+//}
+
 - (void)onTapResearchDidError:(NSError * _Nonnull)error {
-	NSLog(@"onTapResearchDidError() -> %@, %ld", error.localizedDescription, (long)error.code);
-}
-
-- (void)onTapResearchDidReceiveRewards:(NSArray<TRReward *> * _Nonnull)rewards {
-	NSLog(@"onTapResearchDidReceiveRewards(%@)", rewards);
-}
-
-- (void)onTapResearchQuickQuestionResponse:(TRQQDataPayload *)qqPayload {
-	NSLog(@"[%@] onTapResearchQuickQuestionResponse(%@)", NSDate.now.description, qqPayload);
+	[self logPrint:[NSString stringWithFormat:@"error = %ld %@", (long)error.code, error.localizedDescription] function:__FUNCTION__];
 }
 
 - (void)onTapResearchSdkReady {
-	NSLog(@"onTapResearchSdkReady()");
+	[self logPrint:@"" function:__FUNCTION__];
 
 	NSError *error = [TapResearch sendUserAttributesWithAttributes:@{@"Number" : @12, @"String" : @"Some text", @"Boolean" : @"true"}
 										   clearPreviousAttributes:NO];
 	if (error) {
-		NSLog(@"Error sending user attributes: %ld %@", (long)error.code, error.localizedDescription);
+		[self logPrint:[NSString stringWithFormat:@"Error sending user attributes: %ld %@", (long)error.code, error.localizedDescription] function:__FUNCTION__];
+
 	}
 }
 
