@@ -13,6 +13,7 @@
 		900CBA932B76FE8E009D01D7 /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900CBA922B76FE8E009D01D7 /* MainContentView.swift */; };
 		900CBA952B76FEB8009D01D7 /* TapResearchSDKDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900CBA942B76FEB8009D01D7 /* TapResearchSDKDelegates.swift */; };
 		900CBA9B2B77007F009D01D7 /* TapResearchContentDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900CBA9A2B77007F009D01D7 /* TapResearchContentDelegates.swift */; };
+		906A3E422D13DABE0033DC0E /* SurveyWallPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906A3E412D13DABC0033DC0E /* SurveyWallPreview.swift */; };
 		906C91862A97FF1B006AC61C /* TapResearchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 906C91852A97FF1B006AC61C /* TapResearchSDK */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		900CBA922B76FE8E009D01D7 /* MainContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
 		900CBA942B76FEB8009D01D7 /* TapResearchSDKDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapResearchSDKDelegates.swift; sourceTree = "<group>"; };
 		900CBA9A2B77007F009D01D7 /* TapResearchContentDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapResearchContentDelegates.swift; sourceTree = "<group>"; };
+		906A3E412D13DABC0033DC0E /* SurveyWallPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyWallPreview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 		270EB2CA2A193CA600B775B6 /* IntegrationDemo_SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				906A3E412D13DABC0033DC0E /* SurveyWallPreview.swift */,
 				270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */,
 				900CBA922B76FE8E009D01D7 /* MainContentView.swift */,
 				270EB2CD2A193CA600B775B6 /* ContentView.swift */,
@@ -158,6 +161,7 @@
 			files = (
 				270EB2CE2A193CA600B775B6 /* ContentView.swift in Sources */,
 				900CBA9B2B77007F009D01D7 /* TapResearchContentDelegates.swift in Sources */,
+				906A3E422D13DABE0033DC0E /* SurveyWallPreview.swift in Sources */,
 				270EB2CC2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift in Sources */,
 				900CBA952B76FEB8009D01D7 /* TapResearchSDKDelegates.swift in Sources */,
 				900CBA932B76FE8E009D01D7 /* MainContentView.swift in Sources */,
@@ -368,7 +372,7 @@
 			repositoryURL = "https://github.com/TapResearch/TapResearch-iOS-SDK";
 			requirement = {
 				kind = exactVersion;
-				version = 3.5.0;
+				version = 3.5.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
