@@ -6,6 +6,6 @@ target 'IntegrationDemo_Swift_UIKit' do
   use_frameworks!
 
   # Pods for swiftui-example-tapresearch
-  pod 'TapResearch', '3.5.1'
+  pod 'TapResearch', '3.5.2'
 
 end
