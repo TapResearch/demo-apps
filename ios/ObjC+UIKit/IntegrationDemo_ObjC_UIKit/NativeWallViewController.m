@@ -46,8 +46,26 @@
 	TRSurvey *survey = self.surveys[indexPath.row];
 	NSString *title = [NSString stringWithFormat:@"%@ %@", self.placementTag, survey.surveyIdentifier];
 	NSString *info = [NSString stringWithFormat:@"%ld %@, %ld %@", (long)survey.lengthInMinutes, (survey.lengthInMinutes == 1 ? @"minute" : @"minutes"), (long)survey.rewardAmount, survey.currencyName];
-
-	return [PlacementCell cellForTableView:tableView placementTag:title andInfo:info]; 
+	if(survey.isSale) {
+		[info stringByAppendingFormat:@" 🛍️ X %.0f", survey.saleMultiplier];
+	}
+	PlacementCell *cell =  [PlacementCell cellForTableView:tableView placementTag:title andInfo:info];
+	cell.contentView.layer.borderWidth = 4;
+	cell.contentView.layer.borderColor = [UIColor systemBackgroundColor].CGColor;
+	if (survey.isSale) {
+		if (survey.isHotTile) {
+			cell.contentView.backgroundColor = [UIColor systemRedColor];
+		} else {
+			cell.contentView.backgroundColor = [UIColor systemOrangeColor];
+		}
+	}
+	else {
+		cell.contentView.backgroundColor = [UIColor systemBackgroundColor];
+		if (survey.isHotTile) {
+			cell.contentView.layer.borderColor = [UIColor systemRedColor].CGColor;
+		}
+	}
+	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

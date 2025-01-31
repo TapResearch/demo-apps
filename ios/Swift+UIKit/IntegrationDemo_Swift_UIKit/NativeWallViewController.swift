@@ -54,8 +54,28 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 
 		let survey: TRSurvey = surveys[indexPath.row]
 		let title: String = placementTag + " " + survey.surveyIdentifier
-		let info: String = "\(survey.lengthInMinutes) \(survey.lengthInMinutes == 1 ? "minute" : "minutes"), \(survey.rewardAmount) \(survey.currencyName)"
-		return PlacementCell.cell(tableView: tableView, placement:title, info: info)
+		var info: String = "\(survey.lengthInMinutes) \(survey.lengthInMinutes == 1 ? "minute" : "minutes"), \(survey.rewardAmount) \(survey.currencyName)"
+		if survey.isSale {
+			info += " 🛍️ " + String(format: "X %.2f", survey.saleMultiplier)
+		}
+		let cell = PlacementCell.cell(tableView: tableView, indexPath: indexPath, placement:title, info: info)
+		cell.contentView.layer.borderWidth = 4
+		cell.contentView.layer.borderColor = UIColor.systemBackground.cgColor
+		if survey.isSale {
+			if survey.isHotTile {
+				cell.contentView.backgroundColor = .systemRed
+			}
+			else {
+				cell.contentView.backgroundColor = .systemOrange
+			}
+		}
+		else {
+			cell.contentView.backgroundColor = .systemBackground
+			if survey.isHotTile {
+				cell.contentView.layer.borderColor = UIColor.systemRed.cgColor
+			}
+		}
+		return cell
 	}
 
 	//MARK: - TapResearch survey delegates
