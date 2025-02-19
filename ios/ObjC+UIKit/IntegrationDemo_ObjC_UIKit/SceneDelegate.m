@@ -8,7 +8,7 @@
 #import "SceneDelegate.h"
 
 NSString *apiToken = @"0b5dcbae8151c1b82d69697dce004bf2"; // Replace with your own token
-NSString *userIdentifier = @"some-user-identifier999"; // Replace with your own app's player user id
+NSString *userIdentifier = @"public-demo-user"; // Replace with your own app's player user id
 
 @interface SceneDelegate ()
 
