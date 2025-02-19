@@ -8,7 +8,14 @@
 import UIKit
 import TapResearchSDK
 
-class NativeWallViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TapResearchContentDelegate, TapResearchSurveysDelegate {
+class NativeWallViewController: UIViewController,
+								UITableViewDelegate,
+								UITableViewDataSource,
+								TapResearchContentDelegate,
+								TapResearchSurveysDelegate,
+//								TapResearchRewardDelegate,
+								LogPrint
+{
 
 	var placementTag: String!
 	var surveys: [TRSurvey] = []
@@ -39,7 +46,7 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 			//TapResearch.showSurvey(surveyId: surveyId, placementTag: placementTag, delegate: self, customParameters: ["key":"value"]) { (error: NSError?) in
 			TapResearch.showSurvey(surveyId: surveyId, placementTag: placementTag, delegate: self) { (error: NSError?) in
 				if let error = error {
-					print("Error: \(error.userInfo[TapResearch.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)")
+					self.logPrint("Error: \(error.userInfo[TapResearch.TapResearchErrorCodeString] ?? "(No code)") \(error.localizedDescription)")
 					// do something with the error
 				}
 			}
@@ -58,19 +65,22 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 		if survey.isSale {
 			info += " 🛍️ " + String(format: "X %.2f", survey.saleMultiplier)
 		}
+		if survey.isHotTile {
+			info += " 🔥"
+		}
 		let cell = PlacementCell.cell(tableView: tableView, indexPath: indexPath, placement:title, info: info)
 		cell.contentView.layer.borderWidth = 4
 		cell.contentView.layer.borderColor = UIColor.systemBackground.cgColor
 		if survey.isSale {
 			if survey.isHotTile {
-				cell.contentView.backgroundColor = .systemRed
+				cell.contentView.backgroundColor = UIColor.systemRed
 			}
 			else {
-				cell.contentView.backgroundColor = .systemOrange
+				cell.contentView.backgroundColor = UIColor.systemOrange
 			}
 		}
 		else {
-			cell.contentView.backgroundColor = .systemBackground
+			cell.contentView.backgroundColor = UIColor.systemBackground
 			if survey.isHotTile {
 				cell.contentView.layer.borderColor = UIColor.systemRed.cgColor
 			}
@@ -82,7 +92,7 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 
 	/// ---------------------------------------------------------------------------------------------
 	func onTapResearchSurveysRefreshed(forPlacement placementTag: String) {
-		print("placement surveys refreshed for \(placementTag)")
+		logPrint("Placement surveys refreshed for \(placementTag)")
 
 		surveys = TapResearch.getSurveys(for: placementTag)
 		tableView.reloadData()
@@ -95,13 +105,11 @@ class NativeWallViewController: UIViewController, UITableViewDelegate, UITableVi
 	//MARK: - TapResearch content delegates
 
 	func onTapResearchContentShown(forPlacement placement: String) {
-		print("[\(Date())] onTapResearchContentShown(\(placement))")
+		logPrint("placement = \(placement)")
 	}
 
 	func onTapResearchContentDismissed(forPlacement placement: String) {
-		print("[\(Date())] onTapResearchContentDismissed(\(placement))")
-		DispatchQueue.main.async(execute: { () -> Void in
-		})
+		logPrint("placement = \(placement)")
 	}
 
 }

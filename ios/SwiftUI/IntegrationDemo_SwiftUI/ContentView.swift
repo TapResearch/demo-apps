@@ -10,6 +10,8 @@ import TapResearchSDK
 
 struct ContentView: View {
 
+
+	@State var waitText: String = "Waiting for surveys..."
 	@State var placementTagInput = ""
 	@Binding var userId: String
 	@State var knownPlacements = [
@@ -20,11 +22,12 @@ struct ContentView: View {
 		"capped-and-paced-interstitial",
 		"banner-placement"
 	]
+	@State var hasSurveys: Bool = false
+	@State var showSurveyWallPreview: Bool = false
 
 	let contentDelegate: TapResearchContentDelegates = TapResearchContentDelegates()
 
 	func showPlacement(_ placementTag: String) {
-
 		guard placementTag.count > 0 else { return }
 
 		if TapResearch.canShowContent(forPlacement: placementTag, error: { (error: NSError?) in
@@ -43,78 +46,98 @@ struct ContentView: View {
 		}
 	}
 
-	func updateuserIdInput(_ userIdInput: String) {
-
+	func updateUserIdInput(_ userIdInput: String) {
 		guard userIdInput.count > 0 else { return }
+
 		TapResearch.setUserIdentifier(userIdInput) { (error: NSError?) in
 			// Send user attributes when you need to
-			if let error = TapResearch.sendUserAttributes(attributes: ["app-user": userIdInput, "roller-type": "high", "roller-type-valid-until": Date().timeIntervalSince1970 + (3.0 * 60.0 * 60.0)]) {
+			if let _ = TapResearch.sendUserAttributes(attributes: ["app-user": userIdInput, "roller-type": "high", "roller-type-valid-until": Date().timeIntervalSince1970 + (3.0 * 60.0 * 60.0)]) {
 				// Do something on completion or with the error
 			}
 		}
 	}
 
 	var body: some View {
-
-		VStack {
+		ZStack {
 			VStack {
-				HStack {
-					TextField("Placement Tag", text: $placementTagInput)
-						.textFieldStyle(.roundedBorder)
-						.autocapitalization(.none)
-						.onChange(of: placementTagInput) { _ in
-							if placementTagInput.filter({ $0.isNewline }).isEmpty {
-								showPlacement(placementTagInput.replacingOccurrences(of: "\n", with: ""))
+				VStack {
+					HStack {
+						TextField("Placement Tag", text: $placementTagInput)
+							.textFieldStyle(.roundedBorder)
+							.autocapitalization(.none)
+							.onChange(of: placementTagInput) { _ in
+								if placementTagInput.filter({ $0.isNewline }).isEmpty {
+									showPlacement(placementTagInput.replacingOccurrences(of: "\n", with: ""))
+								}
 							}
+
+						Button(action: { showPlacement(placementTagInput) } ) {
+							Text("Show Placement")
+								.frame(minWidth: 130, maxWidth: 130)
 						}
-
-					Button(action: { showPlacement(placementTagInput) } ) {
-						Text("Show Placement")
-							.frame(minWidth: 130, maxWidth: 130)
+						.buttonStyle(.borderedProminent)
 					}
-					.buttonStyle(.borderedProminent)
-				}
 
-				HStack {
-					TextField("User Id", text: $userId)
-						.textFieldStyle(.roundedBorder)
-						.onChange(of: userId) { _ in
-							if userId.filter({ $0.isNewline }).isEmpty {
-								updateuserIdInput(userId.replacingOccurrences(of: "\n", with: ""))
+					HStack {
+						TextField("User Id", text: $userId)
+							.textFieldStyle(.roundedBorder)
+							.onChange(of: userId) { _ in
+								if userId.filter({ $0.isNewline }).isEmpty {
+									updateUserIdInput(userId.replacingOccurrences(of: "\n", with: ""))
+								}
 							}
+						Button(action: { updateUserIdInput(userId) } ) {
+							Text("Update User Id")
+								.frame(minWidth: 130, maxWidth: 130)
 						}
-					Button(action: { updateuserIdInput(userId) } ) {
-						Text("Update User Id")
-							.frame(minWidth: 130, maxWidth: 130)
+						.buttonStyle(.borderedProminent)
 					}
-					.buttonStyle(.borderedProminent)
-				}
-			}
-			.padding()
 
-			List {
-				Section("Known Placments") {
-					ForEach(knownPlacements, id: \.self) { placementTag in
-						Text(placementTag)
-							.onTapGesture {
-								showPlacement(placementTag)
-							}
+					HStack {
+						Button(action: { updateUserIdInput(userId) } ) {
+							Text("Has Wall Preview?")
+								.onTapGesture {
+									hasSurveys = TapResearch.hasSurveys(for: "earn-center")
+								}
+						}
+						.buttonStyle(.borderedProminent)
+						Button(action: { updateUserIdInput(userId) } ) {
+							Text("Show Wall Preview")
+								.onTapGesture {
+									withAnimation {
+										showSurveyWallPreview.toggle()
+									}
+								}
+						}
+						.buttonStyle(.borderedProminent)
+						.disabled(!hasSurveys)
 					}
 				}
+				.padding()
+
+				List {
+					Section("Known Placments") {
+						ForEach(knownPlacements, id: \.self) { placementTag in
+							Text(placementTag)
+								.onTapGesture {
+									showPlacement(placementTag)
+								}
+						}
+					}
+				}
+				.listStyle(.plain)
+				.cornerRadius(7, antialiased: true)
 			}
-			.listStyle(.plain)
-			.cornerRadius(7, antialiased: true)
+			if showSurveyWallPreview {
+				SurveyWallPreview(showSurveyWallPreview: $showSurveyWallPreview).transition(.move(edge: .bottom))
+			}
 		}
 	}
-
 }
 
 //MARK: - Preview
-
 struct ContentView_Previews: PreviewProvider {
-
 	@State static var userId: String = "public-demo-test-user"
-
 	static var previews: some View {
 		ContentView(userId: $userId)
 	}

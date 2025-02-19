@@ -7,6 +7,19 @@
 
 import UIKit
 
+protocol LogPrint {
+	func logPrint(_ text: String, _ typeName: String, _ funcName: String)
+}
+
+extension LogPrint {
+
+	func logPrint(_ text: String = "", _ typeName: String = "\(Self.self)", _ funcName: String = #function)
+	{
+		print("[\(Date())][\(typeName).\(funcName)] \(text)")
+	}
+
+}
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
