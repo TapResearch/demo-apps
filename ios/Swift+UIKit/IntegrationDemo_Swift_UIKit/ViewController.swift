@@ -8,7 +8,15 @@
 import UIKit
 import TapResearchSDK
 
-class ViewController : UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, TapResearchContentDelegate {
+class ViewController : UIViewController,
+					   UITextFieldDelegate,
+					   UITableViewDelegate,
+					   UITableViewDataSource,
+					   TapResearchContentDelegate,
+//					   TapResearchRewardDelegate,
+//					   TapResearchQuickQuestionDelegate,
+					   LogPrint
+{
 
 	@IBOutlet weak var tableView: UITableView!
 	@IBOutlet weak var textField: UITextField!
@@ -17,6 +25,7 @@ class ViewController : UIViewController, UITextFieldDelegate, UITableViewDelegat
 	var surveysPlacement: String = "earn-center"
 	let showSurveysSegue: String = "ShowSurveys"
 	var knownPlacements: [String] = [
+		"earn-center",
 		"default-placement",
 		"interstitial-placement",
 		"banner-placement",
@@ -107,12 +116,12 @@ class ViewController : UIViewController, UITextFieldDelegate, UITableViewDelegat
 		if TapResearch.canShowContent(forPlacement: knownPlacements[indexPath.row]) {
 			TapResearch.showContent(forPlacement: knownPlacements[indexPath.row], delegate: self, customParameters: ["custom_param_1" : "test text", "custom_param_3" : 12]) { (error: NSError?) in
                 if let error = error {
-                    print("Error on showContent: \(error.code) \(error.localizedDescription)")
+					self.logPrint("Error on showContent: \(error.code) \(error.localizedDescription)")
                 }
 			}
 		}
 		else {
-			print("Placement not ready")
+			logPrint("Placement not ready")
 		}
 	}
 
@@ -143,19 +152,21 @@ class ViewController : UIViewController, UITextFieldDelegate, UITableViewDelegat
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		if indexPath.section == 1 {
-			return PlacementCell.cell(tableView: tableView, placement: surveysPlacement)
+			return PlacementCell.cell(tableView: tableView, indexPath: indexPath, placement: surveysPlacement)
 		}
-		return PlacementCell.cell(tableView: tableView, placement: knownPlacements[indexPath.row])
+		return PlacementCell.cell(tableView: tableView, indexPath: indexPath, placement: knownPlacements[indexPath.row])
 	}
 
 	//MARK: - TapResearchContentDelegate
 
 	func onTapResearchContentShown(forPlacement placement: String) {
-		print("onTapResearchContentShown(\(placement))")
+		logPrint("placement = \(placement)")
+
 	}
-	
+
 	func onTapResearchContentDismissed(forPlacement placement: String) {
-		print("onTapResearchContentDismissed(\(placement))")
+		logPrint("placement = \(placement)")
+		//print("ViewController.onTapResearchContentDismissed(\(placement))")
 	}
 
 }
