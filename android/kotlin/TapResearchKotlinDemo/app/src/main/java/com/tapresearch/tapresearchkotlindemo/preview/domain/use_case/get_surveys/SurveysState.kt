@@ -1,4 +1,4 @@
-package com.tapresearch.kotlinsdk.preview.domain.use_case.get_surveys
+package com.tapresearch.tapresearchkotlindemo.preview.domain.use_case.get_surveys
 
 import com.tapresearch.tapsdk.models.TRSurvey
 

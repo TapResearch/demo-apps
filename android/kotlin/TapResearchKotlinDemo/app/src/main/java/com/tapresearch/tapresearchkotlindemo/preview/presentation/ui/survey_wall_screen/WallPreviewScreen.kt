@@ -43,7 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tapresearch.kotlinsdk.preview.domain.use_case.get_surveys.SurveysState
+import com.tapresearch.tapresearchkotlindemo.preview.domain.use_case.get_surveys.SurveysState
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.TheExpandableAppBar
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.ErrorScreen
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.LoadingScreen
@@ -119,13 +119,15 @@ private fun SurveysColumn(surveys: List<TRSurvey>, rewards: List<TRReward>, onIt
         if (surveys.isNotEmpty()) {
 
             // hard-code some fake data
-            surveys.first().isHotTile = true
-            surveys.first().preSaleRewardAmount = surveys.first().rewardAmount?.div(
-                2,
-            )
-            surveys.first().saleMultiplier = 2.5f
-            surveys.first().saleEndDate = "2026-01-29T21:14:00.000Z"
-            surveys.first().isSale = true
+            if (surveys.first().isHotTile == false) {
+                surveys.first().isHotTile = true
+                surveys.first().preSaleRewardAmount = surveys.first().rewardAmount?.div(
+                    2,
+                )
+                surveys.first().saleMultiplier = 2.5f
+                surveys.first().saleEndDate = "2026-01-29T21:14:00.000Z"
+                surveys.first().isSale = true
+            }
 
             if (surveys.first().isSale == true) {
                 surveys.first().saleMultiplier?.let { multiplier ->

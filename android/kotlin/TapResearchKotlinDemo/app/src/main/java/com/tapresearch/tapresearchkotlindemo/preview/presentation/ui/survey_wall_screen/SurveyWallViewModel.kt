@@ -8,10 +8,10 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tapresearch.kotlinsdk.preview.common.GlobalData
-import com.tapresearch.kotlinsdk.preview.common.Resource
-import com.tapresearch.kotlinsdk.preview.domain.use_case.get_surveys.SurveysState
-import com.tapresearch.kotlinsdk.preview.domain.use_case.get_surveys.SurveysUseCase
+import com.tapresearch.tapresearchkotlindemo.preview.common.GlobalData
+import com.tapresearch.tapresearchkotlindemo.preview.common.Resource
+import com.tapresearch.tapresearchkotlindemo.preview.domain.use_case.get_surveys.SurveysState
+import com.tapresearch.tapresearchkotlindemo.preview.domain.use_case.get_surveys.SurveysUseCase
 import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRRewardCallback
 import com.tapresearch.tapsdk.callback.TRSurveysRefreshedListener
@@ -50,14 +50,7 @@ class SurveyWallViewModel @Inject constructor(private val surveysUseCase: Survey
 
     override fun onSurveysRefreshedForPlacement(placementTag: String) {
         if (GlobalData.currentPlacementTag == placementTag) {
-            val surveys = TapResearch.getSurveysForPlacement(placementTag,{})
-            if (!surveys.isNullOrEmpty()) {
-                _surveysState.value = SurveysState(
-                    surveys = surveys,
-                    isLoading = false,
-                    error = "" //in case of success after failure/retry
-                )
-            }
+            getSurveys()
         }
     }
 
@@ -67,21 +60,27 @@ class SurveyWallViewModel @Inject constructor(private val surveysUseCase: Survey
             .onEach { result ->
                 when (result) {
                     is Resource.Loading -> {
-                        _surveysState.value = SurveysState(
-                            isLoading = true
-                        )
+                        _surveysState.update {
+                            it.copy(isLoading = true)
+                        }
                     }
                     is Resource.Success -> {
-                        _surveysState.value = SurveysState(
-                            surveys = result.data?: emptyList(),
-                            isLoading = false,
-                            error = "" //in case of success after failure/retry
-                        )
+                        _surveysState.update {
+                            it.copy(
+                                isLoading = false,
+                                surveys = result.data?: emptyList(),
+                                error = ""
+                            )
+                        }
                     }
                     is Resource.Error -> {
-                        _surveysState.value = SurveysState(
-                            error = result.message?:"An unexpected error occurred."
-                        )
+                        _surveysState.update {
+                            it.copy(
+                                isLoading = false,
+                                error = result.message
+                                    ?: "Unexpected Error Occurred. Please try again."
+                            )
+                        }
                     }
                 }
             }.launchIn(viewModelScope + SupervisorJob())

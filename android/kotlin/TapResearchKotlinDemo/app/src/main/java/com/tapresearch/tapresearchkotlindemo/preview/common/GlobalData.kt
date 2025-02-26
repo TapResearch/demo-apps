@@ -1,4 +1,4 @@
-package com.tapresearch.kotlinsdk.preview.common
+package com.tapresearch.tapresearchkotlindemo.preview.common
 
 object GlobalData {
     var currentPlacementTag = ""
