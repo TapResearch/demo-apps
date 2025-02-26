@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@main class swiftui_example_tapresearchApp: App {
+@main struct swiftui_example_tapresearchApp: App {
 
 	var body: some Scene {
 		WindowGroup {
@@ -15,7 +15,7 @@ import SwiftUI
 		}
 	}
 
-	required init() {
+	init() {
 	}
 
 }
