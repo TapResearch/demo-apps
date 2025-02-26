@@ -19,15 +19,16 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun MainUi(
     openPlacement: (placementTag: String) -> Unit,
     onSetUserIdentifier: (identifier: String) -> Unit,
     buttonOptions: List<String>,
     sendUserAttributes: () -> Unit,
+    showWallPreview: () -> Unit,
 ) {
     TapResearchKotlinDemoTheme {
         Column(
@@ -88,6 +89,13 @@ fun MainUi(
                         },
                     ),
                 )
+            }
+
+            Button(
+                onClick = { showWallPreview() },
+                modifier = Modifier.padding(5.dp),
+            ) {
+                Text(text = "Start Wall Preview Feature")
             }
         }
     }

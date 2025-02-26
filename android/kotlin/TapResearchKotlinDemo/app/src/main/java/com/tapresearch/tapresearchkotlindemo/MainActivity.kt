@@ -1,5 +1,6 @@
 package com.tapresearch.tapresearchkotlindemo
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.tapresearch.tapresearchkotlindemo.preview.WallPreviewActivity
 import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 import com.tapresearch.tapsdk.TapInitOptions
@@ -26,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myUserIdentifier = "user-id-"+ Random.nextInt() // Insert your user identifier here
+        val myUserIdentifier = "test-user-id-4475864329" // Insert your user identifier here
         val myApiToken = "fb28e5e0572876db0790ecaf6c588598" // Insert your API token here
 
         // Log if the user identifier and API token are set
@@ -124,6 +126,9 @@ class MainActivity : ComponentActivity() {
                                 },
                             )
                         },
+                        showWallPreview = {
+                            startActivity(Intent(this, WallPreviewActivity::class.java))
+                        }
                     )
                 }
             }
