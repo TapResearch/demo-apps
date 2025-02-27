@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.SurveyTile
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig
 import com.tapresearch.tapsdk.models.TRSurvey
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -28,7 +29,7 @@ import kotlin.random.nextInt
 fun AnimatedSurveyTile(survey: TRSurvey,
                        modifier: Modifier) {
 
-    if (Random.nextBoolean()) {
+    if (WallPreviewConfig.RANDOMIZE_PREVIEW_WALL_ANIMATIONS && Random.nextBoolean()) {
         var xRotation by remember {
             mutableStateOf(0f)
         }

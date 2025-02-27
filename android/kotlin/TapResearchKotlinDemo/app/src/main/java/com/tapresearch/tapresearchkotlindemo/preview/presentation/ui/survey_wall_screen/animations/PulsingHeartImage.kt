@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.Constants
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig
 
 @Composable
 fun PulsingHeartImage(modifier: Modifier) {
@@ -47,7 +47,7 @@ fun PulsingHeartImage(modifier: Modifier) {
     val color by
     infiniteTransition.animateColor(
         initialValue = Color.Red,
-        targetValue = Constants.PURPLE_COLOR,
+        targetValue = WallPreviewConfig.PURPLE_COLOR,
         animationSpec =
         infiniteRepeatable(
             // Linearly interpolate between initialValue and targetValue every 1000ms.

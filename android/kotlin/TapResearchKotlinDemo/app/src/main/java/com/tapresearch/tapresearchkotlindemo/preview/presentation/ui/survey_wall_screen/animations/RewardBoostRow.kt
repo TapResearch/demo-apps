@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.Constants
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.Util
 import kotlinx.coroutines.delay
 
@@ -44,7 +44,7 @@ fun HotBoostRow(multiplier: Float, saleEndDate: String?) {
         // Content that needs to appear/disappear goes here:
         Row(
             modifier = Modifier
-                .background(Constants.PURPLE_COLOR)
+                .background(WallPreviewConfig.PURPLE_COLOR)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
         ) {

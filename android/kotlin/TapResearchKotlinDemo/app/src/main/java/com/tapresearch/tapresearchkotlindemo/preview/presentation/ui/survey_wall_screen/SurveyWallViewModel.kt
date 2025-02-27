@@ -8,7 +8,6 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tapresearch.tapresearchkotlindemo.preview.common.GlobalData
 import com.tapresearch.tapresearchkotlindemo.preview.common.Resource
 import com.tapresearch.tapresearchkotlindemo.preview.domain.use_case.get_surveys.SurveysState
 import com.tapresearch.tapresearchkotlindemo.preview.domain.use_case.get_surveys.SurveysUseCase
@@ -49,13 +48,13 @@ class SurveyWallViewModel @Inject constructor(private val surveysUseCase: Survey
     }
 
     override fun onSurveysRefreshedForPlacement(placementTag: String) {
-        if (GlobalData.currentPlacementTag == placementTag) {
+        if (WallPreviewConfig.currentPlacementTag == placementTag) {
             getSurveys()
         }
     }
 
     fun getSurveys() {
-        surveysUseCase(GlobalData.currentPlacementTag)
+        surveysUseCase(WallPreviewConfig.currentPlacementTag)
             .distinctUntilChanged()
             .onEach { result ->
                 when (result) {
@@ -88,7 +87,7 @@ class SurveyWallViewModel @Inject constructor(private val surveysUseCase: Survey
 
     fun showSurveyForPlacement(surveyId: String,
                                onShowSurveyError : (errorMessage: String) -> Unit) {
-        TapResearch.showSurveyForPlacement(GlobalData.currentPlacementTag, surveyId) { error ->
+        TapResearch.showSurveyForPlacement(WallPreviewConfig.currentPlacementTag, surveyId) { error ->
             onShowSurveyError("Show Survey Error: ${error.description}")
         }
     }

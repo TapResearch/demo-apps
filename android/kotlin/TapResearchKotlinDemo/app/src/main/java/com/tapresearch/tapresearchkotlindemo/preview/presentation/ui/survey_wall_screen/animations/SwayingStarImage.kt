@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.Constants
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig
 
 @Composable
 fun SwayingStarImage(modifier: Modifier) {
@@ -33,7 +33,7 @@ fun SwayingStarImage(modifier: Modifier) {
     )
 
     Image(
-        colorFilter = ColorFilter.tint(Constants.PURPLE_COLOR),
+        colorFilter = ColorFilter.tint(WallPreviewConfig.PURPLE_COLOR),
         imageVector = Icons.Outlined.StarOutline,
         contentDescription = null,
         modifier = modifier

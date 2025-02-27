@@ -33,8 +33,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.Constants.GREEN_COLOR
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.Constants.PURPLE_COLOR
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig.GREEN_COLOR
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig.PURPLE_COLOR
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.FireImage
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.PulsingHeartImage
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.SwayingStarImage
@@ -73,9 +73,9 @@ fun SurveyTile(
             defaultElevation = 6.dp
         ),
         modifier = modifier
-            .size(width = Constants.CARD_WIDTH.dp, height = Constants.CARD_HEIGHT.dp)
-            .requiredWidth(Constants.CARD_WIDTH.dp)
-            .requiredHeight(Constants.CARD_HEIGHT.dp)
+            .size(width = WallPreviewConfig.CARD_WIDTH.dp, height = WallPreviewConfig.CARD_HEIGHT.dp)
+            .requiredWidth(WallPreviewConfig.CARD_WIDTH.dp)
+            .requiredHeight(WallPreviewConfig.CARD_HEIGHT.dp)
     ) {
         Column {
 

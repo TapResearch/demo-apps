@@ -47,7 +47,7 @@ import com.tapresearch.tapresearchkotlindemo.preview.domain.use_case.get_surveys
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.TheExpandableAppBar
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.ErrorScreen
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.LoadingScreen
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.Constants.TOP_BAR_HEIGHT
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig.TOP_BAR_HEIGHT
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.AnimatedSurveyTile
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.HotBoostRow
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
