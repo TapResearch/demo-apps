@@ -9,12 +9,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.Screen
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewScreenWithAppBar
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.SurveyWallViewModel
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewScreenWithAppBar
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewViewModel
 
 @Composable
-fun SurveyWallNavHost(
-    navigationActions: SurveyWallNavigationActions,
+fun WallPreviewNavHost(
+    navigationActions: WallPreviewNavigationActions,
     isExpandedScreen: Boolean,
     modifier: Modifier = Modifier,
     navController: NavHostController,
@@ -28,7 +28,7 @@ fun SurveyWallNavHost(
     ) {
         composable(Screen.HomeScreen.route) {
             val context = LocalContext.current
-            val viewModel = hiltViewModel<SurveyWallViewModel>()
+            val viewModel = hiltViewModel<WallPreviewViewModel>()
             WallPreviewScreenWithAppBar(
                 isExpandedScreen = isExpandedScreen,
                 openDrawer = openDrawer,

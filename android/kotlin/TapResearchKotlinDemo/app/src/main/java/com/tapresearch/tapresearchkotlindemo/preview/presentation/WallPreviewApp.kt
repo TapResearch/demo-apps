@@ -22,9 +22,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.AppDrawer
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.AppNavRail
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.SurveyWallNavHost
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.WallPreviewNavHost
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.BackPressHandler
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.SurveyWallNavigationActions
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.WallPreviewNavigationActions
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.Screen
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 import kotlinx.coroutines.launch
@@ -36,7 +36,7 @@ fun WallPreviewApp(
     TapResearchKotlinDemoTheme {
         val navController = rememberNavController()
         val navigationActions = remember(navController) {
-            SurveyWallNavigationActions(navController)
+            WallPreviewNavigationActions(navController)
         }
 
         val coroutineScope = rememberCoroutineScope()
@@ -74,7 +74,7 @@ fun WallPreviewApp(
                         navigateToHome = {navigationActions.navigateToHome()},
                     )
                 }
-                SurveyWallNavHost(
+                WallPreviewNavHost(
                     startDestination = Screen.HomeScreen.route,
                     navigationActions = navigationActions,
                     isExpandedScreen = isExpandedScreen,

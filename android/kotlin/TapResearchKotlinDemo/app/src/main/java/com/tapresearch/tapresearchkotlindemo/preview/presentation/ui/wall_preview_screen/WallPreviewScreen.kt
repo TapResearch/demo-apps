@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen
+package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -44,12 +44,12 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tapresearch.tapresearchkotlindemo.preview.domain.use_case.get_surveys.SurveysState
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.TheExpandableAppBar
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.WallPreviewExpandableAppBar
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.ErrorScreen
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.LoadingScreen
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig.TOP_BAR_HEIGHT
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.AnimatedSurveyTile
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.HotBoostRow
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewConfig.TOP_BAR_HEIGHT
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations.AnimatedSurveyTile
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations.HotBoostRow
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 import com.tapresearch.tapsdk.models.TRReward
 import com.tapresearch.tapsdk.models.TRSurvey
@@ -226,7 +226,7 @@ fun WallPreviewScreenWithAppBar(
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                TheExpandableAppBar(
+                WallPreviewExpandableAppBar(
                     title = "Survey Wall",
                     scrollBehavior = scrollBehavior,
                     isExpandedScreen = isExpandedScreen,

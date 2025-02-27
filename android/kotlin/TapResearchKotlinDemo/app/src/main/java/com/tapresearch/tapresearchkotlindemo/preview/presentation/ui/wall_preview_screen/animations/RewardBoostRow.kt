@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations
+package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.Util
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewConfig
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.Util
 import kotlinx.coroutines.delay
 
 @Composable

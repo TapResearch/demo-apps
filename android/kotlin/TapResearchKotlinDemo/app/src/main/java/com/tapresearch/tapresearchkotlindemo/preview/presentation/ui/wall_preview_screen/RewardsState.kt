@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen
+package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen
 
 import com.tapresearch.tapsdk.models.TRReward
 

@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen
+package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen
 
 import android.util.Log
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
@@ -27,8 +27,8 @@ import kotlinx.coroutines.plus
 import javax.inject.Inject
 
 @HiltViewModel
-class SurveyWallViewModel @Inject constructor(private val surveysUseCase: SurveysUseCase,
-                                              savedStateHandle: SavedStateHandle):
+class WallPreviewViewModel @Inject constructor(private val surveysUseCase: SurveysUseCase,
+                                               savedStateHandle: SavedStateHandle):
     ViewModel(),
     TRSurveysRefreshedListener,
     TRRewardCallback,

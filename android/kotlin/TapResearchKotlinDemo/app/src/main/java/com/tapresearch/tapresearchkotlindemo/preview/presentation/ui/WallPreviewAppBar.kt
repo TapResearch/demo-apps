@@ -23,10 +23,10 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TheExpandableAppBar(scrollBehavior: TopAppBarScrollBehavior,
-                        isExpandedScreen: Boolean,
-                        openDrawer: () -> Unit,
-                        title: String
+fun WallPreviewExpandableAppBar(scrollBehavior: TopAppBarScrollBehavior,
+                                isExpandedScreen: Boolean,
+                                openDrawer: () -> Unit,
+                                title: String
                        ) {
     val expandedInitially = false
     val (expanded, onExpandedChanged) = remember {
@@ -35,9 +35,9 @@ fun TheExpandableAppBar(scrollBehavior: TopAppBarScrollBehavior,
 
     Crossfade(targetState = expanded) { isSearchFieldVisible ->
         when (isSearchFieldVisible) {
-            true -> MySearchBar(onExpandedChanged)
+            true -> TheSearchBar(onExpandedChanged)
 
-            false -> MyTopAppBar(
+            false -> WallPreviewTopAppBar(
                 title = title,
                 isExpandedScreen = isExpandedScreen,
                 scrollBehavior,
@@ -48,7 +48,7 @@ fun TheExpandableAppBar(scrollBehavior: TopAppBarScrollBehavior,
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MyTopAppBar(
+private fun WallPreviewTopAppBar(
                 title: String,
                 isExpandedScreen: Boolean,
                 scrollBehavior: TopAppBarScrollBehavior,
@@ -89,7 +89,7 @@ private fun MyTopAppBar(
 }
 
 @Composable
-private fun MySearchBar(
+private fun TheSearchBar(
                 onExpandedChanged: (Boolean) -> Unit,
 ) {
     val keyboard = LocalSoftwareKeyboardController.current

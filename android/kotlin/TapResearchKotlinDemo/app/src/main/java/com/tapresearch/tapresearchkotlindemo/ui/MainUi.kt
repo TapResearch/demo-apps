@@ -95,7 +95,7 @@ fun MainUi(
                 onClick = { showWallPreview() },
                 modifier = Modifier.padding(5.dp),
             ) {
-                Text(text = "Start Wall Preview Feature")
+                Text(text = "Wall Preview Feature")
             }
         }
     }

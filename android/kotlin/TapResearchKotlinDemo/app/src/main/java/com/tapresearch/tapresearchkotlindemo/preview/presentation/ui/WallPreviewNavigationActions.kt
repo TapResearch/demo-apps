@@ -8,7 +8,7 @@ import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.Scre
 /**
  * Models the navigation actions in the app.
  */
-class SurveyWallNavigationActions(navController: NavHostController) {
+class WallPreviewNavigationActions(navController: NavHostController) {
     val navigateToHome: () -> Unit = {
         navController.navigate(Screen.HomeScreen.route) {
             // Pop up to the start destination of the graph to

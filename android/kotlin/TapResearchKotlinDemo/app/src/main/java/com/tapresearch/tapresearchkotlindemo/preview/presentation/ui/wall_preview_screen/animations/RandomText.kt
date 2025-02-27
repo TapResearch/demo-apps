@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations
+package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background

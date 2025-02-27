@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen
+package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -33,11 +33,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig.GREEN_COLOR
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.WallPreviewConfig.PURPLE_COLOR
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.FireImage
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.PulsingHeartImage
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.survey_wall_screen.animations.SwayingStarImage
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewConfig.GREEN_COLOR
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewConfig.PURPLE_COLOR
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations.FireImage
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations.PulsingHeartImage
+import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations.SwayingStarImage
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 import com.tapresearch.tapsdk.models.TRSurvey
 
