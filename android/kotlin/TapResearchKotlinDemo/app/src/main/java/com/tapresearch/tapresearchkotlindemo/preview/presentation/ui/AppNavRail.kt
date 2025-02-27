@@ -9,7 +9,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,10 +37,8 @@ fun AppNavRail(
         NavigationRailItem(
             selected = currentRoute == Screen.HomeScreen.route,
             onClick = navigateToHome,
-            //icon = { Icon(Icons.Filled.Home, stringResource(R.string.home_title)) },
-            //label = { Text(stringResource(R.string.home_title)) },
-            icon = { Icon(Icons.Filled.Home, "Survey Wall") },
-            label = { Text("Survey Wall") },
+            icon = { Icon(Icons.Filled.Home, "Wall Preview") },
+            // label = { Text("") },
             alwaysShowLabel = false
         )
         Spacer(Modifier.weight(1f))

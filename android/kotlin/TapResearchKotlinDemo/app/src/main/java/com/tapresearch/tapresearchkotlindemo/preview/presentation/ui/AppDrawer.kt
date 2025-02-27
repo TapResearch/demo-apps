@@ -18,8 +18,10 @@ import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tapresearch.tapresearchkotlindemo.R
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.Screen
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 
@@ -33,12 +35,11 @@ fun AppDrawer(
     modifier: Modifier = Modifier
 ) {
     ModalDrawerSheet(modifier.fillMaxWidth(.8f)) {
-        SurveyWallLogo(
+        PreviewWallLogo(
             modifier = Modifier.padding(horizontal = 28.dp, vertical = 24.dp)
         )
         NavigationDrawerItem(
-            //label = { Text(stringResource(id = R.string.home_title)) },
-            label = { Text("Survey Wall") },
+            label = { Text(stringResource(id = R.string.wall_preview_drawer_item_label)) },
             icon = { Icon(Icons.Filled.Home, null) },
             selected = currentRoute.startsWith(Screen.HomeScreen.route),
             onClick = { navigateToHome(); closeDrawer() },
@@ -48,7 +49,7 @@ fun AppDrawer(
 }
 
 @Composable
-private fun SurveyWallLogo(modifier: Modifier = Modifier) {
+private fun PreviewWallLogo(modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         Icon(
             imageVector = Icons.Filled.Menu,
@@ -56,8 +57,7 @@ private fun SurveyWallLogo(modifier: Modifier = Modifier) {
             tint = MaterialTheme.colorScheme.primary
         )
         Spacer(Modifier.width(8.dp))
-        //Text(text = stringResource(R.string.app_name))
-        Text(text = "Survey Wall")
+        Text(stringResource(id = R.string.wall_preview_drawer_title))
     }
 }
 
@@ -66,7 +66,7 @@ private fun SurveyWallLogo(modifier: Modifier = Modifier) {
 @Composable
 fun PreviewLogo() {
     TapResearchKotlinDemoTheme {
-        SurveyWallLogo()
+        PreviewWallLogo()
     }
 }
 

@@ -41,8 +41,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tapresearch.tapresearchkotlindemo.R
 import com.tapresearch.tapresearchkotlindemo.preview.domain.use_case.get_surveys.SurveysState
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.WallPreviewExpandableAppBar
 import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.common.ErrorScreen
@@ -227,7 +229,7 @@ fun WallPreviewScreenWithAppBar(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 WallPreviewExpandableAppBar(
-                    title = "Survey Wall",
+                    title = stringResource(id = R.string.wall_preview_title),
                     scrollBehavior = scrollBehavior,
                     isExpandedScreen = isExpandedScreen,
                     openDrawer = openDrawer,
