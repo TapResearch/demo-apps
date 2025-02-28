@@ -7,4 +7,8 @@
         <item>banner-placement</item>
         <item>awesome-zone</item>
     </string-array>
+    <string name="wall_preview_title">Survey Wall Preview</string>
+    <string name="wall_preview_drawer_title">Survey Wall Preview</string>
+    <string name="wall_preview_drawer_item_label">Wall Preview Home</string>
+
 </resources>
