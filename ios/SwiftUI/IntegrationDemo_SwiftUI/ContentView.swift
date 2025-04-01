@@ -10,17 +10,16 @@ import TapResearchSDK
 
 struct ContentView: View {
 
-
 	@State var waitText: String = "Waiting for surveys..."
 	@State var placementTagInput = ""
 	@Binding var userId: String
+	// If you are using your own API token update this are to reflect your own placements:
 	@State var knownPlacements = [
-		"awesome-zone",
-		"default-placement",
-		"interstitial-placement",
-		"floating-interstitial-placement",
-		"capped-and-paced-interstitial",
-		"banner-placement"
+		"home-screen",
+		"earn-center",
+		"mike-interstitial",
+		"banner",
+		"quick-answer-mcgraw"
 	]
 	@State var hasSurveys: Bool = false
 	@State var showSurveyWallPreview: Bool = false
@@ -65,12 +64,6 @@ struct ContentView: View {
 						TextField("Placement Tag", text: $placementTagInput)
 							.textFieldStyle(.roundedBorder)
 							.autocapitalization(.none)
-							.onChange(of: placementTagInput) { _ in
-								if placementTagInput.filter({ $0.isNewline }).isEmpty {
-									showPlacement(placementTagInput.replacingOccurrences(of: "\n", with: ""))
-								}
-							}
-
 						Button(action: { showPlacement(placementTagInput) } ) {
 							Text("Show Placement")
 								.frame(minWidth: 130, maxWidth: 130)
