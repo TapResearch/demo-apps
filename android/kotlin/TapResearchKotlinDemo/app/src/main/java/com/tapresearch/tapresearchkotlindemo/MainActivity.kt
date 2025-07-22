@@ -21,14 +21,13 @@ import com.tapresearch.tapsdk.callback.TRQQDataCallback
 import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
-import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
     val LOG_TAG = "DebugMainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myUserIdentifier = "test-user-id-4475864329" // Insert your user identifier here
+        val myUserIdentifier = "tr-sdk-test-user-46183135" // Insert your user identifier here
         val myApiToken = "fb28e5e0572876db0790ecaf6c588598" // Insert your API token here
 
         // Log if the user identifier and API token are set

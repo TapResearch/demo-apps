@@ -15,7 +15,6 @@ import com.tapresearch.tapsdk.callback.TRContentCallback;
 import com.tapresearch.tapsdk.models.TRError;
 import com.tapresearch.tapsdk.models.TRReward;
 
-
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
@@ -31,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // User identifier for demo purposes. Replace with actual user ID in production.
-        String myUserIdentifier = "public-demo-test-user-"+new Random().nextInt();
+        String myUserIdentifier = "tr-sdk-test-user-" + new Random(10000000).nextInt();
         // API Token retrieved from resources. Replace with actual token.
         String myApiToken = getString(R.string.api_token);
 
