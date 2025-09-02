@@ -23,7 +23,7 @@ import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
 
 class MainActivity : ComponentActivity() {
-    val LOG_TAG = "DebugMainActivity"
+    val LOG_TAG = "MainKotlinDemo"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

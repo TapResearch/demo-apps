@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     // Tag used for logging. Helps in identifying the source of log messages.
-    private static final String LOG_TAG = "MainActivity";
+    private static final String LOG_TAG = "MainJavaDemo";
     private TextView statusView;
 
     @SuppressLint("MissingInflatedId")
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // User identifier for demo purposes. Replace with actual user ID in production.
-        String myUserIdentifier = "tr-sdk-test-user-" + new Random(10000000).nextInt();
+        String myUserIdentifier = "tr-sdk-test-user-46183135";
         // API Token retrieved from resources. Replace with actual token.
         String myApiToken = getString(R.string.api_token);
 
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 this::showError, // Callback to handle errors
                 // Callback indicating SDK is ready. Used to send user attributes and log readiness.
                 () -> {
+                    Log.d(LOG_TAG, "SDK Ready");
                     // Sending custom user attributes to the SDK.
                     TapResearch.INSTANCE.sendUserAttributes(userAttributes,
                             false,
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Method to display an error toast with the provided error description.
     private void showError(TRError error) {
+        Log.d(LOG_TAG, "SDK error: " + error.getDescription());
         statusView.setText(error.getDescription());
     }
 
