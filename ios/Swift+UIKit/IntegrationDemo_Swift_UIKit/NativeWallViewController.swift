@@ -13,7 +13,6 @@ class NativeWallViewController: UIViewController,
 								UITableViewDataSource,
 								TapResearchContentDelegate,
 								TapResearchSurveysDelegate,
-//								TapResearchRewardDelegate,
 								LogPrint
 {
 
@@ -27,12 +26,12 @@ class NativeWallViewController: UIViewController,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		TapResearch.setSurveysDelegate(self)
 		surveys = TapResearch.getSurveys(for: placementTag)
 		if surveys.count > 0 {
 			spinner.hidesWhenStopped = true
 			spinner.stopAnimating()
 		}
-		TapResearch.setSurveysDelegate(self)
 	}
 
 	//MARK: - Table delegate and datasource

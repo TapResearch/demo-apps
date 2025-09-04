@@ -17,7 +17,7 @@ class SurveysRefresher: ObservableObject, TapResearchSurveysDelegate {
 	}
 
 	func refresh() {
-		self.surveys.append(contentsOf:  TapResearch.getSurveys(for: "earn-center") {_ in })
+		self.surveys = TapResearch.getSurveys(for: "earn-center") {_ in }
 	}
 
 }
