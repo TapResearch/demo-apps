@@ -7,6 +7,10 @@
 
 #import "AppDelegate.h"
 #import "TapResearchSDK/TapResearchSDK.h"
+#import "UserNotifications/UserNotifications.h"
+
+@interface AppDelegate () <UNUserNotificationCenterDelegate>
+@end
 
 @implementation AppDelegate
 
