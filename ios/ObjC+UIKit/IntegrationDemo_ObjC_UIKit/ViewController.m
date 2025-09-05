@@ -45,7 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
-	UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
+	UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Surveys?" style:UIBarButtonItemStylePlain target:self action:@selector(refresh)];
 	[self.navigationItem setRightBarButtonItem:button];
 	[self.tableView reloadData];
 }
