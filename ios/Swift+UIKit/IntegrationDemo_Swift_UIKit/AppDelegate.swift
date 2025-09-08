@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import TapResearchSDK
+import UserNotifications
 
 protocol LogPrint {
 	func logPrint(_ text: String, _ typeName: String, _ funcName: String)
@@ -25,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+		let notificationCenter = UNUserNotificationCenter.current()
+		notificationCenter.delegate = self
 		return true
 	}
 
@@ -40,6 +44,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the user discards a scene session.
 		// If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
 		// Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+	}
+
+	func userNotificationCenter(_ center: UNUserNotificationCenter,
+								didReceive response: UNNotificationResponse,
+								withCompletionHandler completionHandler: @escaping () -> Void
+	) {
+		defer { completionHandler() }
+
+		let handled: Bool = TapResearch.handleNotification(didReceive: response, contentDelegate: self)
+		if handled {
+			// Handle other non-TapResearch notifications
+		}
+	}
+
+	func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+		if !TapResearch.handleNotificationPresentation(notification, withCompletionHandler: completionHandler) {
+			// handle this for your own notifications
+			if #available(iOS 14.0, *) {
+				completionHandler([.sound, .banner, .list])
+			} else {
+				completionHandler([.sound, .alert])
+			}
+		}
+	}
+
+	func onTapResearchContentShown(forPlacement placement: String) {
+		// perhaps use a notification to let the current view controller know about this event (these are about as instantaneous as a function call)
+	}
+
+	func onTapResearchContentDismissed(forPlacement placement: String) {
+		// perhaps use a notification to let the current view controller know about this event (these are about as instantaneous as a function call)
 	}
 
 }
