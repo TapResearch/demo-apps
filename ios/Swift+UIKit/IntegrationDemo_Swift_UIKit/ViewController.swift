@@ -13,8 +13,6 @@ class ViewController : UIViewController,
 					   UITableViewDelegate,
 					   UITableViewDataSource,
 					   TapResearchContentDelegate,
-//					   TapResearchRewardDelegate,
-//					   TapResearchQuickQuestionDelegate,
 					   LogPrint
 {
 
@@ -42,7 +40,7 @@ class ViewController : UIViewController,
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Surveys?", style: .plain, target: self, action: #selector(refresh))
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

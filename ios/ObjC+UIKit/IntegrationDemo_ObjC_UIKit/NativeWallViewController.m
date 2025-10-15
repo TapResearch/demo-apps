@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
+	[TapResearch setSurveysDelegate:self];
 	self.surveys = [[NSMutableArray alloc] initWithArray:[TapResearch getSurveysFor:self.placementTag errorHandler:^(NSError * _Nullable error) {
 	}]];
 
@@ -31,8 +32,6 @@
 		self.spinner.hidesWhenStopped = YES;
 		[self.spinner stopAnimating];
 	}
-
-	[TapResearch setSurveysDelegate:self];
 }
 
 #pragma mark - TableView Delegate and DataSource
