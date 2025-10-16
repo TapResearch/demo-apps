@@ -1,4 +1,4 @@
 # Setup
 
-* Copy the `app/src/main/assets/env.example` file to `app/src/main/assets/env`
-* Update the `app/src/main/assets/env` file with your user id and api token
+Our test keys and user id should suffice for demo purposes, but you may insert your own
+in MainActivity.kt

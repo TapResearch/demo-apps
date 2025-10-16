@@ -30,10 +30,6 @@ class MainActivity : ComponentActivity() {
         val myUserIdentifier = "tr-sdk-test-user-46183135" // Insert your user identifier here
         val myApiToken = "fb28e5e0572876db0790ecaf6c588598" // Insert your API token here
 
-        // Log if the user identifier and API token are set
-        Log.d(LOG_TAG, "API Token: $myApiToken")
-        Log.d(LOG_TAG, "User identifier: $myUserIdentifier")
-
         TapResearch.initialize(
             apiToken = myApiToken,
             userIdentifier = myUserIdentifier,
