@@ -36,8 +36,14 @@ class PlacementCell : UITableViewCell {
 			subLabel.isHidden = false
 		}
 		else {
-			subLabel.text = ""
-			subLabel.isHidden = true
+			if let details = (TapResearch.getPlacementDetails(placement) { (error: NSError?) in /*Handle error*/}) {
+				subLabel.text = "\(details.saleMultiplier) \(details.saleDisplayName ?? "") ends: \(details.saleEndDate ?? "n/a")"
+				subLabel.isHidden = false
+			}
+			else {
+				subLabel.text = ""
+				subLabel.isHidden = true
+			}
 		}
 	}
 

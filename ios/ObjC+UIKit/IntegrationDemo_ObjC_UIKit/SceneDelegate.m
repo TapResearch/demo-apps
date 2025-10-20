@@ -86,7 +86,7 @@ NSString *userIdentifier = @"public-demo-user"; // Replace with your own app's p
 
 - (void)onTapResearchSdkReady {
 	NSLog(@"onTapResearchSdkReady()");
-
+	[NSNotificationCenter.defaultCenter postNotificationName:@"refresh" object:nil];
 	NSError *error = [TapResearch sendUserAttributesWithAttributes:@{@"Number" : @12, @"String" : @"Some text", @"Boolean" : @"true"}
 										   clearPreviousAttributes:NO];
 	if (error) {
@@ -95,3 +95,4 @@ NSString *userIdentifier = @"public-demo-user"; // Replace with your own app's p
 }
 
 @end
+

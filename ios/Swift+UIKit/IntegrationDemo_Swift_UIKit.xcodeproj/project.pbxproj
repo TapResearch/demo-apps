@@ -94,7 +94,6 @@
 				965BBEDD050F344A74FD80B3 /* Pods-IntegrationDemo_Swift_UIKit.debug.xcconfig */,
 				AE2D4D63082CFB189993B303 /* Pods-IntegrationDemo_Swift_UIKit.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -206,9 +205,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_Swift_UIKit/Pods-IntegrationDemo_Swift_UIKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_Swift_UIKit/Pods-IntegrationDemo_Swift_UIKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

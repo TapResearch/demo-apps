@@ -6,6 +6,7 @@
 //
 
 #import "PlacementCell.h"
+#import <TapResearchSDK/TapResearchSDK.h>
 
 @interface PlacementCell ()
 
@@ -31,7 +32,19 @@
 
 	self.accessibilityLabel = placement;
 	self.title.text = placement;
-	self.subLabel.text = info;
+	if (info) {
+		self.subLabel.text = info;
+	}
+	else {
+		TRPlacementDetails *details = [TapResearch getPlacementDetails:placement errorHandler:^(NSError * _Nullable error) {
+		}];
+		if (details) {
+			self.subLabel.text = [NSString stringWithFormat:@"%f, %@, ends: %@", details.saleMultiplier, details.saleDisplayName, details.saleEndDate];
+		}
+		else {
+			self.subLabel.text = @"";
+		}
+	}
 }
 
 @end

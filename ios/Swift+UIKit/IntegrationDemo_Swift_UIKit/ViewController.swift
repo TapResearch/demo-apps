@@ -32,7 +32,7 @@ class ViewController : UIViewController,
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		NotificationCenter.default.addObserver(self, selector: #selector(handleRefresh(_:)), name: Notification.Name("refresh"), object: nil)
 		textField.placeholder = "Placement Tag"
 		textField.delegate = self
 	}
@@ -165,6 +165,10 @@ class ViewController : UIViewController,
 	func onTapResearchContentDismissed(forPlacement placement: String) {
 		logPrint("placement = \(placement)")
 		//print("ViewController.onTapResearchContentDismissed(\(placement))")
+	}
+
+	@objc func handleRefresh(_ n: Notification) {
+		tableView.reloadData()
 	}
 
 }

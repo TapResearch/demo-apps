@@ -37,7 +37,7 @@
 		@"floating-interstitial-placement"
 	].mutableCopy;
 	self.surveysPlacement = @"earn-center";
-
+	[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
 	self.textField.placeholder = @"Placement Tag";
 	self.textField.delegate = self;
 }
@@ -177,6 +177,10 @@
 
 - (void)onTapResearchContentShownForPlacement:(NSString * _Nonnull)placement {
 	NSLog(@"onTapResearchContentShownForPlacement(%@)", placement);
+}
+
+- (void)handleRefresh:(NSNotification*)n {
+	[self.tableView reloadData];
 }
 
 @end

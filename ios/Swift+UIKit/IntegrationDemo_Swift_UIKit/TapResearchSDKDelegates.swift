@@ -26,7 +26,7 @@ class TapResearchDelegates: NSObject, TapResearchSDKDelegate, LogPrint {
 
 	func onTapResearchSdkReady() {
 		logPrint()
-
+		NotificationCenter.default.post(name: Notification.Name("refresh"), object: nil)
 		if let error: NSError = TapResearch.sendUserAttributes(attributes: ["Number" : 12, "String" : "Some text", "Boolean" : "true"], clearPreviousAttributes: false) {
 			logPrint("Error sending user attributes: \(error.code) \(error.localizedDescription)")
 		}
