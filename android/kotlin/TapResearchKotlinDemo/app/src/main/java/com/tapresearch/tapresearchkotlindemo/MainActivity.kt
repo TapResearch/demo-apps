@@ -18,6 +18,9 @@ import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
 import com.tapresearch.tapsdk.callback.TRQQDataCallback
+import com.tapresearch.tapsdk.callback.TRGrantBoostResponseListener
+import com.tapresearch.tapsdk.models.TRGrantBoostResponse
+import com.tapresearch.tapsdk.models.TRPlacementDetails
 import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
