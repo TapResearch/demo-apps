@@ -13,14 +13,16 @@ import com.tapresearch.tapsdk.TapInitOptions;
 import com.tapresearch.tapsdk.TapResearch;
 import com.tapresearch.tapsdk.callback.TRContentCallback;
 import com.tapresearch.tapsdk.models.TRError;
+import com.tapresearch.tapsdk.models.TRPlacementDetails;
 import com.tapresearch.tapsdk.models.TRReward;
 
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
+import kotlinx.serialization.InternalSerializationApi;
 
+@InternalSerializationApi
 public class MainActivity extends AppCompatActivity {
     // Tag used for logging. Helps in identifying the source of log messages.
     private static final String LOG_TAG = "MainJavaDemo";
