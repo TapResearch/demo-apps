@@ -13,12 +13,15 @@ class ViewController : UIViewController,
 					   UITableViewDelegate,
 					   UITableViewDataSource,
 					   TapResearchContentDelegate,
+					   TapResearchGrantBoostResponseDelegate,
 					   LogPrint
 {
 
 	@IBOutlet weak var tableView: UITableView!
-	@IBOutlet weak var textField: UITextField!
+	@IBOutlet weak var placementTextField: UITextField!
 	@IBOutlet weak var placementStatus: UILabel!
+	@IBOutlet weak var boostTextField: UITextField!
+	@IBOutlet weak var boostStatus: UILabel!
 
 	var surveysPlacement: String = "earn-center"
 	let showSurveysSegue: String = "ShowSurveys"
@@ -33,8 +36,9 @@ class ViewController : UIViewController,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		textField.placeholder = "Placement Tag"
-		textField.delegate = self
+		placementTextField.placeholder = "Placement Tag"
+		placementTextField.delegate = self
+		boostTextField.delegate = self
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -56,15 +60,32 @@ class ViewController : UIViewController,
 
 	func textFieldDidChangeSelection(_ textField: UITextField) {
 
-		if let _ = placementStatus.text {
-			placementStatus.text = nil
+		switch textField {
+			case boostTextField:
+				if let _ = boostStatus.text {
+					boostStatus.text = nil
+				}
+			case placementTextField:
+				if let _ = placementStatus.text {
+					placementStatus.text = nil
+				}
+			default:
+				return
 		}
 	}
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
-		showPlacement()
-		return true
+		switch textField {
+			case boostTextField:
+				grantBoost()
+				return true
+			case placementTextField:
+				showPlacement()
+				return true
+			default:
+				return false
+		}
 	}
 
 	//MARK: - Actions and button handlers
@@ -73,8 +94,18 @@ class ViewController : UIViewController,
 		tableView.reloadData()
 	}
 
+	@IBAction func grantBoost() {
+		guard let text: String = boostTextField.text else { return }
+
+		TapResearch.grantBoost(text, delegate: self) { (error: NSError?) in
+			if let error {
+				self.boostStatus.text = "\(error.code) \(error.localizedDescription)"
+			}
+		}
+	}
+
 	@IBAction func showPlacement() {
-		guard let text: String = textField.text else { return }
+		guard let text: String = placementTextField.text else { return }
 
 		let canShow: Bool = TapResearch.canShowContent(forPlacement: text) { (error: NSError?) in
 			// Handle error, this is an optional error block, if there is an error false is returned by function.
@@ -165,6 +196,20 @@ class ViewController : UIViewController,
 	func onTapResearchContentDismissed(forPlacement placement: String) {
 		logPrint("placement = \(placement)")
 		//print("ViewController.onTapResearchContentDismissed(\(placement))")
+	}
+
+	//MARK: - TapResearchGrantBoostResponseDelegate
+
+	func onTapResearchGrantBoostResponse(_ response: TapResearchSDK.TRGrantBoostResponse) {
+
+		if response.success {
+			self.boostStatus.text = "\(response.boostTag): success!"
+		}
+		else {
+			if let error = response.error {
+				self.boostStatus.text = "\(response.boostTag): \(error.localizedDescription)"
+			}
+		}
 	}
 
 }
