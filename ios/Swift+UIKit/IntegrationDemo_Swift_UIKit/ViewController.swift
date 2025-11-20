@@ -38,6 +38,7 @@ class ViewController : UIViewController,
 
 		placementTextField.placeholder = "Placement Tag"
 		placementTextField.delegate = self
+		boostTextField.placeholder = "Boost Tag"
 		boostTextField.delegate = self
 	}
 
@@ -208,6 +209,9 @@ class ViewController : UIViewController,
 		else {
 			if let error = response.error {
 				self.boostStatus.text = "\(response.boostTag): \(error.localizedDescription)"
+			}
+			else {
+				self.boostStatus.text = "\(response.boostTag): unkown error"
 			}
 		}
 	}

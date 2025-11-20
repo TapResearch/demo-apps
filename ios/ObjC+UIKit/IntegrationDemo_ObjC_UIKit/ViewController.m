@@ -10,15 +10,20 @@
 #import <TapResearchSDK/TapResearchSDK.h>
 #import "NativeWallViewController.h"
 
-@interface ViewController () <UITextFieldDelegate,
-                              UITableViewDelegate,
-                              UITableViewDataSource,
-                              TapResearchContentDelegate
-                              >
+@interface ViewController ()
+<
+UITextFieldDelegate,
+UITableViewDelegate,
+UITableViewDataSource,
+TapResearchContentDelegate,
+TapResearchGrantBoostResponseDelegate
+>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UITextField *placementTextField;
 @property (weak, nonatomic) IBOutlet UILabel *placementStatus;
+@property (weak, nonatomic) IBOutlet UITextField *boostTextField;
+@property (weak, nonatomic) IBOutlet UILabel *boostStatus;
 
 @property (strong, nonatomic) NSMutableArray *knownPlacements;
 @property NSString *surveysPlacement;
@@ -38,8 +43,10 @@
 	].mutableCopy;
 	self.surveysPlacement = @"earn-center";
 
-	self.textField.placeholder = @"Placement Tag";
-	self.textField.delegate = self;
+	self.placementTextField.placeholder = @"Placement Tag";
+	self.placementTextField.delegate = self;
+	self.boostTextField.placeholder = @"Boost Tag";
+	self.boostTextField.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -62,14 +69,22 @@
 
 - (void)textFieldDidChangeSelection:(UITextField *)textField {
 
-	if (self.placementStatus.text && self.placementStatus.text.length > 0) {
+	if (textField == self.placementTextField) {
 		self.placementStatus.text = nil;
+	}
+	else if (textField == self.boostTextField) {
+		self.boostStatus.text = nil;
 	}
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 
-	[self showPlacement];
+	if (textField == self.boostTextField) {
+		[self grantBoost];
+	}
+	else if (textField == self.placementTextField) {
+		[self showPlacement];
+	}
 	return YES;
 }
 
@@ -79,9 +94,19 @@
 	[self.tableView reloadData];
 }
 
+- (IBAction)grantBoost {
+
+	NSString *boostTag = self.boostTextField.text;
+	[TapResearch grantBoost:boostTag delegate:self errorHandler:^(NSError * _Nullable error) {
+		if (error) {
+			self.boostStatus.text = error.localizedDescription;
+		}
+	}];
+}
+
 - (IBAction)showPlacement {
 
-	NSString *placementTag = self.textField.text;
+	NSString *placementTag = self.placementTextField.text;
 
 	if (placementTag && placementTag.length > 0) {
 		if ([TapResearch canShowContentForPlacement:placementTag error:^(NSError * _Nullable error) {
@@ -177,6 +202,23 @@
 
 - (void)onTapResearchContentShownForPlacement:(NSString * _Nonnull)placement {
 	NSLog(@"onTapResearchContentShownForPlacement(%@)", placement);
+}
+
+//MARK: - TapResearchGrantBoostResponseDelegate
+
+- (void)onTapResearchGrantBoostResponse:(TRGrantBoostResponse * _Nonnull)response {
+
+	if (response.success) {
+		self.boostStatus.text = [NSString stringWithFormat:@"%@: success!", response.boostTag];
+	}
+	else {
+		if (response.error) {
+			self.boostStatus.text = [NSString stringWithFormat:@"%@: %@", response.boostTag, response.error.localizedDescription];
+		}
+		else {
+			self.boostStatus.text = [NSString stringWithFormat:@"%@: unkown error", response.boostTag];
+		}
+	}
 }
 
 @end
