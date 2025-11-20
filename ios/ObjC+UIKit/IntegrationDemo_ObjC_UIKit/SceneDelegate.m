@@ -6,8 +6,8 @@
 //
 
 #import "SceneDelegate.h"
-
-NSString *apiToken = @"0b5dcbae8151c1b82d69697dce004bf2"; // Replace with your own token
+#import "TapResearchToken.h"
+NSString *apiToken = TAP_RESEARCH_TOKEN; // API token is now in TapResearchToken.h
 NSString *userIdentifier = @"public-demo-user"; // Replace with your own app's player user id
 
 @interface SceneDelegate ()
