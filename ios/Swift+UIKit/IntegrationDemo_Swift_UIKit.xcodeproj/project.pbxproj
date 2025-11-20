@@ -15,6 +15,7 @@
 		9080F77229A69C6900FFF90C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9080F77029A69C6900FFF90C /* Main.storyboard */; };
 		9080F77429A69C6A00FFF90C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9080F77329A69C6A00FFF90C /* Assets.xcassets */; };
 		9080F77729A69C6A00FFF90C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9080F77529A69C6A00FFF90C /* LaunchScreen.storyboard */; };
+		90A628BC2ECF9918009FCBDA /* TapResearchToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A628BB2ECF9910009FCBDA /* TapResearchToken.swift */; };
 		90B39DBA29C3104E003BD0B1 /* PlacementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B39DB929C3104E003BD0B1 /* PlacementCell.swift */; };
 		90C871C72CA1E2AF00873E22 /* NativeWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C871C62CA1E2AF00873E22 /* NativeWallViewController.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		9080F77329A69C6A00FFF90C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9080F77629A69C6A00FFF90C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9080F77829A69C6A00FFF90C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90A628BB2ECF9910009FCBDA /* TapResearchToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapResearchToken.swift; sourceTree = "<group>"; };
 		90B39DB929C3104E003BD0B1 /* PlacementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementCell.swift; sourceTree = "<group>"; };
 		90C871C62CA1E2AF00873E22 /* NativeWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWallViewController.swift; sourceTree = "<group>"; };
 		965BBEDD050F344A74FD80B3 /* Pods-IntegrationDemo_Swift_UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationDemo_Swift_UIKit.debug.xcconfig"; path = "Target Support Files/Pods-IntegrationDemo_Swift_UIKit/Pods-IntegrationDemo_Swift_UIKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		9080F76929A69C6900FFF90C /* IntegrationDemo_Swift_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				90A628BB2ECF9910009FCBDA /* TapResearchToken.swift */,
 				9080F76A29A69C6900FFF90C /* AppDelegate.swift */,
 				9080F76C29A69C6900FFF90C /* SceneDelegate.swift */,
 				90B39DB929C3104E003BD0B1 /* PlacementCell.swift */,
@@ -94,7 +97,6 @@
 				965BBEDD050F344A74FD80B3 /* Pods-IntegrationDemo_Swift_UIKit.debug.xcconfig */,
 				AE2D4D63082CFB189993B303 /* Pods-IntegrationDemo_Swift_UIKit.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -206,9 +208,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_Swift_UIKit/Pods-IntegrationDemo_Swift_UIKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_Swift_UIKit/Pods-IntegrationDemo_Swift_UIKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -223,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9080F76F29A69C6900FFF90C /* ViewController.swift in Sources */,
+				90A628BC2ECF9918009FCBDA /* TapResearchToken.swift in Sources */,
 				9009072B2AFDD09500512F9E /* TapResearchSDKDelegates.swift in Sources */,
 				9080F76B29A69C6900FFF90C /* AppDelegate.swift in Sources */,
 				90C871C72CA1E2AF00873E22 /* NativeWallViewController.swift in Sources */,

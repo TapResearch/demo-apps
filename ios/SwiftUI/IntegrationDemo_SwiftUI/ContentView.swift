@@ -12,6 +12,7 @@ struct ContentView: View {
 
 	@State var waitText: String = "Waiting for surveys..."
 	@State var placementTagInput = ""
+	@State var boostTagInput = ""
 	@Binding var userId: String
 	// If you are using your own API token update this are to reflect your own placements:
 	@State var knownPlacements = [
@@ -25,6 +26,7 @@ struct ContentView: View {
 	@State var showSurveyWallPreview: Bool = false
 
 	let contentDelegate: TapResearchContentDelegates = TapResearchContentDelegates()
+	let boostDelegate: TapResearchBoostDelegate = TapResearchBoostDelegate()
 
 	func showPlacement(_ placementTag: String) {
 		guard placementTag.count > 0 else { return }
@@ -41,7 +43,17 @@ struct ContentView: View {
 			}
 		}
 		else {
-			print("Placement \(placementTag) not ready")
+			print("[\(Date())] \(#function): Placement \(placementTag) not ready")
+		}
+	}
+
+	func grantBoost(_ boostTag: String) {
+		guard boostTag.count > 0 else { return }
+
+		TapResearch.grantBoost(boostTag, delegate: boostDelegate) { (error: NSError?) in
+			if let error {
+				print("[\(Date())] \(#function): \(boostTag): \(error.localizedDescription)")
+			}
 		}
 	}
 
@@ -66,6 +78,16 @@ struct ContentView: View {
 							.autocapitalization(.none)
 						Button(action: { showPlacement(placementTagInput) } ) {
 							Text("Show Placement")
+								.frame(minWidth: 130, maxWidth: 130)
+						}
+						.buttonStyle(.borderedProminent)
+					}
+					HStack {
+						TextField("Boost Tag", text: $boostTagInput)
+							.textFieldStyle(.roundedBorder)
+							.autocapitalization(.none)
+						Button(action: { grantBoost(boostTagInput) } ) {
+							Text("Grant Boost")
 								.frame(minWidth: 130, maxWidth: 130)
 						}
 						.buttonStyle(.borderedProminent)

@@ -19,3 +19,22 @@ class TapResearchContentDelegates : NSObject, TapResearchContentDelegate {
 	}
 
 }
+
+class TapResearchBoostDelegate : NSObject, TapResearchGrantBoostResponseDelegate {
+
+	func onTapResearchGrantBoostResponse(_ response: TapResearchSDK.TRGrantBoostResponse) {
+
+		if response.success {
+			print("[\(Date())] \(#function): \(response.boostTag): success!")
+		}
+		else {
+			if let error = response.error {
+				print("[\(Date())] \(#function): \(response.boostTag): \(error.localizedDescription)")
+			}
+			else {
+				print("[\(Date())] \(#function): \(response.boostTag): unkown error")
+			}
+		}
+	}
+
+}
