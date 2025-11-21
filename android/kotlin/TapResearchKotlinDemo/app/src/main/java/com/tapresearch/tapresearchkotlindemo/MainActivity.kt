@@ -131,7 +131,8 @@ class MainActivity : ComponentActivity() {
                         showWallPreview = {
                             startActivity(Intent(this, WallPreviewActivity::class.java))
                         },
-                        onGrantBoostClicked = {onGrantBoostClicked()},
+                        onGrantBoostClicked = { boostTag ->
+                            onGrantBoostClicked(boostTag)},
                     )
                 }
             }
@@ -179,10 +180,10 @@ class MainActivity : ComponentActivity() {
         Log.d(LOG_TAG, "onDestroy()")
     }
 
-    private fun onGrantBoostClicked() {
+    private fun onGrantBoostClicked(boostTag: String) {
         // 'boost-3x-1d' is an example boost tag
         TapResearch.grantBoost(
-            "boost-3x-1d",
+            boostTag,
             TRGrantBoostResponseListener { grantBoostResponse: TRGrantBoostResponse? ->
                 if (grantBoostResponse?.success == true) {
                     // example placement tag 'earn-center' should now be boosted
@@ -190,22 +191,22 @@ class MainActivity : ComponentActivity() {
                     val placementDetails = getPlacementDetails("earn-center", null)
                     if (placementDetails != null) {
                         // 'earn-center' placement details should now be boosted
-                        Log.d(LOG_TAG, "placement details: " + placementDetails)
+                        Log.d(LOG_TAG, "Grant Boost Success. placement details: $placementDetails")
                         showAlertDialog(
                             this@MainActivity,
-                            "Placement Details",
+                            "Grant Boost Success",
                             placementDetails.toString()
                         )
                     }
                 } else {
-                    Toast.makeText(
+                    showAlertDialog(
                         this@MainActivity,
-                        grantBoostResponse!!.error!!.description,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        "Grant Boost Error",
+                        grantBoostResponse?.error?.description
+                    )
                     Log.d(
                         LOG_TAG,
-                        "grantBoost error: " + grantBoostResponse.error!!.description
+                        "Grant Boost Error: ${grantBoostResponse?.error?.description}"
                     )
                 }
             })
