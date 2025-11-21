@@ -10,12 +10,12 @@ import TapResearchSDK
 
 class TapResearchDelegates: NSObject, TapResearchSDKDelegate, LogPrint {
 
-	// Optional
+	// Optional, ViewController shows how to set a reward delegate
 //	func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
 //		logPrint("number of rewards = \(rewards.count)")
 //	}
 
-	// Optional
+	// Optional, ViewController shows how to set a Quick Question payload response delegate
 //	func onTapResearchQuickQuestionResponse(_ qqPayload: TRQQDataPayload) {
 //		logPrint()
 //	}

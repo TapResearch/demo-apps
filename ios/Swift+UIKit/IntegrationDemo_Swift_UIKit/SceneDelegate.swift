@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, LogPrint {
 	var window: UIWindow?
 
 	// Token for example is in TapResearchToken.swift
-	let userIdentifier: String = "public-demo-test-user" // Replace with your own app's player user id
+	let userIdentifier: String = "public-demo-test-user-with-extra-text" // Replace with your own app's player user id
 
 	let tapDelegates: TapResearchDelegates = TapResearchDelegates()
 
