@@ -1,5 +1,7 @@
 package com.tapresearch.tapresearchkotlindemo
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,16 +17,18 @@ import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 import com.tapresearch.tapsdk.TapInitOptions
 import com.tapresearch.tapsdk.TapResearch
+import com.tapresearch.tapsdk.TapResearch.getPlacementDetails
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
-import com.tapresearch.tapsdk.callback.TRQQDataCallback
 import com.tapresearch.tapsdk.callback.TRGrantBoostResponseListener
-import com.tapresearch.tapsdk.models.TRGrantBoostResponse
-import com.tapresearch.tapsdk.models.TRPlacementDetails
+import com.tapresearch.tapsdk.callback.TRQQDataCallback
 import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
+import com.tapresearch.tapsdk.models.TRGrantBoostResponse
 import com.tapresearch.tapsdk.models.TRReward
+import kotlinx.serialization.InternalSerializationApi
 
+@OptIn(InternalSerializationApi::class)
 class MainActivity : ComponentActivity() {
     val LOG_TAG = "MainKotlinDemo"
 
@@ -126,7 +130,8 @@ class MainActivity : ComponentActivity() {
                         },
                         showWallPreview = {
                             startActivity(Intent(this, WallPreviewActivity::class.java))
-                        }
+                        },
+                        onGrantBoostClicked = {onGrantBoostClicked()},
                     )
                 }
             }
@@ -172,5 +177,45 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(LOG_TAG, "onDestroy()")
+    }
+
+    private fun onGrantBoostClicked() {
+        // 'boost-3x-1d' is an example boost tag
+        TapResearch.grantBoost(
+            "boost-3x-1d",
+            TRGrantBoostResponseListener { grantBoostResponse: TRGrantBoostResponse? ->
+                if (grantBoostResponse?.success == true) {
+                    // example placement tag 'earn-center' should now be boosted
+
+                    val placementDetails = getPlacementDetails("earn-center", null)
+                    if (placementDetails != null) {
+                        // 'earn-center' placement details should now be boosted
+                        Log.d(LOG_TAG, "placement details: " + placementDetails)
+                        showAlertDialog(
+                            this@MainActivity,
+                            "Placement Details",
+                            placementDetails.toString()
+                        )
+                    }
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        grantBoostResponse!!.error!!.description,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d(
+                        LOG_TAG,
+                        "grantBoost error: " + grantBoostResponse.error!!.description
+                    )
+                }
+            })
+    }
+
+    fun showAlertDialog(context: Context?, title: String?, message: String?) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        val dialog = builder.create()
+        dialog.show()
     }
 }

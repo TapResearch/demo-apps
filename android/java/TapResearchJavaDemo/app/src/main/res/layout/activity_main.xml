@@ -22,7 +22,7 @@
     <Button
         android:visibility="gone"
         android:id="@+id/grantBoostButton"
-        android:text="Grant Boost"
+        android:text="Grant Boost Demo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onGrantBoostButtonClicked"/>

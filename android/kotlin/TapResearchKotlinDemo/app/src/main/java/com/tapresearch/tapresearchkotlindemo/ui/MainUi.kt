@@ -29,6 +29,7 @@ fun MainUi(
     buttonOptions: List<String>,
     sendUserAttributes: () -> Unit,
     showWallPreview: () -> Unit,
+    onGrantBoostClicked: () -> Unit,
 ) {
     TapResearchKotlinDemoTheme {
         Column(
@@ -96,6 +97,13 @@ fun MainUi(
                 modifier = Modifier.padding(5.dp),
             ) {
                 Text(text = "Wall Preview Feature")
+            }
+
+            Button(
+                onClick = { onGrantBoostClicked() },
+                modifier = Modifier.padding(5.dp),
+            ) {
+                Text(text = "Grant Boost Demo")
             }
         }
     }
