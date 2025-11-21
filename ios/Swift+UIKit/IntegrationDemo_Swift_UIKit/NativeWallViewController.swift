@@ -13,6 +13,8 @@ class NativeWallViewController: UIViewController,
 								UITableViewDataSource,
 								TapResearchContentDelegate,
 								TapResearchSurveysDelegate,
+								TapResearchRewardDelegate,
+								InformationAlert,
 								LogPrint
 {
 
@@ -32,6 +34,12 @@ class NativeWallViewController: UIViewController,
 			spinner.hidesWhenStopped = true
 			spinner.stopAnimating()
 		}
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		TapResearch.setRewardDelegate(self)
 	}
 
 	//MARK: - Table delegate and datasource
@@ -109,6 +117,18 @@ class NativeWallViewController: UIViewController,
 
 	func onTapResearchContentDismissed(forPlacement placement: String) {
 		logPrint("placement = \(placement)")
+	}
+
+	//MARK: - TapResearchRewardDelegate
+
+	@objc func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
+
+		//		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+		self.showInformationAlert(title: "Reward!",
+								  message: RewardParser.parseRewards(rewards),
+								  dismissActionTitle: "Ok") { }
+		//				}
+
 	}
 
 }
