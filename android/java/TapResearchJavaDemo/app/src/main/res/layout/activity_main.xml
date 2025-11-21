@@ -9,7 +9,7 @@
     <TextView
         android:singleLine="false"
         android:textAlignment="center"
-        android:padding="8dp"
+        android:paddingTop="24dp"
         android:id="@+id/statusView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -19,4 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:visibility="gone"
+        android:id="@+id/grantBoostButton"
+        android:text="Grant Boost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onGrantBoostButtonClicked"/>
 </LinearLayout>
