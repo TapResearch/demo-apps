@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "MainJavaDemo";
     private TextView statusView;
     private Button grantBoostButton;
+    private EditText grantBoostEditText;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         statusView = findViewById(R.id.statusView);
         grantBoostButton = findViewById(R.id.grantBoostButton);
+        grantBoostEditText = findViewById(R.id.grantBoostEditText);
 
         ListView listView = findViewById(R.id.listView);
         // Placeholder data until SDK is ready.
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                             false,
                             trError -> statusView.setText("Error sending user attributes: " + trError.toString()));
                     // Setting up the main content view after initialization.
-                    runOnUiThread(this::doSetContent);
+                    doSetContent();
                 },
                 // Callback for handling quick questions data.
                 (qqData) -> {
@@ -147,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             // Feedback toast for item click.
             statusView.setText("Clicked: " + selectedItem);
         });
-        grantBoostButton.setVisibility(View.VISIBLE);
+        findViewById(R.id.grantBoostLayout).setVisibility(View.VISIBLE);
     }
 
     // Method to display an error toast with the provided error description.
@@ -178,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onGrantBoostButtonClicked(View view) {
         // 'boost-3x-1d' is an example boost tag
-        TapResearch.INSTANCE.grantBoost("boost-3x-1d", grantBoostResponse -> {
+        TapResearch.INSTANCE.grantBoost(grantBoostEditText.getText().toString(), grantBoostResponse -> {
             if (grantBoostResponse.getSuccess() == true) {
 
                 // example placement tag 'earn-center' should now be boosted
