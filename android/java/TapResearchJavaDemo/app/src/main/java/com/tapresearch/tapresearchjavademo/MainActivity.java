@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                 if (placementDetails != null) {
                     // 'earn-center' placement details should now be boosted
                     Log.d(LOG_TAG, "placement details: " + placementDetails);
-                    showAlertDialog(MainActivity.this, "Placement Details", placementDetails.toString());
+                    showAlertDialog(MainActivity.this, "Grant Boost Success", placementDetails.toString());
                 }
             } else {
                 Toast.makeText(MainActivity.this, grantBoostResponse.getError().getDescription(), Toast.LENGTH_SHORT).show();
