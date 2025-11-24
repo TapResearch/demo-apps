@@ -112,6 +112,7 @@ class MainActivity : ComponentActivity() {
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
                             )
+                            Toast.makeText(this@MainActivity, "$userId set as user identifier", Toast.LENGTH_SHORT).show()
                         },
                         sendUserAttributes = {
                             TapResearch.sendUserAttributes(
@@ -127,6 +128,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 },
                             )
+                            Toast.makeText(this@MainActivity, "User attributes sent!", Toast.LENGTH_SHORT).show()
                         },
                         showWallPreview = {
                             startActivity(Intent(this, WallPreviewActivity::class.java))

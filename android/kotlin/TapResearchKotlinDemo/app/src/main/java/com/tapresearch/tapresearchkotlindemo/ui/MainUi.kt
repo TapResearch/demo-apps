@@ -66,9 +66,7 @@ fun MainUi(
                 .fillMaxWidth()
                 .padding(5.dp), color = Color.LightGray)
 
-            SetUserIdDemo { userIdentifier ->
-                onSetUserIdentifier(userIdentifier)
-            }
+            SetUserIdDemo(onSetUserIdentifier)
 
             Button(
                 onClick = { sendUserAttributes() },
