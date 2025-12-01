@@ -10,13 +10,11 @@ public class TRScreenFader : MonoBehaviour
 
     public void FadeToBlack(Action onComplete)
     {
-        Debug.Log("Unity C# TRScreenFader: FadeToBlack");
         StartCoroutine(Fade(0, 1, onComplete));
     }
 
     public void FadeFromBlack(Action onComplete)
     {
-        Debug.Log("Unity C# TRScreenFader: FadeFromBlack");
         StartCoroutine(Fade(1, 0, onComplete));
     }
 
@@ -42,7 +40,6 @@ public class TRScreenFader : MonoBehaviour
 
     public void SetAlpha(float alpha)
     {
-        Debug.Log("Unity C# TRScreenFader: SetAlpha " + alpha);
         Color color = fadeImage.color;
         color.a = alpha;
         fadeImage.color = color;

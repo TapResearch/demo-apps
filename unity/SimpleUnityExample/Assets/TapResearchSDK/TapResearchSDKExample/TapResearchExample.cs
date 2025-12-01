@@ -12,23 +12,25 @@ public class TapResearchExample : MonoBehaviour
     public GameObject surveysButton;
 
     #if UNITY_ANDROID
-    private static string tapAPIToken = "fb28e5e0572876db0790ecaf6c588598"; // Public Test Android, replace with your own API token
+    private static string tapAPIToken = "4aa77f4dc27e761d577d1189433cc62f"; // Public Test Android, replace with your own API token
     #elif UNITY_IPHONE
     private static string tapAPIToken = "100e9133abc21471c8cd373587e07515";  // Public Test iOS, replace with your own API token
     #else 
     private static string tapAPIToken = "NotAvailebleInEditor";  // Public Test iOS, replace with your own API token
     #endif
-    private static string tapPlayerUserId = "public-test-user";
+    private static string tapPlayerUserId = "some-test-user-12";
     private static string placementTag = "earn-center";
-                
+    private static string boostTag = "boost"; // Replace this with your own boost tag.
+    
     void Awake()
     {
         Screen.orientation = ScreenOrientation.Portrait;//.LandscapeLeft;
         Debug.Log("TapResearchExample: About to initialize Tap SDK");
         TapResearchSDK.TapContentShown = TapContentShown;
         TapResearchSDK.TapContentDismissed = TapContentDismissed;
-        TapResearchSDK.TapResearchQQResponseReceived = TapQQResponseReceived;
-        TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
+        // TapResearchSDK.TapResearchQQResponseReceived = TapQQResponseReceived;
+        // TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
+        // TapResearchSDK.TapResearchGrantBoostResponse = TapResearchGrantBoostResponse;
         TapResearchSDK.TapResearchDidError = TapResearchDidError;
         TapResearchSDK.TapResearchSdkReady = TapSdkReady;
         screenFader.SetAlpha(0.0f);
@@ -51,7 +53,22 @@ public class TapResearchExample : MonoBehaviour
     public void TapSdkReady()
     {
 		if (TapResearchSDK.IsReady()) // There is no need for this here, it is just for illustration
-		{
+        {
+            TRPlacementDetails? details = TapResearchSDK.GetPlacementDetails("earn-center");
+            if (details != null)
+            {
+                Debug.Log("TapResearchExample: Placement Details Found: " + details?.Name + " " + details?.CurrencyName);
+            }
+            else
+            {
+                Debug.Log("TapResearchExample: NO Placement Details Found!");
+            }
+            
+            // TapResearchSDK.GrantBoost("bo00ost-3x-1d");
+            
+            TapResearchSDK.TapResearchQQResponseReceived = TapQQResponseReceived;
+            TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
+
             Debug.Log("TapResearchExample: TapResearchSDK ready, going to send user attributes...");
 
             Dictionary<string, object> userAttributes = new Dictionary<string, object>();
@@ -80,10 +97,11 @@ public class TapResearchExample : MonoBehaviour
     }
 
     private void TapResearchRewardReceived(TRReward[] rewards) {
+        Debug.Log("TapResearchExample: TRReward received!");
 
         foreach (TRReward reward in rewards)
         {
-            Debug.Log("TapResearchExample: Tap Rewards: You've earned " + reward.RewardAmount + " " + reward.CurrencyName + ". " + reward.TransactionIdentifier);
+            Debug.Log("TapResearchExample: Tap Rewards: You've earned " + reward.RewardAmount + " [" + reward.CurrencyName + "] TransactionIdentifier: " + reward.TransactionIdentifier + " PayoutEvent: ["+reward.PayoutEvent+"]");
         }
     }
     
@@ -91,6 +109,11 @@ public class TapResearchExample : MonoBehaviour
         Debug.Log("TapResearchExample: TapResearch Error:" + error.ErrorCode + " " + error.ErrorDescription + "");
     }
 
+    // private void TapResearchGrantBoostResponse(TRGrantBoostResponse response)
+    // {
+    //     Debug.Log("TapResearchExample: TRGrantBoostResponseReceived " + response.BoostTag);   
+    // }
+    
     // END Callbacks
 
     public void showSurveyContent()

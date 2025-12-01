@@ -15,7 +15,6 @@ public class SurveyButtonManager : MonoBehaviour
     void Start()
     {
         surveys = TapResearchSDK.GetSurveysForPlacement(placementTag);
-        TapResearchSDK.SetEnableSurveysRefreshedCallback(true);
         Debug.Log("" + surveys);
         // Create a button for each survey in the array
         foreach (TRSurvey survey in surveys)
@@ -33,17 +32,13 @@ public class SurveyButtonManager : MonoBehaviour
         TapResearchSDK.TapResearchDidError = TapResearchDidError;
         TapResearchSDK.TapResearchSurveysRefreshed = TapResearchSurveysRefreshed;
     }
-
-    void DeleteOldButtons() {
+    
+     void DeleteOldButtons() {
         var buttonCount = buttons.Count;
         for (int i = buttonCount - 1; i >= 0; i--) {
             Destroy(buttons[i]);
             buttons.RemoveAt(i);
         }
-        // foreach (GameObject button in buttons) {
-        //     Destroy(button);
-        //     buttons.Remove(button);
-        // }
         buttons.Clear();
     }
 
@@ -56,7 +51,16 @@ public class SurveyButtonManager : MonoBehaviour
         TextMeshProUGUI buttonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
         if (buttonText != null)
         {
-            string text = "" + survey.LengthInMinutes + (survey.LengthInMinutes == "1" ? " minute\nfor\n" : " minutes\nfor\n") + survey.RewardAmount + " " + survey.CurrencyName; 
+            string indicator = "";
+            if (survey.IsHotTile)
+            {
+                indicator += "HOT!!!\n";
+            }
+            if (survey.IsSale)
+            {
+                indicator += survey.SaleMultiplier + "x SALE!!!\n";
+            }
+            string text = indicator + survey.LengthInMinutes + (survey.LengthInMinutes == 1 ? " minute\nfor\n" : " minutes\nfor\n") + survey.RewardAmount + " " + survey.CurrencyName; 
             Debug.Log("button text: " + text);
             buttonText.text = text;
         }
