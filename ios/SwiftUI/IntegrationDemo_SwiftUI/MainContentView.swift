@@ -11,14 +11,14 @@ import TapResearchSDK
 struct MainContent: View {
 
 	let tapSDKDelegates: TapResearchSDKDelegates
-	let apiToken: String = "YOUR_API_TOKEN" // Replace with your own token
+	// API token for example is no in TapResearchToken.swift
 	@State var userId: String = "public-demo-user" // Replace with your own app's player user id
 
 	init() {
 
 		tapSDKDelegates = TapResearchSDKDelegates()
 
-		let dict: [AnyHashable:Any] = ["app-user": userId, "roller-type": "high", "roller-type-valid-until": Date().timeIntervalSince1970 + (3.0 * 60.0 * 60.0)]
+		let dict: [String:Any] = ["app-user": userId, "roller-type": "high", "roller-type-valid-until": Date().timeIntervalSince1970 + (3.0 * 60.0 * 60.0)]
 		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userId, userAttributes: dict, clearPreviousAttributes: true, sdkDelegate: self.tapSDKDelegates) { (error: Error?) in
 			if let error = error {
 				print(error.localizedDescription as Any)

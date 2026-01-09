@@ -12,8 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, LogPrint {
 
 	var window: UIWindow?
 
-
-	let apiToken: String = "0b5dcbae8151c1b82d69697dce004bf2" // Replace with your own token
+	// Token for example is in TapResearchToken.swift
 	let userIdentifier: String = "public-demo-test-user" // Replace with your own app's player user id
 
 	let tapDelegates: TapResearchDelegates = TapResearchDelegates()
@@ -25,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, LogPrint {
 		guard let _ = (scene as? UIWindowScene) else { return }
 
 		// Initialize TapResearch
-		let dict: [AnyHashable:Any] = ["some_string" : "a string value", "some_number" : 12]
+		let dict: [String:Any] = ["some_string" : "a string value", "some_number" : 12]
 		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, userAttributes: dict, clearPreviousAttributes: true, sdkDelegate:tapDelegates) { (error: Error?) in
 			if let error = error {
 				self.logPrint(error.localizedDescription)
