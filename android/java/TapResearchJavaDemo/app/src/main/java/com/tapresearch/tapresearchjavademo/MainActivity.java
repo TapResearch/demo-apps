@@ -19,10 +19,17 @@ import com.tapresearch.tapsdk.callback.TRContentCallback;
 import com.tapresearch.tapsdk.models.TRError;
 import com.tapresearch.tapsdk.models.TRPlacementDetails;
 import com.tapresearch.tapsdk.models.TRReward;
+import com.tapresearch.tapsdk.utils.TapErrorCodes;
+import com.tapresearch.tapsdk.TapInitOptions;
+import com.tapresearch.tapsdk.internal.SdkInitializer;
+import com.tapresearch.tapsdk.internal.callback.TROfferNavigationPayload$Companion;
+import com.tapresearch.tapsdk.internal.service.InternalService;
+
 
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -44,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // User identifier for demo purposes. Replace with actual user ID in production.
-        String myUserIdentifier = "tr-sdk-test-user-46183135";
+        String myUserIdentifier = "tr-sdk-test-user-1112345678";  // after a few runs change the ending number to see behavior
         // API Token retrieved from resources. Replace with actual token.
-        String myApiToken = getString(R.string.api_token);
+        String myApiToken = "fb28e5e0572876db0790ecaf6c588598";  // this is the demo api token
 
         // Logging API Token and User Identifier for debug purposes.
         Log.d(LOG_TAG, "API Token: " + myApiToken);
@@ -77,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         TapResearch.INSTANCE.initialize(
                 myApiToken, // Replace with your API Token
                 myUserIdentifier, // Replace with your User Identifier
-                MainActivity.this, // Current activity context
                 this::showReward, // Callback to handle reward display
                 this::showError, // Callback to handle errors
                 // Callback indicating SDK is ready. Used to send user attributes and log readiness.
