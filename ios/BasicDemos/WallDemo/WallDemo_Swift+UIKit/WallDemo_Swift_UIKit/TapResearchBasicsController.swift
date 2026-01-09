@@ -12,7 +12,7 @@ import TapResearchSDK
 
 class TapResearchBasicsController : UIViewController {
 
-	let apiToken: String = "100e9133abc21471c8cd373587e07515"// "0b5dcbae8151c1b82d69697dce004bf2" // Replace with your own token
+	let apiToken: String = "YOUR TOKEN HERE" // Replace with your own token
 	let userIdentifier: String = "public-demo-test-user-for-2026" // Replace with your own app's player user id
 
 	let wallPlacement: String = "earn-center" // Replace with your own app's placement
@@ -28,6 +28,7 @@ class TapResearchBasicsController : UIViewController {
 		sdkReadySpinner.hidesWhenStopped = true
 		sdkReadySpinner.startAnimating()
 		buttonsContainer.isHidden = true
+		
 		// Initialize TapResearchSDK
 		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, sdkDelegate: self) { (error: NSError?) in
 			if let error {
@@ -39,7 +40,7 @@ class TapResearchBasicsController : UIViewController {
 	//MARK: - Button actions
 
 	///
-	/// Before attempting to present a placment's content we first check if the placement currnetly has content available.
+	/// Before attempting to present a placement's content we first check if the placement currently has content available.
 	///
 	@IBAction func showWallButtonTapped() {
 
@@ -67,10 +68,16 @@ class TapResearchBasicsController : UIViewController {
 
 extension TapResearchBasicsController : TapResearchContentDelegate {
 
+	///
+	/// When any TapResearch content is presented `onTapResearchContentShown` is called, followed by the presenting content's `viewWillAppear`.
+	///
 	func onTapResearchContentShown(forPlacement placement: String) {
 		print("\(#function) Placement content shown")
 	}
 
+	///
+	/// When any TapResearch content is dismissed `onTapResearchContentDismissed` is called, followed by the presented content's `viewWillDisappear`.
+	///
 	func onTapResearchContentDismissed(forPlacement placement: String) {
 		print("\(#function) Placement content dismissed")
 	}
@@ -102,7 +109,7 @@ extension TapResearchBasicsController : TapResearchSDKDelegate {
 	}
 
 	///
-	/// After we initialize the SDK we need to wait for the SDK to notify us that it is ready for use.
+	/// After we initialize the SDK we need to wait for the SDK to report that it is ready for calls to SDK interfaces.
 	///
 	func onTapResearchSdkReady() {
 

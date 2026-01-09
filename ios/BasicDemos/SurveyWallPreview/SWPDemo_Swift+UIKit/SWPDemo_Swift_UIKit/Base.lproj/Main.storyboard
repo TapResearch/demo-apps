@@ -43,14 +43,31 @@
                                     <constraint firstItem="EfY-h0-eng" firstAttribute="top" secondItem="Ned-ml-WuV" secondAttribute="top" id="p1g-Bj-sgL"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make sure to set a unique user identifier and pass it into SDK initialization!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRu-FN-zY0">
+                                <rect key="frame" x="40" y="384.66666666666669" width="313" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Survey Wall Preview Demo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmK-x4-sTn">
+                                <rect key="frame" x="88.666666666666671" y="343.66666666666669" width="215.66666666666663" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Xir-aa-dxm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6YX-tm-0Uh"/>
+                            <constraint firstItem="pmK-x4-sTn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Pw0-ua-tIX"/>
                             <constraint firstItem="Xir-aa-dxm" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Q3H-FZ-Hw9"/>
                             <constraint firstItem="Ned-ml-WuV" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="ZJV-hX-QaN"/>
+                            <constraint firstItem="BRu-FN-zY0" firstAttribute="top" secondItem="pmK-x4-sTn" secondAttribute="bottom" constant="20" id="adc-hF-cFf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ned-ml-WuV" secondAttribute="trailing" constant="40" id="kUM-Cf-p9P"/>
+                            <constraint firstItem="BRu-FN-zY0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="pex-eG-pUt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="BRu-FN-zY0" secondAttribute="trailing" constant="40" id="pts-aT-hsa"/>
+                            <constraint firstItem="Ned-ml-WuV" firstAttribute="top" secondItem="BRu-FN-zY0" secondAttribute="bottom" constant="40" id="w4b-lg-Rm9"/>
                             <constraint firstItem="Ned-ml-WuV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="xky-OV-p04"/>
                             <constraint firstItem="Ned-ml-WuV" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="zva-DL-8tB"/>
                         </constraints>
