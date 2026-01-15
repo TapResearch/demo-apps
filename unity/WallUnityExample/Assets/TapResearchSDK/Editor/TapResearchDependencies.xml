@@ -1,0 +1,33 @@
+<dependencies>
+  <androidPackages>
+
+    <androidPackage spec="com.tapresearch:tapsdk:3.7.1--rc0">
+      <repositories>
+        <repository>https://artifactory.tools.tapresearch.io/artifactory/tapresearch-android-sdk/</repository>
+      </repositories>
+    </androidPackage>
+
+    <androidPackage spec="com.tapresearch:unitybridge:3.7.1--rc0">
+      <repositories>
+        <repository>https://artifactory.tools.tapresearch.io/artifactory/tapresearch-android-sdk/</repository>
+      </repositories>
+    </androidPackage>
+
+    <androidPackage spec="org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0">
+    </androidPackage>
+
+    <androidPackage spec="androidx.core:core-ktx:1.6.0">
+    </androidPackage>
+
+    <androidPackage spec="androidx.lifecycle:lifecycle-process:2.6.1">
+    </androidPackage>
+
+    <androidPackage spec="com.google.android.gms:play-services-ads-identifier:18.0.1">
+    </androidPackage>
+
+    <androidPackage spec="com.google.android.gms:play-services-appset:16.1.0">
+    </androidPackage>
+
+  </androidPackages>
+
+</dependencies>
