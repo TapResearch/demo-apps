@@ -8,12 +8,42 @@
 import UIKit
 import TapResearchSDK
 
+
+struct RewardParser {
+
+	static func parseRewards(_ rewards: [TRReward]) -> String {
+
+		var amounts: [String:Int] = [:]
+		for reward: TRReward in rewards {
+			let currency: String = reward.currencyName ?? "unkown currency"
+			if amounts[currency] == nil {
+				amounts[currency] = reward.rewardAmount
+			}
+			else {
+				let a: Int = amounts[currency]!
+				amounts[currency] = a + reward.rewardAmount
+			}
+		}
+		var rewarded: String = "You received:\n"
+		for key in amounts.keys {
+			rewarded.append("\(amounts[key] ?? 0) \(key)\n")
+		}
+
+		print("[\(Date())] onTapResearchDidReceiveRewards(rewards...) = \(rewarded)")
+		return rewarded
+	}
+
+}
+
 class ViewController : UIViewController,
 					   UITextFieldDelegate,
 					   UITableViewDelegate,
 					   UITableViewDataSource,
+					   TapResearchRewardDelegate,
 					   TapResearchContentDelegate,
+					   TapResearchQuickQuestionDelegate,
 					   TapResearchGrantBoostResponseDelegate,
+					   InformationAlert,
 					   LogPrint
 {
 
@@ -46,6 +76,8 @@ class ViewController : UIViewController,
 		super.viewWillAppear(animated)
 
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Surveys?", style: .plain, target: self, action: #selector(refresh))
+		TapResearch.setRewardDelegate(self)
+		TapResearch.setQuickQuestionDelegate(self)
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -214,6 +246,24 @@ class ViewController : UIViewController,
 				self.boostStatus.text = "\(response.boostTag): unkown error"
 			}
 		}
+	}
+
+	//MARK: - TapResearchRewardDelegate
+
+	@objc func onTapResearchDidReceiveRewards(_ rewards: [TRReward]) {
+
+		//		DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+					self.showInformationAlert(title: "Reward!",
+															  message: RewardParser.parseRewards(rewards),
+															  dismissActionTitle: "Ok") { }
+//				}
+
+	}
+
+	//MARK: - TapResearchQuickQuestionDelegate
+
+	func onTapResearchQuickQuestionResponse(_ qqPayload: TapResearchSDK.TRQQDataPayload) {
+		print("[\(Date())] onTapResearchQuickQuestionResponse(responses...) = \(qqPayload)")
 	}
 
 }
