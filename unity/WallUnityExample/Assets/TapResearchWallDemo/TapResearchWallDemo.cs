@@ -43,13 +43,7 @@ public class TapResearchWallDemo : MonoBehaviour
     public void TapSdkReady()
     {
         TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
-        if (TapResearchSDK.HasSurveys(placementTag)) 
-        {
-            wallButton.SetActive(true);
-        }
-        else {
-            wallButton.SetActive(false);
-        }
+        wallButton.SetActive(false);
     }
     
     private void TapResearchRewardReceived(TRReward[] rewards) {
