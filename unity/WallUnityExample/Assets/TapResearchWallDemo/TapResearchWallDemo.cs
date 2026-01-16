@@ -43,7 +43,7 @@ public class TapResearchWallDemo : MonoBehaviour
     public void TapSdkReady()
     {
         TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
-        wallButton.SetActive(false);
+        wallButton.SetActive(true);
     }
     
     private void TapResearchRewardReceived(TRReward[] rewards) {
