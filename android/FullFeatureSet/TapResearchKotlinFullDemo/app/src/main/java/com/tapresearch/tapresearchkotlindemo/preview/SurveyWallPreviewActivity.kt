@@ -62,7 +62,7 @@ class SurveyWallPreviewActivity : ComponentActivity() {
                 updateSurveys(myPlacementTag)
             },
             rewardCallback = { rewards ->
-                showToast(this@SurveyWallPreviewActivity,"Rewarded ${rewards.first().rewardAmount} ${rewards.first().currencyName}!")
+                showToast(this@SurveyWallPreviewActivity,"(SWP) Rewarded ${rewards.first().rewardAmount} ${rewards.first().currencyName}!")
             },
             initOptions = null,
             qqDataCallback = null,

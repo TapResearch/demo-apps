@@ -11,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.tapresearch.tapresearchkotlindemo.preview.SurveyWallPreviewActivity
-import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 import com.tapresearch.tapsdk.TapInitOptions
 import com.tapresearch.tapsdk.TapResearch
@@ -24,6 +23,8 @@ import com.tapresearch.tapsdk.models.TRPlacementDetails
 import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
+
+import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 
 class MainActivity : ComponentActivity() {
     val LOG_TAG = "MainKotlinDemo"
@@ -166,7 +167,7 @@ class MainActivity : ComponentActivity() {
         val eventType = rewards.first().payoutEventType
         Toast.makeText(
             this@MainActivity,
-            "Congrats! You've earned $rewardAmount $currencyName. Event type is $eventType",
+            "(MainActivity) Congrats! You've earned $rewardAmount $currencyName. Event type is $eventType",
             Toast.LENGTH_LONG,
         ).show()
     }
