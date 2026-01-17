@@ -25,9 +25,14 @@ import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
 
 import com.tapresearch.tapresearchkotlindemo.ui.MainUi
+import com.tapresearch.tapsdk.callback.TRRewardCallback
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), TRRewardCallback {
     val LOG_TAG = "MainKotlinDemo"
+
+    override fun onTapResearchDidReceiveRewards(rewards: MutableList<TRReward>) {
+        showRewardToast(rewards)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +53,7 @@ class MainActivity : ComponentActivity() {
                 ).show()
                 Log.d(LOG_TAG, "SDK is ready")
             },
-            rewardCallback = { rewards ->
-                showRewardToast(rewards)
-            },
+            rewardCallback = this@MainActivity,
             initOptions = TapInitOptions(
                 // Uncomment the following lines to set user attributes
 //                userAttributes = hashMapOf(
@@ -136,6 +139,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        TapResearch.setRewardCallback(this@MainActivity)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        TapResearch.setRewardCallback(null)
+    }
+
     private fun contentDismissed(tag: String) {
         Log.d(LOG_TAG, "dismissed: $tag")
     }
@@ -176,4 +189,5 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         Log.d(LOG_TAG, "onDestroy()")
     }
+
 }

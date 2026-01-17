@@ -31,18 +31,24 @@ import com.tapresearch.tapresearchkotlindemo.preview.ui.CenterHeadlineText
 import com.tapresearch.tapresearchkotlindemo.preview.ui.ProgressIndicator
 import com.tapresearch.tapresearchkotlindemo.preview.ui.theme.SurveyWallPreviewTheme
 import com.tapresearch.tapsdk.TapResearch
+import com.tapresearch.tapsdk.callback.TRRewardCallback
+import com.tapresearch.tapsdk.models.TRReward
 import com.tapresearch.tapsdk.models.TRSurvey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class SurveyWallPreviewActivity : ComponentActivity() {
+class SurveyWallPreviewActivity : ComponentActivity(), TRRewardCallback {
 
     val myPlacementTag = "earn-center"
     lateinit var myUserIdentifier: String // see initializeTapResearch()
     val myApiToken = "fb28e5e0572876db0790ecaf6c588598" // Sample API Token; replace in your production app
     val surveysStateFlow = MutableStateFlow(SurveysState())
     val initializationStateFlow = MutableStateFlow(true)
+
+    override fun onTapResearchDidReceiveRewards(rewards: MutableList<TRReward>) {
+        showToast(this@SurveyWallPreviewActivity,"(SWP) Rewarded ${rewards.first().rewardAmount} ${rewards.first().currencyName}!")
+    }
 
     fun initializeTapResearch() {
 
@@ -61,9 +67,7 @@ class SurveyWallPreviewActivity : ComponentActivity() {
                 initializationStateFlow.update{ false }
                 updateSurveys(myPlacementTag)
             },
-            rewardCallback = { rewards ->
-                showToast(this@SurveyWallPreviewActivity,"(SWP) Rewarded ${rewards.first().rewardAmount} ${rewards.first().currencyName}!")
-            },
+            rewardCallback = this@SurveyWallPreviewActivity,
             initOptions = null,
             qqDataCallback = null,
         )
@@ -95,16 +99,18 @@ class SurveyWallPreviewActivity : ComponentActivity() {
     }
 
     override fun onResume() {
-        super.onResume()
         updateSurveys(myPlacementTag)
         TapResearch.setSurveysRefreshedListener { placementTag ->
             updateSurveys(placementTag)
         }
+        TapResearch.setRewardCallback(this)
+        super.onResume()
     }
 
     override fun onPause() {
-        super.onPause()
         TapResearch.setSurveysRefreshedListener(null)
+        TapResearch.setRewardCallback(null)
+        super.onPause()
     }
 
     @Composable
