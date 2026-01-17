@@ -4,13 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.outlined.Done
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -18,15 +15,11 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 
 @Composable
@@ -80,9 +73,11 @@ fun MainUi(
 }
 
 @Composable
-private fun UserIdentifierRow(userId: String, onSaveUserId: (String) -> Unit) {
+private fun UserIdentifierRow(initialUserId: String, onSaveUserId: (String) -> Unit) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    val newUserId = remember { mutableStateOf(TextFieldValue(userId)) }
+    val newUserId = remember { mutableStateOf(TextFieldValue(initialUserId)) }
+    val originalUserId = remember { mutableStateOf(TextFieldValue(initialUserId)) }
+
     TextField(
         newUserId.value,
         onValueChange = {
@@ -95,11 +90,11 @@ private fun UserIdentifierRow(userId: String, onSaveUserId: (String) -> Unit) {
             .padding(5.dp, 0.dp, 5.dp, 0.dp),
         singleLine = true,
         leadingIcon = {
-            if (!newUserId.value.text.equals(userId) && newUserId.value.text.isNotEmpty()) {
+            if (newUserId.value.text != originalUserId.value.text && newUserId.value.text.isNotEmpty()) {
                 IconButton(
                     onClick =
                         {
-                            newUserId.value = TextFieldValue(userId)
+                            newUserId.value = TextFieldValue(originalUserId.value.text)
                             keyboardController?.hide()
                         }
                 ) {
@@ -111,11 +106,12 @@ private fun UserIdentifierRow(userId: String, onSaveUserId: (String) -> Unit) {
             }
         },
         trailingIcon = {
-            if (!newUserId.value.text.equals(userId) && newUserId.value.text.trim().isNotBlank()) {
+            if (newUserId.value.text != originalUserId.value.text && newUserId.value.text.trim().isNotBlank()) {
                 IconButton(
                     onClick = {
                         onSaveUserId(newUserId.value.text)
                         keyboardController?.hide()
+                        originalUserId.value = newUserId.value
                     }
                 ) {
                     Icon(
