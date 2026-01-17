@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen
+package com.tapresearch.tapresearchkotlindemo.preview
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -33,19 +33,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewConfig.GREEN_COLOR
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewConfig.PURPLE_COLOR
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations.FireImage
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations.PulsingHeartImage
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations.SwayingStarImage
-import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
+import com.tapresearch.android.surveywallpreview.ui.SurveyTileConfig
+import com.tapresearch.android.surveywallpreview.ui.SurveyTileConfig.GREEN_COLOR
+import com.tapresearch.android.surveywallpreview.ui.SurveyTileConfig.PURPLE_COLOR
+import com.tapresearch.tapresearchkotlindemo.preview.animations.FireImage
+import com.tapresearch.tapresearchkotlindemo.preview.animations.PulsingHeartImage
+import com.tapresearch.tapresearchkotlindemo.preview.animations.SwayingStarImage
+import com.tapresearch.tapresearchkotlindemo.preview.ui.theme.SurveyWallPreviewTheme
 import com.tapresearch.tapsdk.models.TRSurvey
 
 @Preview
 @Composable
 fun SurveyTilePreview() {
     val survey = TRSurvey(
-        surveyId = "mysurveyid-aaaaa",
+        surveyId = "my-unique-survey-id",
         lengthInMinutes = 1,
         rewardAmount = 18f,
         currencyName = "tokens",
@@ -55,7 +56,7 @@ fun SurveyTilePreview() {
         preSaleRewardAmount = 7f,
         isHotTile = true,
     )
-    TapResearchKotlinDemoTheme {
+    SurveyWallPreviewTheme {
         Surface {
             Column {
                 SurveyTile(survey, Modifier)
@@ -73,9 +74,9 @@ fun SurveyTile(
             defaultElevation = 6.dp
         ),
         modifier = modifier
-            .size(width = WallPreviewConfig.CARD_WIDTH.dp, height = WallPreviewConfig.CARD_HEIGHT.dp)
-            .requiredWidth(WallPreviewConfig.CARD_WIDTH.dp)
-            .requiredHeight(WallPreviewConfig.CARD_HEIGHT.dp)
+            .size(width = SurveyTileConfig.CARD_WIDTH.dp, height = SurveyTileConfig.CARD_HEIGHT.dp)
+            .requiredWidth(SurveyTileConfig.CARD_WIDTH.dp)
+            .requiredHeight(SurveyTileConfig.CARD_HEIGHT.dp)
     ) {
         Column {
 

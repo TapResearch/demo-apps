@@ -1,4 +1,4 @@
-package com.tapresearch.android.surveywallpreview
+package com.tapresearch.tapresearchkotlindemo.preview
 
 import android.content.Context
 import android.os.Bundle
@@ -24,19 +24,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.tapresearch.android.surveywallpreview.ui.BoxedText
-import com.tapresearch.android.surveywallpreview.ui.CenterFullScreenText
-import com.tapresearch.android.surveywallpreview.ui.CenterHeadlineText
-import com.tapresearch.android.surveywallpreview.ui.ProgressIndicator
 import com.tapresearch.android.surveywallpreview.ui.SurveyTileConfig
-import com.tapresearch.android.surveywallpreview.ui.theme.SurveyWallPreviewTheme
+import com.tapresearch.tapresearchkotlindemo.preview.ui.BoxedText
+import com.tapresearch.tapresearchkotlindemo.preview.ui.CenterFullScreenText
+import com.tapresearch.tapresearchkotlindemo.preview.ui.CenterHeadlineText
+import com.tapresearch.tapresearchkotlindemo.preview.ui.ProgressIndicator
+import com.tapresearch.tapresearchkotlindemo.preview.ui.theme.SurveyWallPreviewTheme
 import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.models.TRSurvey
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class MainActivity : ComponentActivity() {
+class SurveyWallPreviewActivity : ComponentActivity() {
 
     val myPlacementTag = "earn-center"
     lateinit var myUserIdentifier: String // see initializeTapResearch()
@@ -53,16 +53,16 @@ class MainActivity : ComponentActivity() {
         myUserIdentifier = SampleUserDatabase.getUserIdentifier(this, 1) // try different users from 1 to 100
 
         TapResearch.initialize(
-            context = this@MainActivity,
+            context = this@SurveyWallPreviewActivity,
             apiToken = myApiToken,
             userIdentifier = myUserIdentifier,
-            errorCallback = { trError -> showToast(this@MainActivity,trError.description) },
+            errorCallback = { trError -> showToast(this@SurveyWallPreviewActivity,trError.description) },
             sdkReadyCallback = {
                 initializationStateFlow.update{ false }
                 updateSurveys(myPlacementTag)
             },
             rewardCallback = { rewards ->
-                showToast(this@MainActivity,"Rewarded ${rewards.first().rewardAmount} ${rewards.first().currencyName}!")
+                showToast(this@SurveyWallPreviewActivity,"Rewarded ${rewards.first().rewardAmount} ${rewards.first().currencyName}!")
             },
             initOptions = null,
             qqDataCallback = null,
@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
     fun updateSurveys(placementTag: String) {
         if (TapResearch.isReady()) {
             val updatedSurveys = TapResearch.getSurveysForPlacement(placementTag) { error ->
-                showToast(this@MainActivity, error.description)
+                showToast(this@SurveyWallPreviewActivity, error.description)
             }
             updatedSurveys?.let { surveys ->
                 surveysStateFlow.update { SurveysState(surveys) }

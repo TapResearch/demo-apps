@@ -51,11 +51,6 @@ class MainActivity : ComponentActivity() {
             errorCallback = { trError -> showToast(this@MainActivity, trError.description) },
             sdkReadyCallback = {
                 initializationStateFlow.update { false }
-                Toast.makeText(
-                    this@MainActivity,
-                    "SDK is ready",
-                    Toast.LENGTH_LONG,
-                ).show()
             },
             rewardCallback = { rewards ->
                 showToast(this@MainActivity, "Rewarded ${rewards.first().rewardAmount} ${rewards.first().currencyName}!")

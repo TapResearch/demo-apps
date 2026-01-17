@@ -1,4 +1,4 @@
-package com.tapresearch.android.surveywallpreview.ui
+package com.tapresearch.tapresearchkotlindemo.preview.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tapresearch.android.surveywallpreview.ui.theme.SurveyWallPreviewTheme
+import com.tapresearch.tapresearchkotlindemo.preview.ui.theme.SurveyWallPreviewTheme
 
 
 @Composable

@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.tapresearch.tapresearchkotlindemo.preview.WallPreviewActivity
+import com.tapresearch.tapresearchkotlindemo.preview.SurveyWallPreviewActivity
 import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 import com.tapresearch.tapsdk.TapInitOptions
@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myUserIdentifier = "tr-sdk-test-user-46183135" // Insert your user identifier here
+        val myUserIdentifier = "tr-sdk-test-user-46183135" // Try a different user identifier by changing the number at the end
         val myApiToken = "fb28e5e0572876db0790ecaf6c588598" // Insert your API token here
 
         TapResearch.initialize(
@@ -74,6 +74,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     MainUi(
+                        userIdentifier = myUserIdentifier,
                         buttonOptions = buttonOptions.toList(),
                         openPlacement = { placementTag ->
                             // Test for Custom Parameters
@@ -108,6 +109,7 @@ class MainActivity : ComponentActivity() {
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
                             )
+                            Toast.makeText(this@MainActivity, "SetUserIdentifier: $userId", Toast.LENGTH_SHORT).show()
                         },
                         sendUserAttributes = {
                             TapResearch.sendUserAttributes(
@@ -125,8 +127,8 @@ class MainActivity : ComponentActivity() {
                             )
                         },
                         showWallPreview = {
-                            startActivity(Intent(this, WallPreviewActivity::class.java))
-                        }
+                            startActivity(Intent(this, SurveyWallPreviewActivity::class.java))
+                        },
                     )
                 }
             }

@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations
+package com.tapresearch.tapresearchkotlindemo.preview.animations
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
@@ -18,8 +18,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.SurveyTile
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewConfig
+import com.tapresearch.tapresearchkotlindemo.preview.SurveyTile
+import com.tapresearch.android.surveywallpreview.ui.SurveyTileConfig
 import com.tapresearch.tapsdk.models.TRSurvey
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -29,7 +29,7 @@ import kotlin.random.nextInt
 fun AnimatedSurveyTile(survey: TRSurvey,
                        modifier: Modifier) {
 
-    if (WallPreviewConfig.RANDOMIZE_PREVIEW_WALL_ANIMATIONS && Random.nextBoolean()) {
+    if (SurveyTileConfig.RANDOMIZE_PREVIEW_WALL_ANIMATIONS && Random.nextBoolean()) {
         var xRotation by remember {
             mutableStateOf(0f)
         }

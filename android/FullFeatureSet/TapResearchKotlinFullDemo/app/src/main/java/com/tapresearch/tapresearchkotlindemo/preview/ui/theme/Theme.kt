@@ -1,5 +1,6 @@
-package com.tapresearch.android.surveywallpreview.ui.theme
+package com.tapresearch.tapresearchkotlindemo.preview.ui.theme
 
+import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

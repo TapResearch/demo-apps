@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations
+package com.tapresearch.tapresearchkotlindemo.preview.animations
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing

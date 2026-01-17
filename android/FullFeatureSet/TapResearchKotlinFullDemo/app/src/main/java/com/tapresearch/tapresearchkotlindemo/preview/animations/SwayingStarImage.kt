@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations
+package com.tapresearch.tapresearchkotlindemo.preview.animations
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewConfig
+import com.tapresearch.android.surveywallpreview.ui.SurveyTileConfig
 
 @Composable
 fun SwayingStarImage(modifier: Modifier) {
@@ -33,7 +33,7 @@ fun SwayingStarImage(modifier: Modifier) {
     )
 
     Image(
-        colorFilter = ColorFilter.tint(WallPreviewConfig.PURPLE_COLOR),
+        colorFilter = ColorFilter.tint(SurveyTileConfig.PURPLE_COLOR),
         imageVector = Icons.Outlined.StarOutline,
         contentDescription = null,
         modifier = modifier

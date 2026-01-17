@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.SurveyTile
+import com.tapresearch.android.surveywallpreview.SurveyTile
 import com.tapresearch.android.surveywallpreview.ui.SurveyTileConfig
 import com.tapresearch.tapsdk.models.TRSurvey
 import kotlin.random.Random

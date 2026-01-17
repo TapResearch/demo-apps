@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.tapresearch.android.walldemo"
+    namespace = "com.tapresearch.android.surveywallpreview"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.tapresearch.android.walldemo"
+        applicationId = "com.tapresearch.android.surveywallpreview"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

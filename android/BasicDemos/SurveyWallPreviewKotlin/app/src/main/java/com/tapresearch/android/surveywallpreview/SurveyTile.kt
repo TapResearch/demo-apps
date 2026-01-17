@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen
+package com.tapresearch.android.surveywallpreview
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image

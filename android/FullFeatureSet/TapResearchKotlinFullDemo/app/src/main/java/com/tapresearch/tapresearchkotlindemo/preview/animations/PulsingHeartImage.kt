@@ -1,4 +1,4 @@
-package com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.animations
+package com.tapresearch.tapresearchkotlindemo.preview.animations
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing
@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import com.tapresearch.tapresearchkotlindemo.preview.presentation.ui.wall_preview_screen.WallPreviewConfig
+import com.tapresearch.android.surveywallpreview.ui.SurveyTileConfig
 
 @Composable
 fun PulsingHeartImage(modifier: Modifier) {
@@ -47,7 +47,7 @@ fun PulsingHeartImage(modifier: Modifier) {
     val color by
     infiniteTransition.animateColor(
         initialValue = Color.Red,
-        targetValue = WallPreviewConfig.PURPLE_COLOR,
+        targetValue = SurveyTileConfig.PURPLE_COLOR,
         animationSpec =
         infiniteRepeatable(
             // Linearly interpolate between initialValue and targetValue every 1000ms.

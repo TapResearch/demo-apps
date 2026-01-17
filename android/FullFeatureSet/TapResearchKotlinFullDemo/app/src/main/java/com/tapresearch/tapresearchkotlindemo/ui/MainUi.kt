@@ -6,8 +6,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.outlined.Done
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -15,15 +20,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 
 @Composable
 fun MainUi(
+    userIdentifier: String,
     openPlacement: (placementTag: String) -> Unit,
     onSetUserIdentifier: (identifier: String) -> Unit,
     buttonOptions: List<String>,
@@ -52,43 +60,13 @@ fun MainUi(
                 }
             }
 
-            val showTextField = remember { mutableStateOf(false) }
-            val userIdentifier = remember { mutableStateOf("") }
-            val keyboardController = LocalSoftwareKeyboardController.current
-
-            Button(
-                onClick = { showTextField.value = !showTextField.value },
-                modifier = Modifier.padding(5.dp),
-            ) {
-                Text(text = if (showTextField.value) "Hide User Identifier Input" else "Set User Identifier")
-            }
+            UserIdentifierRow(userIdentifier, onSetUserIdentifier)
 
             Button(
                 onClick = { sendUserAttributes() },
                 modifier = Modifier.padding(5.dp),
             ) {
                 Text(text = "Send User Attributes")
-            }
-
-            if (showTextField.value) {
-                TextField(
-                    value = userIdentifier.value,
-                    onValueChange = { userIdentifier.value = it },
-                    label = { Text("Set User Identifier") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Done,
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            keyboardController?.hide()
-                            onSetUserIdentifier(userIdentifier.value)
-                        },
-                    ),
-                )
             }
 
             Button(
@@ -99,4 +77,54 @@ fun MainUi(
             }
         }
     }
+}
+
+@Composable
+private fun UserIdentifierRow(userId: String, onSaveUserId: (String) -> Unit) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val newUserId = remember { mutableStateOf(TextFieldValue(userId)) }
+    TextField(
+        newUserId.value,
+        onValueChange = {
+            newUserId.value = it
+        },
+        placeholder = { Text("Enter User Id") },
+        label = { Text("Modify User Id") },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp, 0.dp, 5.dp, 0.dp),
+        singleLine = true,
+        leadingIcon = {
+            if (!newUserId.value.text.equals(userId) && newUserId.value.text.isNotEmpty()) {
+                IconButton(
+                    onClick =
+                        {
+                            newUserId.value = TextFieldValue(userId)
+                            keyboardController?.hide()
+                        }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Clear,
+                        contentDescription = "Clear",
+                    )
+                }
+            }
+        },
+        trailingIcon = {
+            if (!newUserId.value.text.equals(userId) && newUserId.value.text.trim().isNotBlank()) {
+                IconButton(
+                    onClick = {
+                        onSaveUserId(newUserId.value.text)
+                        keyboardController?.hide()
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Done,
+                        contentDescription = "Save User Id",
+                        tint = Color.Magenta
+                    )
+                }
+            }
+        }
+    )
 }
