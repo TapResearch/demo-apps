@@ -3,12 +3,16 @@ package com.tapresearch.tapresearchjavademo;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.tapresearch.tapsdk.TapInitOptions;
 import com.tapresearch.tapsdk.TapResearch;
@@ -33,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.enableEdgeToEdge(getWindow());
         // User identifier for demo purposes. Replace with actual user ID in production.
         String myUserIdentifier = "tr-sdk-test-user-46183135";
         // API Token retrieved from resources. Replace with actual token.
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Setting the main content view layout.
         setContentView(R.layout.activity_main);
+        edgeToEdge(findViewById(R.id.root));
         statusView = findViewById(R.id.statusView);
         ListView listView = findViewById(R.id.listView);
         // Placeholder data until SDK is ready.
@@ -160,6 +164,17 @@ public class MainActivity extends AppCompatActivity {
         // Displaying the total rewards earned in a toast message.
 
         statusView.setText("Congrats! You've earned [" + rewardCount + "] [" + currencyName + "]. Event type is " + eventType);
+    }
+
+    private void edgeToEdge(View view) {
+        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
+            Insets bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                            | WindowInsetsCompat.Type.displayCutout()
+            );
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 
 }
