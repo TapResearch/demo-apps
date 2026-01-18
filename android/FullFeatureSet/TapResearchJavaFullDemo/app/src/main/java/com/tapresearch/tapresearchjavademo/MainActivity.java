@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import com.tapresearch.tapsdk.TapInitOptions;
 import com.tapresearch.tapsdk.TapResearch;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.enableEdgeToEdge(getWindow());
         // User identifier for demo purposes. Replace with actual user ID in production.
         String myUserIdentifier = "tr-sdk-test-user-46183135";
         // API Token retrieved from resources. Replace with actual token.
