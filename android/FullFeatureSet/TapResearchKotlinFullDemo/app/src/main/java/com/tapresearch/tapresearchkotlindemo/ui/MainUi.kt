@@ -1,9 +1,12 @@
 package com.tapresearch.tapresearchkotlindemo.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.outlined.Done
@@ -35,7 +38,8 @@ fun MainUi(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
+                .padding(16.dp)
+                .windowInsetsPadding(WindowInsets.safeDrawing),
         ) {
             Text(
                 modifier = Modifier
@@ -66,7 +70,7 @@ fun MainUi(
                 onClick = { showWallPreview() },
                 modifier = Modifier.padding(5.dp),
             ) {
-                Text(text = "Wall Preview Feature")
+                Text(text = "Survey Wall Preview")
             }
         }
     }
