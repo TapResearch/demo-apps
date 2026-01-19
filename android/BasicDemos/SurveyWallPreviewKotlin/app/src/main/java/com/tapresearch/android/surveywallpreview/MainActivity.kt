@@ -4,10 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,6 +30,7 @@ import com.tapresearch.android.surveywallpreview.ui.CenterFullScreenText
 import com.tapresearch.android.surveywallpreview.ui.CenterHeadlineText
 import com.tapresearch.android.surveywallpreview.ui.ProgressIndicator
 import com.tapresearch.android.surveywallpreview.ui.SurveyTileConfig
+import com.tapresearch.android.surveywallpreview.ui.showToast
 import com.tapresearch.android.surveywallpreview.ui.theme.SurveyWallPreviewTheme
 import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.models.TRSurvey
@@ -39,6 +38,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
+/**
+ * Main activity - Survey Wall Preview Demo
+ *
+ *
+ */
 class MainActivity : ComponentActivity() {
 
     val myPlacementTag = "earn-center"
@@ -184,14 +188,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-fun showToast(context: Context, error: String?) {
-    Toast.makeText(
-        context,
-        error,
-        Toast.LENGTH_LONG,
-    ).show()
 }
 
 data class SurveysState(
