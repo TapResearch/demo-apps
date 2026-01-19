@@ -1,3 +1,5 @@
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -168,4 +170,12 @@ fun ProgressIndicator(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.padding(16.dp))
         Spacer(modifier = Modifier.padding(16.dp))
     }
+}
+
+fun showToast(context: Context, error: String?) {
+    Toast.makeText(
+        context,
+        error,
+        Toast.LENGTH_LONG,
+    ).show()
 }

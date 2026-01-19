@@ -6,10 +6,8 @@ import ProgressIndicator
 import android.content.Context
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -31,7 +29,13 @@ import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import showToast
 
+/**
+ * Main activity - Wall Demo
+ *
+ *
+ */
 class MainActivity : ComponentActivity() {
 
     val myPlacementTag = "earn-center"
@@ -104,7 +108,7 @@ class MainActivity : ComponentActivity() {
                     CenterHeadlineText("TapResearch SDK Ready")
                     BoxedText("API Token:", myApiToken, "User Identifier:", myUserIdentifier)
                     Button(
-                        modifier = Modifier.padding(5.dp),
+                        modifier = Modifier.padding(8.dp),
                         onClick = {
                             TapResearch.showContentForPlacement(
                                 tag = myPlacementTag,
@@ -129,14 +133,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-fun showToast(context: Context, error: String?) {
-    Toast.makeText(
-        context,
-        error,
-        Toast.LENGTH_LONG,
-    ).show()
 }
 
 /**
