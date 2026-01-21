@@ -9,7 +9,7 @@
     <TextView
         android:singleLine="false"
         android:textAlignment="center"
-        android:padding="8dp"
+        android:paddingTop="24dp"
         android:id="@+id/statusView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -18,5 +18,27 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/grantBoostLayout"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_weight=".5"
+            android:id="@+id/grantBoostEditText"
+            android:text="boost-3x-1d"
+            android:hint="Enter boost tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/grantBoostButton"
+            android:text="Grant Boost Demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onGrantBoostButtonClicked"/>
+    </LinearLayout>
 
 </LinearLayout>

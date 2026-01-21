@@ -1,5 +1,7 @@
 package com.tapresearch.tapresearchkotlindemo
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,16 +17,18 @@ import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 import com.tapresearch.tapsdk.TapInitOptions
 import com.tapresearch.tapsdk.TapResearch
+import com.tapresearch.tapsdk.TapResearch.getPlacementDetails
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
-import com.tapresearch.tapsdk.callback.TRQQDataCallback
 import com.tapresearch.tapsdk.callback.TRGrantBoostResponseListener
-import com.tapresearch.tapsdk.models.TRGrantBoostResponse
-import com.tapresearch.tapsdk.models.TRPlacementDetails
+import com.tapresearch.tapsdk.callback.TRQQDataCallback
 import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
+import com.tapresearch.tapsdk.models.TRGrantBoostResponse
 import com.tapresearch.tapsdk.models.TRReward
+import kotlinx.serialization.InternalSerializationApi
 
+@OptIn(InternalSerializationApi::class)
 class MainActivity : ComponentActivity() {
     val LOG_TAG = "MainKotlinDemo"
 
@@ -108,6 +112,7 @@ class MainActivity : ComponentActivity() {
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
                             )
+                            Toast.makeText(this@MainActivity, "$userId set as user identifier", Toast.LENGTH_SHORT).show()
                         },
                         sendUserAttributes = {
                             TapResearch.sendUserAttributes(
@@ -123,10 +128,13 @@ class MainActivity : ComponentActivity() {
                                     }
                                 },
                             )
+                            Toast.makeText(this@MainActivity, "User attributes sent!", Toast.LENGTH_SHORT).show()
                         },
                         showWallPreview = {
                             startActivity(Intent(this, WallPreviewActivity::class.java))
-                        }
+                        },
+                        onGrantBoostClicked = { boostTag ->
+                            onGrantBoostClicked(boostTag)},
                     )
                 }
             }
@@ -172,5 +180,45 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(LOG_TAG, "onDestroy()")
+    }
+
+    private fun onGrantBoostClicked(boostTag: String) {
+        // 'boost-3x-1d' is an example boost tag
+        TapResearch.grantBoost(
+            boostTag,
+            TRGrantBoostResponseListener { grantBoostResponse: TRGrantBoostResponse? ->
+                if (grantBoostResponse?.success == true) {
+                    // example placement tag 'earn-center' should now be boosted
+
+                    val placementDetails = getPlacementDetails("earn-center", null)
+                    if (placementDetails != null) {
+                        // 'earn-center' placement details should now be boosted
+                        Log.d(LOG_TAG, "Grant Boost Success. placement details: $placementDetails")
+                        showAlertDialog(
+                            this@MainActivity,
+                            "Grant Boost Success",
+                            placementDetails.toString()
+                        )
+                    }
+                } else {
+                    showAlertDialog(
+                        this@MainActivity,
+                        "Grant Boost Error",
+                        grantBoostResponse?.error?.description
+                    )
+                    Log.d(
+                        LOG_TAG,
+                        "Grant Boost Error: ${grantBoostResponse?.error?.description}"
+                    )
+                }
+            })
+    }
+
+    fun showAlertDialog(context: Context?, title: String?, message: String?) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        val dialog = builder.create()
+        dialog.show()
     }
 }

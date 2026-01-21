@@ -1,9 +1,13 @@
 package com.tapresearch.tapresearchjavademo;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,10 +19,22 @@ import com.tapresearch.tapsdk.callback.TRContentCallback;
 import com.tapresearch.tapsdk.models.TRError;
 import com.tapresearch.tapsdk.models.TRPlacementDetails;
 import com.tapresearch.tapsdk.models.TRReward;
+import com.tapresearch.tapsdk.utils.TapErrorCodes;
+import com.tapresearch.tapsdk.TapInitOptions;
+import com.tapresearch.tapsdk.internal.SdkInitializer;
+import com.tapresearch.tapsdk.internal.callback.TROfferNavigationPayload$Companion;
+import com.tapresearch.tapsdk.internal.service.InternalService;
+
 
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.widget.Toast;
 
 import kotlinx.serialization.InternalSerializationApi;
 
@@ -27,15 +43,17 @@ public class MainActivity extends AppCompatActivity {
     // Tag used for logging. Helps in identifying the source of log messages.
     private static final String LOG_TAG = "MainJavaDemo";
     private TextView statusView;
+    private Button grantBoostButton;
+    private EditText grantBoostEditText;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // User identifier for demo purposes. Replace with actual user ID in production.
-        String myUserIdentifier = "tr-sdk-test-user-46183135";
+        String myUserIdentifier = "tr-sdk-test-user-1112345678";  // after a few runs change the ending number to see behavior
         // API Token retrieved from resources. Replace with actual token.
-        String myApiToken = getString(R.string.api_token);
+        String myApiToken = "fb28e5e0572876db0790ecaf6c588598";  // this is the demo api token
 
         // Logging API Token and User Identifier for debug purposes.
         Log.d(LOG_TAG, "API Token: " + myApiToken);
@@ -46,11 +64,16 @@ public class MainActivity extends AppCompatActivity {
         userAttributes.put("age", 25);
         userAttributes.put("VIP", true);
         userAttributes.put("name", "John Doe");
-        userAttributes.put("first_seen", Instant.now().toString());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            userAttributes.put("first_seen", Instant.now().toString());
+        }
 
         // Setting the main content view layout.
         setContentView(R.layout.activity_main);
         statusView = findViewById(R.id.statusView);
+        grantBoostButton = findViewById(R.id.grantBoostButton);
+        grantBoostEditText = findViewById(R.id.grantBoostEditText);
+
         ListView listView = findViewById(R.id.listView);
         // Placeholder data until SDK is ready.
         String[] placements = {"Waiting for SDK to be ready..."};
@@ -61,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         TapResearch.INSTANCE.initialize(
                 myApiToken, // Replace with your API Token
                 myUserIdentifier, // Replace with your User Identifier
-                MainActivity.this, // Current activity context
                 this::showReward, // Callback to handle reward display
                 this::showError, // Callback to handle errors
                 // Callback indicating SDK is ready. Used to send user attributes and log readiness.
@@ -72,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                             false,
                             trError -> statusView.setText("Error sending user attributes: " + trError.toString()));
                     // Setting up the main content view after initialization.
-                    runOnUiThread(this::doSetContent);
+                    doSetContent();
                 },
                 // Callback for handling quick questions data.
                 (qqData) -> {
@@ -109,7 +131,9 @@ public class MainActivity extends AppCompatActivity {
                 customParameters.put("age", 25);
                 customParameters.put("VIP", "true");
                 customParameters.put("name", "John Doe");
-                customParameters.put("first_seen", Instant.now().toString());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    customParameters.put("first_seen", Instant.now().toString());
+                }
                 // Showing content for the selected placement with custom parameters.
                 TapResearch.INSTANCE.showContentForPlacement(
                         selectedItem,
@@ -132,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
             // Feedback toast for item click.
             statusView.setText("Clicked: " + selectedItem);
         });
+        findViewById(R.id.grantBoostLayout).setVisibility(View.VISIBLE);
     }
 
     // Method to display an error toast with the provided error description.
@@ -158,6 +183,33 @@ public class MainActivity extends AppCompatActivity {
         // Displaying the total rewards earned in a toast message.
 
         statusView.setText("Congrats! You've earned [" + rewardCount + "] [" + currencyName + "]. Event type is " + eventType);
+    }
+
+    public void onGrantBoostButtonClicked(View view) {
+        // 'boost-3x-1d' is an example boost tag
+        TapResearch.INSTANCE.grantBoost(grantBoostEditText.getText().toString(), grantBoostResponse -> {
+            if (grantBoostResponse.getSuccess() == true) {
+
+                // example placement tag 'earn-center' should now be boosted
+                TRPlacementDetails placementDetails = TapResearch.INSTANCE.getPlacementDetails("earn-center", null);
+                if (placementDetails != null) {
+                    // 'earn-center' placement details should now be boosted
+                    Log.d(LOG_TAG, "placement details: " + placementDetails);
+                    showAlertDialog(MainActivity.this, "Grant Boost Success", placementDetails.toString());
+                }
+            } else {
+                Toast.makeText(MainActivity.this, grantBoostResponse.getError().getDescription(), Toast.LENGTH_SHORT).show();
+                Log.d(LOG_TAG, "grantBoost error: " + grantBoostResponse.getError().getDescription());
+            }
+        });
+    }
+
+    static void showAlertDialog(Context context, String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }
