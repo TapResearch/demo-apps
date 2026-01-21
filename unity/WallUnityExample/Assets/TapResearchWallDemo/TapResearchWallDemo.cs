@@ -8,9 +8,9 @@ public class TapResearchWallDemo : MonoBehaviour
     public GameObject wallButton;
 
     #if UNITY_ANDROID
-    private static string tapAPIToken = "4aa77f4dc27e761d577d1189433cc62f"; // Public Test Android, replace with your own API token
+    private static string tapAPIToken = "YOUR_ANDROID_API_TOKEN"; // Public Test Android, replace with your own API token
     #elif UNITY_IPHONE
-    private static string tapAPIToken = "100e9133abc21471c8cd373587e07515"; // Public Test iOS, replace with your own API token
+    private static string tapAPIToken = "YOUR_IOS_API_TOKEN";  // Public Test iOS, replace with your own API token
     #else 
     private static string tapAPIToken = "NotAvailebleInEditor"; 
     #endif
