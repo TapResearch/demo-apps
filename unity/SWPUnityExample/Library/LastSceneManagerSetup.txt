@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/TapResearchSDK/TapResearchSDKExample/WallPreviewScene.unity
+- path: Assets/TapResearchSWPDemo/TapResearchTestScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
