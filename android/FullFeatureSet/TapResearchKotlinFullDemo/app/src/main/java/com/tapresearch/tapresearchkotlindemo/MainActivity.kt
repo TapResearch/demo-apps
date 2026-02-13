@@ -17,9 +17,6 @@ import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
 import com.tapresearch.tapsdk.callback.TRQQDataCallback
-import com.tapresearch.tapsdk.callback.TRGrantBoostResponseListener
-import com.tapresearch.tapsdk.models.TRGrantBoostResponse
-import com.tapresearch.tapsdk.models.TRPlacementDetails
 import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
@@ -133,6 +130,13 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
                         showWallPreview = {
                             startActivity(Intent(this, SurveyWallPreviewActivity::class.java))
                         },
+                        onGetPlacementDetailsClicked = {
+                            val placementDetails = TapResearch.getPlacementDetails(
+                                placementTag = "earn-center",
+                            ){}
+                            Log.d(LOG_TAG, "Placement Details: $placementDetails")
+
+                        }
                     )
                 }
             }

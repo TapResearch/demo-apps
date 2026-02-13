@@ -33,6 +33,7 @@ fun MainUi(
     buttonOptions: List<String>,
     sendUserAttributes: () -> Unit,
     showWallPreview: () -> Unit,
+    onGetPlacementDetailsClicked: () -> Unit,
 ) {
     TapResearchKotlinDemoTheme {
         Column(
@@ -64,6 +65,13 @@ fun MainUi(
                 modifier = Modifier.padding(5.dp),
             ) {
                 Text(text = "Send User Attributes")
+            }
+
+            Button(
+                onClick = { onGetPlacementDetailsClicked() },
+                modifier = Modifier.padding(5.dp),
+            ) {
+                Text(text = "Get Placement Details")
             }
 
             Button(
