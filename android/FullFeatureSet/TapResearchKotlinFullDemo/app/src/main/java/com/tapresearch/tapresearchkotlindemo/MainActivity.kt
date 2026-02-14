@@ -11,21 +11,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.tapresearch.tapresearchkotlindemo.preview.SurveyWallPreviewActivity
+import com.tapresearch.tapresearchkotlindemo.ui.MainUi
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
 import com.tapresearch.tapsdk.TapInitOptions
 import com.tapresearch.tapsdk.TapResearch
 import com.tapresearch.tapsdk.callback.TRContentCallback
 import com.tapresearch.tapsdk.callback.TRErrorCallback
 import com.tapresearch.tapsdk.callback.TRQQDataCallback
+import com.tapresearch.tapsdk.callback.TRRewardCallback
 import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
 
-import com.tapresearch.tapresearchkotlindemo.ui.MainUi
-import com.tapresearch.tapsdk.callback.TRRewardCallback
-
 class MainActivity : ComponentActivity(), TRRewardCallback {
-    val LOG_TAG = "MainKotlinDemo"
+    val LOG_TAG = "TapKotlinDemo"
 
     override fun onTapResearchDidReceiveRewards(rewards: MutableList<TRReward>) {
         showRewardToast(rewards)
@@ -49,6 +48,7 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
                     Toast.LENGTH_LONG,
                 ).show()
                 Log.d(LOG_TAG, "SDK is ready")
+                printPlacementDetails()
             },
             rewardCallback = this@MainActivity,
             initOptions = TapInitOptions(
@@ -131,16 +131,19 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
                             startActivity(Intent(this, SurveyWallPreviewActivity::class.java))
                         },
                         onGetPlacementDetailsClicked = {
-                            val placementDetails = TapResearch.getPlacementDetails(
-                                placementTag = "earn-center",
-                            ){}
-                            Log.d(LOG_TAG, "Placement Details: $placementDetails")
-
+                            printPlacementDetails()
                         }
                     )
                 }
             }
         }
+    }
+
+    private fun printPlacementDetails() {
+        val placementDetails = TapResearch.getPlacementDetails(
+            placementTag = "earn-center",
+        ){}
+        Log.d(LOG_TAG, "Placement Details: $placementDetails")
     }
 
     override fun onResume() {
@@ -163,7 +166,6 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
 
     private fun showErrorToast(error: TRError) {
         Log.d(LOG_TAG, "error: $error")
-        Log.d(LOG_TAG, "error: ${error.javaClass.kotlin.qualifiedName}")
         Toast.makeText(
             this@MainActivity,
             error.description,
