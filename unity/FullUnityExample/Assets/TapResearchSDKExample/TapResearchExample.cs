@@ -8,21 +8,34 @@ public class TapResearchExample : MonoBehaviour
     public TRScreenFader screenFader;
     public TROrientationChanger orientationChanger;
     public TRWaiter waiter;
-    public string surveysPlacementTag;
-    public GameObject surveysButton;
+    public GameObject showSurveyWallPreviewButton;
+    public GameObject wallButton;
+    public GameObject boostButton;
+    public GameObject bannerButton;
+    public GameObject qqButton;
 
-    #if UNITY_ANDROID
-    private static string tapAPIToken = "YOUR_ANDROID_API_TOKEN"; // Public Test Android, replace with your own API token
-    #elif UNITY_IPHONE
-    private static string tapAPIToken = "YOUR_IOS_API_TOKEN";  // Public Test iOS, replace with your own API token
-    #else 
-    private static string tapAPIToken = "NotAvailebleInEditor";  // Public Test iOS, replace with your own API token
-    #endif
-    private static string tapPlayerUserId = "public-test-user";
-    private static string placementTag = "earn-center";
+    public string tapAPIToken;
+    public string tapQQPlacement = "";
+    public string tapWallPlacement = "earn-center";
+    public string tapBannerPlacement = "banner";
+    public string tapInterstitialPlacement = "";
+    public string tapSurveyWallPreviewPlacement = "earn-center";
+    public string tapBoostTag = "boost-3x-1d";
+    public static string tapPlayerUserId = "public-test-user-2026-02-18";
                 
     void Awake()
     {
+        if (tapAPIToken == null || tapAPIToken == "")
+        {
+            #if UNITY_ANDROID
+            tapAPIToken = "YOUR_ANDROID_API_TOKEN"; // Public Test Android, replace with your own API token
+            #elif UNITY_IPHONE
+            tapAPIToken = "100e9133abc21471c8cd373587e07515";  // Public Test iOS, replace with your own API token
+            #else 
+            tapAPIToken = "NotAvailableInEditor";
+            #endif
+        }
+    
         Screen.orientation = ScreenOrientation.Portrait;//.LandscapeLeft;
         Debug.Log("TapResearchExample: About to initialize Tap SDK");
         TapResearchSDK.TapContentShown = TapContentShown;
@@ -45,33 +58,38 @@ public class TapResearchExample : MonoBehaviour
     public void TapContentDismissed(string placementTag)
     {
         Debug.Log("TapResearchExample: Survey Content Dismissed");
-        orientationChanger.SetPortrait(OnOrientationChangedToLandscapeLeft);//.SetLandscapeLeft(OnOrientationChangedToLandscapeLeft);
-     }
+        if (placementTag == tapWallPlacement)
+        {
+            orientationChanger.SetPortrait(OnOrientationChangedToLandscapeLeft); //.SetLandscapeLeft(OnOrientationChangedToLandscapeLeft);
+        }
+    }
 
     public void TapSdkReady()
     {
-		if (TapResearchSDK.IsReady()) // There is no need for this here, it is just for illustration
-		{
-            Debug.Log("TapResearchExample: TapResearchSDK ready, going to send user attributes...");
+        Debug.Log("TapResearchExample: TapResearchSDK ready, going to send user attributes...");
+        
+        // If you want to test user attributes:
+        // Dictionary<string, object> userAttributes = new Dictionary<string, object>();
+        // userAttributes["some_string"] = "a string value";
+        // userAttributes["some_number"] = "12";
+        // userAttributes["another_number"] = 12;
+        // userAttributes["boolean"] = "true";
+        // System.DateTime now = System.DateTime.UtcNow;
+        // string iso8601String = now.ToString("o");
+        // userAttributes["iso8601_date"] = iso8601String;
+        // userAttributes.Add("another_string", "it's another string!");
+        // TapResearchSDK.SendUserAttributes(userAttributes, true);
+        
+        wallButton.SetActive(true);
+        boostButton.SetActive(true);
+        bannerButton.SetActive(true);
+        qqButton.SetActive(true);
 
-            Dictionary<string, object> userAttributes = new Dictionary<string, object>();
-            userAttributes["some_string"] = "a string value";
-            userAttributes["some_number"] = "12";
-            userAttributes["another_number"] = 12;
-            userAttributes["boolean"] = "true";
-            System.DateTime now = System.DateTime.UtcNow;
-            string iso8601String = now.ToString("o");
-            userAttributes["iso8601_date"] = iso8601String;
-            userAttributes.Add("another_string", "it's another string!");
-    
-            TapResearchSDK.SendUserAttributes(userAttributes, true);
-
-            if (TapResearchSDK.HasSurveys(placementTag)) {
-                surveysButton.SetActive(true);
-            }
-            else {
-                surveysButton.SetActive(false);
-            }
+        if (TapResearchSDK.HasSurveys(tapWallPlacement)) {
+            showSurveyWallPreviewButton.SetActive(true);
+        }
+        else {
+            showSurveyWallPreviewButton.SetActive(false);
         }
     }
 
@@ -93,12 +111,11 @@ public class TapResearchExample : MonoBehaviour
 
     // END Callbacks
 
-    public void showSurveyContent()
+    public void showWallContent()
     {
-        if (TapResearchSDK.CanShowContent(placementTag)) 
+        if (TapResearchSDK.CanShowContent(tapWallPlacement)) 
         {
             Debug.Log("TapResearchExample: TapResearchSDK showSurveyContent() fading to black");
-            //Debug.Log("TapResearchExample: TapResearchSDK showSurveyContent() showing content");
             screenFader.FadeToBlack(OnFadeToBlackComplete);
         }
         else {
@@ -106,26 +123,52 @@ public class TapResearchExample : MonoBehaviour
         }
     }
     
-    public void showSurveyContentWithParameters()
+    public void showWallContentWithParameters()
     {
-        if (TapResearchSDK.CanShowContent(placementTag)) //CustomParam Placement
+        if (TapResearchSDK.CanShowContent(tapWallPlacement)) //CustomParam Placement
         {
             Dictionary<string, object> customParameters = new Dictionary<string,object>(); //Parameters
             customParameters["player_attribute"] = "my-vip";
             customParameters["data_value"] = "integer";
             customParameters["another_number"] = 12;   
             customParameters.Add("another_string", "it's another string!");
-            
-            TapResearchSDK.ShowContentForPlacement(placementTag, customParameters);
+            TapResearchSDK.ShowContentForPlacement(tapWallPlacement, customParameters);
         }
     }
 
     public void OnButtonClick()
     {
         Debug.Log("TapResearchExample: TapResearchSDK OnButtonClick() attempting to show content");
-        showSurveyContent();
+        showWallContent();
+        // If you want to test custom parameters use showWallContentWithParameters().
     }
 
+    public void OnBoostButtonClick()
+    {
+        Debug.Log("TapResearchExample: TapResearchSDK OnBoostButtonClick() attempting to apply boost");
+        if (tapBoostTag.Length > 0)
+        {
+            TapResearchSDK.GrantBoost(tapBoostTag);
+        }
+    }
+    
+    public void OnBannerButtonClick()
+    {
+        Debug.Log("TapResearchExample: TapResearchSDK OnBannerButtonClick() attempting to show banner");
+        if (TapResearchSDK.CanShowContent(tapBannerPlacement))
+        {
+            TapResearchSDK.ShowContentForPlacement(tapBannerPlacement);
+        }
+    }
+    
+    public void OnQQButtonClick()
+    {
+        Debug.Log("TapResearchExample: TapResearchSDK OnButtonClick() attempting to show quick question");
+        if (TapResearchSDK.CanShowContent(tapQQPlacement))
+        {
+            TapResearchSDK.ShowContentForPlacement(tapQQPlacement);
+        }    }
+    
     // Fader and orientation callbacks
 
     private void OnFadeToBlackComplete()
@@ -138,7 +181,7 @@ public class TapResearchExample : MonoBehaviour
     private void OnOrientationChangedForSurveys()
     {
         Debug.Log("Unity C# TestButton: OnOrientationChangedForSurveys complete, showing survey modal!!");
-        TapResearchSDK.ShowContentForPlacement(placementTag); 
+        TapResearchSDK.ShowContentForPlacement(tapWallPlacement); 
     }
         
     private void OnOrientationChangedToLandscapeLeft()

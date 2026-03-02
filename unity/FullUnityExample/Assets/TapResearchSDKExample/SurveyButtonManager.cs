@@ -15,7 +15,7 @@ public class SurveyButtonManager : MonoBehaviour
     void Start()
     {
         surveys = TapResearchSDK.GetSurveysForPlacement(placementTag);
-        TapResearchSDK.SetEnableSurveysRefreshedCallback(true);
+        TapResearchSDK.TapResearchSurveysRefreshed = TapResearchSurveysRefreshed;
         Debug.Log("" + surveys);
         // Create a button for each survey in the array
         foreach (TRSurvey survey in surveys)
@@ -26,6 +26,7 @@ public class SurveyButtonManager : MonoBehaviour
 
     void Awake() 
     {
+        // Set local delegates for content, rewards and
         Debug.Log("TapResearchExample: SurveyButtonManager: set local delegates");
         TapResearchSDK.TapContentShown = TapContentShown;
         TapResearchSDK.TapContentDismissed = TapContentDismissed;
@@ -34,16 +35,13 @@ public class SurveyButtonManager : MonoBehaviour
         TapResearchSDK.TapResearchSurveysRefreshed = TapResearchSurveysRefreshed;
     }
 
-    void DeleteOldButtons() {
+    void DeleteOldButtons() 
+    {
         var buttonCount = buttons.Count;
         for (int i = buttonCount - 1; i >= 0; i--) {
             Destroy(buttons[i]);
             buttons.RemoveAt(i);
         }
-        // foreach (GameObject button in buttons) {
-        //     Destroy(button);
-        //     buttons.Remove(button);
-        // }
         buttons.Clear();
     }
 
@@ -56,13 +54,13 @@ public class SurveyButtonManager : MonoBehaviour
         TextMeshProUGUI buttonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
         if (buttonText != null)
         {
-            string text = "" + survey.LengthInMinutes + (survey.LengthInMinutes == "1" ? " minute\nfor\n" : " minutes\nfor\n") + survey.RewardAmount + " " + survey.CurrencyName; 
+            string text = "" + survey.LengthInMinutes + (survey.LengthInMinutes == 1 ? " minute\nfor\n" : " minutes\nfor\n") + survey.RewardAmount + " " + survey.CurrencyName; 
             Debug.Log("button text: " + text);
             buttonText.text = text;
         }
         else 
         {
-            Debug.Log("no button text found");
+            Debug.Log("TapResearchExample: SurveyButtonManager: no button text found");
         }
 
         // Add a click listener to the button
@@ -72,11 +70,11 @@ public class SurveyButtonManager : MonoBehaviour
             buttonComponent.onClick.AddListener(() => OnSurveyButtonClicked(survey));
         }
     }
-
+    
     void OnSurveyButtonClicked(TRSurvey survey)
     {
         // Handle the button click event, knowing which survey was clicked
-        Debug.Log("Clicked survey: " + survey.SurveyIdentifier);
+        Debug.Log("TapResearchExample: SurveyButtonManager: Clicked survey: " + survey.SurveyIdentifier);
         
         TapResearchSDK.ShowSurveyForPlacement(survey.SurveyIdentifier, placementTag);
     }
@@ -91,8 +89,8 @@ public class SurveyButtonManager : MonoBehaviour
         Debug.Log("TapResearchExample: SurveyButtonManager: Survey Content Dismissed");
     }
 
-    private void TapResearchRewardReceived(TRReward[] rewards) {
-
+    private void TapResearchRewardReceived(TRReward[] rewards) 
+    {
         foreach (TRReward reward in rewards)
         {
             Debug.Log("TapResearchExample: SurveyButtonManager: Tap Rewards: You've earned " + reward.RewardAmount + " " + reward.CurrencyName + ". " + reward.TransactionIdentifier);
@@ -103,7 +101,8 @@ public class SurveyButtonManager : MonoBehaviour
         Debug.Log("TapResearchExample: SurveyButtonManager: TapResearch Error:" + error.ErrorCode + " " + error.ErrorDescription + "");
     }
 
-    private void TapResearchSurveysRefreshed(string placementTag) {
+    private void TapResearchSurveysRefreshed(string placementTag) 
+    {
         Debug.Log("TapResearchExample: SurveyButtonManager: TapResearchSurveysRefreshed for placement: placementTag");
     
         surveys = TapResearchSDK.GetSurveysForPlacement(placementTag);
