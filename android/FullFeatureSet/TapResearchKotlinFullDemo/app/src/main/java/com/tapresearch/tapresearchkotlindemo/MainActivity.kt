@@ -1,5 +1,6 @@
 package com.tapresearch.tapresearchkotlindemo
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -22,9 +23,13 @@ import com.tapresearch.tapsdk.callback.TRRewardCallback
 import com.tapresearch.tapsdk.models.QQPayload
 import com.tapresearch.tapsdk.models.TRError
 import com.tapresearch.tapsdk.models.TRReward
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 
 class MainActivity : ComponentActivity(), TRRewardCallback {
     val LOG_TAG = "TapKotlinDemo"
+
+    private val initializingStateFlow = MutableStateFlow(true)
 
     override fun onTapResearchDidReceiveRewards(rewards: MutableList<TRReward>) {
         showRewardToast(rewards)
@@ -39,16 +44,13 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
             apiToken = myApiToken,
             userIdentifier = myUserIdentifier,
             activity = this@MainActivity,
-            errorCallback = { trError -> showErrorToast(trError) },
+            errorCallback = { error -> showErrorToast(error) },
             sdkReadyCallback = {
 
-                Toast.makeText(
-                    this@MainActivity,
-                    "SDK is ready",
-                    Toast.LENGTH_LONG,
-                ).show()
+                initializingStateFlow.update { false }
                 Log.d(LOG_TAG, "SDK is ready")
-                printPlacementDetails()
+                // you can query placement details when sdk is ready
+                // printPlacementDetails()
             },
             rewardCallback = this@MainActivity,
             initOptions = TapInitOptions(
@@ -62,7 +64,7 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
                 override fun onQuickQuestionDataReceived(data: QQPayload) {
                     Log.d(LOG_TAG, "QQ data received: $data")
                 }
-            }
+            },
         )
 
         val buttonOptions = resources.getStringArray(R.array.placement_tags)
@@ -99,11 +101,7 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
                                         )
                                     }
                                 },
-                                errorCallback = object : TRErrorCallback {
-                                    override fun onTapResearchDidError(trError: TRError) {
-                                        showErrorToast(trError)
-                                    }
-                                },
+                                errorCallback = TRErrorCallback { error -> showErrorToast(error) },
                             )
                         },
                         onSetUserIdentifier = { userId ->
@@ -120,19 +118,18 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
                                     "testInt" to 2,
                                 ),
                                 errorCallback =
-                                object : TRErrorCallback {
-                                    override fun onTapResearchDidError(trError: TRError) {
-                                        showErrorToast(trError)
-                                    }
-                                },
+                                    TRErrorCallback { error -> showErrorToast(error) },
                             )
+                            Toast.makeText(this@MainActivity, "Sent User Attributes", Toast.LENGTH_SHORT).show()
+                            Log.d(LOG_TAG, "Sent User Attributes")
                         },
                         showWallPreview = {
                             startActivity(Intent(this, SurveyWallPreviewActivity::class.java))
                         },
                         onGetPlacementDetailsClicked = {
                             printPlacementDetails()
-                        }
+                        },
+                        initializingStateFlow = initializingStateFlow,
                     )
                 }
             }
@@ -144,6 +141,8 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
             placementTag = "earn-center",
         ){}
         Log.d(LOG_TAG, "Placement Details: $placementDetails")
+        alertDialog("Placement Details: $placementDetails")
+
     }
 
     override fun onResume() {
@@ -165,12 +164,9 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
     }
 
     private fun showErrorToast(error: TRError) {
+        initializingStateFlow.update{false}
         Log.d(LOG_TAG, "error: $error")
-        Toast.makeText(
-            this@MainActivity,
-            error.description,
-            Toast.LENGTH_LONG,
-        ).show()
+        alertDialog(error.description?:"Unknown Error")
     }
 
     private fun showRewardToast(rewards: MutableList<TRReward>) {
@@ -184,16 +180,22 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
 
         val currencyName = rewards.first().currencyName
         val eventType = rewards.first().payoutEventType
-        Toast.makeText(
-            this@MainActivity,
-            "(MainActivity) Congrats! You've earned $rewardAmount $currencyName. Event type is $eventType",
-            Toast.LENGTH_LONG,
-        ).show()
+        alertDialog("Congrats! You've earned $rewardAmount $currencyName. Event type is $eventType")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d(LOG_TAG, "onDestroy()")
+    }
+
+    private fun alertDialog(message: String) {
+        val builder = AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 
 }

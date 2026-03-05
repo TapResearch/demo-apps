@@ -1,5 +1,6 @@
 package com.tapresearch.tapresearchkotlindemo.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,19 +12,25 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.outlined.Done
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DividerDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.tapresearch.tapresearchkotlindemo.ui.theme.TapResearchKotlinDemoTheme
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun MainUi(
@@ -34,54 +41,95 @@ fun MainUi(
     sendUserAttributes: () -> Unit,
     showWallPreview: () -> Unit,
     onGetPlacementDetailsClicked: () -> Unit,
+    initializingStateFlow: StateFlow<Boolean>,
 ) {
+
+    val initializing = initializingStateFlow.collectAsState()
+
     TapResearchKotlinDemoTheme {
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
                 .windowInsetsPadding(WindowInsets.safeDrawing),
         ) {
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                text = "Available Placement",
-            )
 
-            for (option in buttonOptions) {
-                Button(
-                    onClick = { openPlacement(option) },
-                    modifier = Modifier.padding(5.dp),
+            if (initializing.value) {
+
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                 ) {
-                    Text(text = option)
+                    Text(
+                        modifier = Modifier
+                            .padding(16.dp),
+                        text = "TapResearch SDK Initializing",
+                    )
+                    CircularProgressIndicator()
                 }
-            }
 
-            UserIdentifierRow(userIdentifier, onSetUserIdentifier)
+            } else {
 
-            Button(
-                onClick = { sendUserAttributes() },
-                modifier = Modifier.padding(5.dp),
-            ) {
-                Text(text = "Send User Attributes")
-            }
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    text = "Available Placement(s)",
+                )
 
-            Button(
-                onClick = { onGetPlacementDetailsClicked() },
-                modifier = Modifier.padding(5.dp),
-            ) {
-                Text(text = "Get Placement Details")
-            }
+                for (option in buttonOptions) {
+                    Button(
+                        onClick = { openPlacement(option) },
+                        modifier = Modifier.padding(4.dp),
+                    ) {
+                        Text(text = option)
+                    }
+                }
 
-            Button(
-                onClick = { showWallPreview() },
-                modifier = Modifier.padding(5.dp),
-            ) {
-                Text(text = "Survey Wall Preview")
+                divider()
+
+                Button(
+                    onClick = { sendUserAttributes() },
+                    modifier = Modifier.padding(10.dp),
+                ) {
+                    Text(text = "Send User Attributes")
+                }
+
+                divider()
+
+                Button(
+                    onClick = { onGetPlacementDetailsClicked() },
+                    modifier = Modifier.padding(10.dp),
+                ) {
+                    Text(text = "Get Placement Details")
+                }
+
+                divider()
+
+                Button(
+                    onClick = { showWallPreview() },
+                    modifier = Modifier.padding(10.dp),
+                ) {
+                    Text(text = "Survey Wall Preview")
+                }
+
+                divider()
+
+                UserIdentifierRow(userIdentifier, onSetUserIdentifier)
             }
         }
     }
+}
+
+@Composable
+private fun divider() {
+    HorizontalDivider(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp), thickness = DividerDefaults.Thickness, color = Color.LightGray
+    )
 }
 
 @Composable
