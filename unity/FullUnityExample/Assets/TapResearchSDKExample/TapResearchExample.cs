@@ -14,28 +14,28 @@ public class TapResearchExample : MonoBehaviour
     public GameObject bannerButton;
     public GameObject qqButton;
 
-    public string tapAPIToken;
+    public string tapAPITokeniOS;
+    public string tapAPITokenAndroid;
     public string tapQQPlacement = "";
     public string tapWallPlacement = "earn-center";
     public string tapBannerPlacement = "banner";
     public string tapInterstitialPlacement = "";
     public string tapSurveyWallPreviewPlacement = "earn-center";
     public string tapBoostTag = "boost-3x-1d";
-    public static string tapPlayerUserId = "public-test-user-2026-02-18";
-                
+    public static string tapPlayerUserId = "UNIQUE_USER_IDENTIFIER";
+
+    private string tapAPIToken;
+    
     void Awake()
     {
-        if (tapAPIToken == null || tapAPIToken == "")
-        {
-            #if UNITY_ANDROID
-            tapAPIToken = "YOUR_ANDROID_API_TOKEN"; // Public Test Android, replace with your own API token
-            #elif UNITY_IPHONE
-            tapAPIToken = "100e9133abc21471c8cd373587e07515";  // Public Test iOS, replace with your own API token
-            #else 
-            tapAPIToken = "NotAvailableInEditor";
-            #endif
-        }
-    
+#if UNITY_ANDROID
+        tapAPIToken = tapAPITokenAndroid;
+#elif UNITY_IPHONE
+        tapAPIToken = tapAPITokeniOS;
+#else 
+        tapAPIToken = "NotAvailableInEditor";
+#endif
+        
         Screen.orientation = ScreenOrientation.Portrait;//.LandscapeLeft;
         Debug.Log("TapResearchExample: About to initialize Tap SDK");
         TapResearchSDK.TapContentShown = TapContentShown;
