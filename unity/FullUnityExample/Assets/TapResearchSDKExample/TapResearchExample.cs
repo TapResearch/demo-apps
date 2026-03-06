@@ -13,6 +13,7 @@ public class TapResearchExample : MonoBehaviour
     public GameObject boostButton;
     public GameObject bannerButton;
     public GameObject qqButton;
+    public GameObject interstitialButton;
 
     public string tapAPITokeniOS;
     public string tapAPITokenAndroid;
@@ -161,6 +162,15 @@ public class TapResearchExample : MonoBehaviour
         }
     }
     
+    public void OnInterstitialButtonClick()
+    {
+        Debug.Log("TapResearchExample: TapResearchSDK OnInterstitialButtonClick() attempting to show interstitial");
+        if (TapResearchSDK.CanShowContent(tapInterstitialPlacement))
+        {
+            TapResearchSDK.ShowContentForPlacement(tapInterstitialPlacement);
+        }
+    }
+
     public void OnQQButtonClick()
     {
         Debug.Log("TapResearchExample: TapResearchSDK OnButtonClick() attempting to show quick question");
