@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TapResearch;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TapResearchExample : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class TapResearchExample : MonoBehaviour
     public GameObject bannerButton;
     public GameObject qqButton;
     public GameObject interstitialButton;
+    public TMP_Text message;
 
     public string tapAPITokeniOS;
     public string tapAPITokenAndroid;
@@ -23,30 +26,36 @@ public class TapResearchExample : MonoBehaviour
     public string tapInterstitialPlacement = "";
     public string tapSurveyWallPreviewPlacement = "earn-center";
     public string tapBoostTag = "boost-3x-1d";
-    public static string tapPlayerUserId = "UNIQUE_USER_IDENTIFIER";
+    public string tapPlayerUserId = "UNIQUE_USER_IDENTIFIER";
 
     private string tapAPIToken;
-    
+
     void Awake()
     {
 #if UNITY_ANDROID
         tapAPIToken = tapAPITokenAndroid;
 #elif UNITY_IPHONE
         tapAPIToken = tapAPITokeniOS;
-#else 
+#else
         tapAPIToken = "NotAvailableInEditor";
 #endif
-        
-        Screen.orientation = ScreenOrientation.Portrait;//.LandscapeLeft;
-        Debug.Log("TapResearchExample: About to initialize Tap SDK");
-        TapResearchSDK.TapContentShown = TapContentShown;
-        TapResearchSDK.TapContentDismissed = TapContentDismissed;
-        TapResearchSDK.TapResearchQQResponseReceived = TapQQResponseReceived;
-        TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
-        TapResearchSDK.TapResearchDidError = TapResearchDidError;
-        TapResearchSDK.TapResearchSdkReady = TapSdkReady;
-        screenFader.SetAlpha(0.0f);
-        TapResearchSDK.Configure(tapAPIToken, tapPlayerUserId);
+        if (tapAPIToken == null || tapAPIToken == "")
+        {
+            message.text = "Cannot initialize SDK,\nTapResarch API Token is missing.";
+        }
+        else
+        {
+            Screen.orientation = ScreenOrientation.Portrait; //.LandscapeLeft;
+            Debug.Log("TapResearchExample: About to initialize Tap SDK");
+            TapResearchSDK.TapContentShown = TapContentShown;
+            TapResearchSDK.TapContentDismissed = TapContentDismissed;
+            TapResearchSDK.TapResearchQQResponseReceived = TapQQResponseReceived;
+            TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
+            TapResearchSDK.TapResearchDidError = TapResearchDidError;
+            TapResearchSDK.TapResearchSdkReady = TapSdkReady;
+            screenFader.SetAlpha(0.0f);
+            TapResearchSDK.Configure(tapAPIToken, tapPlayerUserId);
+        }
     }
 
     // START Callbacks
@@ -85,6 +94,7 @@ public class TapResearchExample : MonoBehaviour
         boostButton.SetActive(true);
         bannerButton.SetActive(true);
         qqButton.SetActive(true);
+        interstitialButton.SetActive(true);
 
         if (TapResearchSDK.HasSurveys(tapWallPlacement)) {
             showSurveyWallPreviewButton.SetActive(true);
