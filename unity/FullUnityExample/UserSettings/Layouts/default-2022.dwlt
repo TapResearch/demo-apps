@@ -366,7 +366,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: a6a30000
     m_LastClickedID: 41894
-    m_ExpandedIDs: 000000001606000062060000be06000036070000560700007a07000042080000ca080000a20b00009a0d00007c8000007e8000008080000082800000
+    m_ExpandedIDs: 00000000625a0000645a0000665a0000685a00006a5a00006c5a00006e5a0000705a0000725a0000745a0000765a0000785a00007a5a00007c5a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -394,7 +394,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000001606000062060000be06000036070000560700007a07000042080000ca080000a20b00009a0d00007c8000007e8000008080000082800000
+    m_ExpandedIDs: ffffffff00000000625a0000645a0000665a0000685a00006a5a00006c5a00006e5a0000705a0000725a0000745a0000765a0000785a00007a5a00007c5a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -534,9 +534,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 0c820000
-      m_LastClickedID: 33292
-      m_ExpandedIDs: 2a2fffff7c2fffffa830ffffa631ffffa68000000c820000
+      m_SelectedIDs: 125a0000
+      m_LastClickedID: 23058
+      m_ExpandedIDs: 30fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
