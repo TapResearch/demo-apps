@@ -1966,7 +1966,7 @@ MonoBehaviour:
   screenFader: {fileID: 1831191346}
   orientationChanger: {fileID: 710310273}
   waiter: {fileID: 1831191345}
-  showSurveyWallPreviewButton: {fileID: 0}
+  showSurveyWallPreviewButton: {fileID: 1746270022}
   wallButton: {fileID: 1773238923}
   boostButton: {fileID: 425312743}
   bannerButton: {fileID: 767969190}
