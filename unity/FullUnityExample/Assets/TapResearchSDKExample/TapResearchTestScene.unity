@@ -1960,21 +1960,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1831191339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db0dabddeb1e0433d93446a6f4532b28, type: 3}
+  m_Script: {fileID: 11500000, guid: 1da51f31ca5b24405a9cd3f68df0acca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screenFader: {fileID: 1831191346}
   orientationChanger: {fileID: 710310273}
   waiter: {fileID: 1831191345}
-  showSurveyWallPreviewButton: {fileID: 1746270022}
+  showSurveyWallPreviewButton: {fileID: 0}
   wallButton: {fileID: 1773238923}
   boostButton: {fileID: 425312743}
   bannerButton: {fileID: 767969190}
   qqButton: {fileID: 1785180016}
   interstitialButton: {fileID: 1720636053}
   message: {fileID: 894145793}
-  tapAPITokeniOS: 
-  tapAPITokenAndroid: 
+  tapAPITokeniOS: 100e9133abc21471c8cd373587e07515
+  tapAPITokenAndroid: fb28e5e0572876db0790ecaf6c588598
   tapQQPlacement: quick-answer-mcgraw
   tapWallPlacement: earn-center
   tapBannerPlacement: banner
