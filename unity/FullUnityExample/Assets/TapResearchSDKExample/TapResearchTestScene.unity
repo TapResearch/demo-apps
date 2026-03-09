@@ -1960,7 +1960,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1831191339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d47c3001f10734487ab8fb4d4c20e4da, type: 3}
+  m_Script: {fileID: 11500000, guid: db0dabddeb1e0433d93446a6f4532b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screenFader: {fileID: 1831191346}
@@ -1973,9 +1973,9 @@ MonoBehaviour:
   qqButton: {fileID: 1785180016}
   interstitialButton: {fileID: 1720636053}
   message: {fileID: 894145793}
-  tapAPITokeniOS: 100e9133abc21471c8cd373587e07515
-  tapAPITokenAndroid: fb28e5e0572876db0790ecaf6c588598
-  tapQQPlacement: quick-draw-mcgraw
+  tapAPITokeniOS: 
+  tapAPITokenAndroid: 
+  tapQQPlacement: quick-answer-mcgraw
   tapWallPlacement: earn-center
   tapBannerPlacement: banner
   tapInterstitialPlacement: mike-interstitial
