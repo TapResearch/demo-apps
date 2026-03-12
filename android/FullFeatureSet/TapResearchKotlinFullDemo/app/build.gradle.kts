@@ -65,10 +65,10 @@ android {
 dependencies {
 
     // required by tap research sdk
-    implementation("com.tapresearch:tapsdk:3.7.1--rc5")
+    implementation("com.tapresearch:tapsdk:3.7.2--rc0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("androidx.lifecycle:lifecycle-process:2.6.1")
-    implementation("com.google.android.gms:play-services-ads-identifier:18.0.1")
+    implementation("com.google.android.gms:play-services-ads-identifier:18.1.0")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("com.google.android.gms:play-services-appset:16.1.0")
 
