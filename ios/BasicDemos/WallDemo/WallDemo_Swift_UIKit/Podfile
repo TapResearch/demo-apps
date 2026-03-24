@@ -6,6 +6,6 @@ target 'WallDemo_Swift_UIKit' do
   use_frameworks!
 
   # Pods for swiftui-example-tapresearch
-  pod 'TapResearch', '3.7.1--rc0'
+  pod 'TapResearch', '3.7.3'
 
 end

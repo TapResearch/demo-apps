@@ -360,7 +360,7 @@
 			repositoryURL = "https://github.com/TapResearch/TapResearch-iOS-SDK";
 			requirement = {
 				kind = exactVersion;
-				version = "3.7.1--rc0";
+				version = 3.7.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
