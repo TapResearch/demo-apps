@@ -29,7 +29,10 @@ FullFeatureSet
 
 ## Android 
 
-We provide two Android samples:
-
- - Java
- - Kotlin
+We provide 4 Android samples:
+- BasicDemos
+  - WallDemoKotlin
+  - SurveyWallPreviewKotlin
+- FullFeatureSet
+  - KotlinFullDemo  
+  - JavaFullDemo
