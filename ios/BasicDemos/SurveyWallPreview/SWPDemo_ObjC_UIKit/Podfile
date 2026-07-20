@@ -6,6 +6,6 @@ target 'SWPDemo_ObjC_UIKit' do
   use_frameworks!
 
   # Pods for TapResearch
-  pod 'TapResearch', '3.7.3'
+  pod 'TapResearch', '3.8.0--rc0'
 
 end
