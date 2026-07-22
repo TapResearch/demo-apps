@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.tapresearch.tapresearchkotlindemo"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.tapresearch.tapresearchkotlindemo"
         minSdk = 23
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 2
         versionName = "1.0"
 
@@ -65,7 +65,7 @@ android {
 dependencies {
 
     // required by tap research sdk
-    implementation("com.tapresearch:tapsdk:3.8.0--beta02")
+    implementation("com.tapresearch:tapsdk:3.8.0--rc1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("androidx.lifecycle:lifecycle-process:2.6.1")
     implementation("com.google.android.gms:play-services-ads-identifier:18.1.0")
