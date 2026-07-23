@@ -5,17 +5,47 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# -----------------------------------------------------------------------------------------
+# TapResearch Specific Rules
+# -----------------------------------------------------------------------------------------
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Preserve all classes and interfaces in the TapResearch package
+-keep class com.tapresearch.** { *; }
+-dontwarn com.tapresearch.**
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Preserve necessary attributes for the SDK
+-keepattributes Exceptions, InnerClasses, Signature, Deprecated, SourceFile, LineNumberTable, *Annotation*, EnclosingMethod, MethodParameters, LocalVariableTable, LocalVariableTypeTable
+
+# Preserve parameter names
+-keepparameternames
+
+# -----------------------------------------------------------------------------------------
+# WebView / JavaScript Rules
+# -----------------------------------------------------------------------------------------
+
+# Preserve JavascriptInterface for WebView bridge
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+# Preserve the JavascriptInterface annotation itself
+-keep class android.webkit.JavascriptInterface { *; }
+
+# -----------------------------------------------------------------------------------------
+# General Demo App Rules (to ensure stability across common libraries)
+# -----------------------------------------------------------------------------------------
+
+-keep class androidx.** { *; }
+-dontwarn androidx.**
+
+-keep class kotlinx.** { *; }
+-dontwarn kotlinx.**
+
+-keep class com.google.** { *; }
+-dontwarn com.google.**
+
+-keep class com.unity3d.** { *; }
+-dontwarn com.unity3d.**
+
+# Optional: Preserve line numbers and source file names for debugging stack traces
+-renamesourcefileattribute SourceFile
