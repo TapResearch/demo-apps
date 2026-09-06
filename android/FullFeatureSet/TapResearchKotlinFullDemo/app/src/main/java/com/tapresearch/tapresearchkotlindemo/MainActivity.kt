@@ -35,10 +35,11 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
         showRewardToast(rewards)
     }
 
+    private var myUserIdentifier = "tr-sdk-test-user-46183135" // Try a different user identifier by changing the number at the end
+    private val myApiToken = "fb28e5e0572876db0790ecaf6c588598" // Insert your API token here
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myUserIdentifier = "tr-sdk-test-user-46183135" // Try a different user identifier by changing the number at the end
-        val myApiToken = "fb28e5e0572876db0790ecaf6c588598" // Insert your API token here
 
         TapResearch.initialize(
             apiToken = myApiToken,
@@ -105,6 +106,7 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
                             )
                         },
                         onSetUserIdentifier = { userId ->
+                            myUserIdentifier = userId
                             TapResearch.setUserIdentifier(
                                 userIdentifier = userId,
                             )
@@ -128,6 +130,9 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
                         },
                         onGetPlacementDetailsClicked = {
                             printPlacementDetails()
+                        },
+                        onStartNativeProfilerActivity = {
+                            startNativeProfilerActivity()
                         },
                         initializingStateFlow = initializingStateFlow,
                     )
@@ -196,6 +201,13 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
             }
         val alertDialog = builder.create()
         alertDialog.show()
+    }
+
+    private fun startNativeProfilerActivity() {
+        val intent = Intent(this, NativeProfilerActivity::class.java)
+        intent.putExtra("apiToken", myApiToken)
+        intent.putExtra("userIdentifier", myUserIdentifier)
+        startActivity(intent)
     }
 
 }

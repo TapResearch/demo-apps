@@ -41,6 +41,7 @@ fun MainUi(
     sendUserAttributes: () -> Unit,
     showWallPreview: () -> Unit,
     onGetPlacementDetailsClicked: () -> Unit,
+    onStartNativeProfilerActivity: () -> Unit,
     initializingStateFlow: StateFlow<Boolean>,
 ) {
 
@@ -65,20 +66,20 @@ fun MainUi(
                     Text(
                         modifier = Modifier
                             .padding(16.dp),
-                        text = "TapResearch SDK Initializing",
+                        text = "SDK Initializing",
                     )
                     CircularProgressIndicator()
                 }
 
             } else {
 
+                UserIdentifierRow(userIdentifier, onSetUserIdentifier)
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp),
                     text = "Available Placement(s)",
                 )
-
                 for (option in buttonOptions) {
                     Button(
                         onClick = { openPlacement(option) },
@@ -87,37 +88,34 @@ fun MainUi(
                         Text(text = option)
                     }
                 }
-
                 divider()
-
                 Button(
                     onClick = { sendUserAttributes() },
                     modifier = Modifier.padding(10.dp),
                 ) {
                     Text(text = "Send User Attributes")
                 }
-
                 divider()
-
                 Button(
                     onClick = { onGetPlacementDetailsClicked() },
                     modifier = Modifier.padding(10.dp),
                 ) {
                     Text(text = "Get Placement Details")
                 }
-
                 divider()
-
                 Button(
                     onClick = { showWallPreview() },
                     modifier = Modifier.padding(10.dp),
                 ) {
                     Text(text = "Survey Wall Preview")
                 }
-
                 divider()
-
-                UserIdentifierRow(userIdentifier, onSetUserIdentifier)
+                Button(
+                    onClick = { onStartNativeProfilerActivity() },
+                    modifier = Modifier.padding(10.dp),
+                ) {
+                    Text(text = "Native Profiler")
+                }
             }
         }
     }

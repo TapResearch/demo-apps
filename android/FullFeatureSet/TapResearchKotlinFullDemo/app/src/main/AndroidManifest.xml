@@ -29,6 +29,11 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.TapResearchKotlinDemo">
         </activity>
+        <activity
+            android:name=".NativeProfilerActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.TapResearchKotlinDemo">
+        </activity>
     </application>
 
 </manifest>
