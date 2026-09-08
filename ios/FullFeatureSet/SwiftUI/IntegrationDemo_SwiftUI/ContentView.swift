@@ -24,6 +24,7 @@ struct ContentView: View {
 	]
 	@State var hasSurveys: Bool = false
 	@State var showSurveyWallPreview: Bool = false
+	@State var showProfiler: Bool = false
 
 	let contentDelegate: TapResearchContentDelegates = TapResearchContentDelegates()
 	let boostDelegate: TapResearchBoostDelegate = TapResearchBoostDelegate()
@@ -92,6 +93,14 @@ struct ContentView: View {
 						}
 						.buttonStyle(.borderedProminent)
 					}
+					HStack {
+						Button(action: { showProfiler = true } ) {
+							Text("Show Profiler Example")
+//								.frame(minWidth: 130, maxWidth: 130)
+						}
+						.buttonStyle(.borderedProminent)
+					}
+
 
 					HStack {
 						TextField("User Id", text: $userId)
@@ -143,6 +152,13 @@ struct ContentView: View {
 				.listStyle(.plain)
 				.cornerRadius(7, antialiased: true)
 			}
+
+			.fullScreenCover(isPresented: $showProfiler, content: {
+				VStack {
+					Text("Profile Example")
+					HostView(apiToken: apiToken, userIdentifier: userId, showProfiler: $showProfiler)
+				}.frame(maxWidth: .infinity, maxHeight: .infinity)
+			})
 			.fullScreenCover(isPresented: $showSurveyWallPreview, content: {
 				VStack {
 					Text("Survey Wall Preview")
