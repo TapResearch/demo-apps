@@ -1,3 +1,10 @@
+//
+//  QualificationSurveyView.swift
+//  IntegrationDemo_SwiftUI
+//
+//  Created by Jeroen Verbeek on 09/08/26.
+//
+
 import SwiftUI
 import TapResearchSDK
 
@@ -366,4 +373,5 @@ public struct TRQualificationSurveyView: View {
 		}
 		return value
 	}
+	
 }

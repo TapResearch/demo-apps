@@ -1,3 +1,10 @@
+//
+//  ExampleIntegration.swift
+//  IntegrationDemo_SwiftUI
+//
+//  Created by Jeroen Verbeek on 09/08/26.
+//
+
 import Foundation
 import SwiftUI
 import UIKit
@@ -60,3 +67,36 @@ struct HostView: View {
     }
 
 }
+
+/*
+//MARK: - UIKit
+
+ Task { @MainActor in
+     do {
+         let response = try await getProfilingQualificationsAsync(
+             apiToken: apiToken,
+             userIdentifier: userIdentifier
+           )
+
+         TRQualificationUIKit.present(
+             from: self,
+             response: response,
+             submitHandler: { answers in
+                 try await sendProfilingAnswersAsync(
+                     apiToken: apiToken,
+                     userIdentifier: userIdentifier,
+                     answers: answers
+                   )
+               },
+             onExit: {
+                 print("Profiling exited")
+               },
+             onComplete: { finalResponse in
+                 print("Profiling complete: \(finalResponse.isProfiled)")
+               }
+           )
+       } catch {
+         print("Failed to load profiling qualifications: \(error)")
+       }
+ }
+*/

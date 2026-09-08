@@ -1,3 +1,10 @@
+//
+//  QualificationViewModel.swift
+//  IntegrationDemo_SwiftUI
+//
+//  Created by Jeroen Verbeek on 09/08/26.
+//
+
 import Foundation
 import Combine
 import TapResearchSDK
@@ -194,15 +201,6 @@ public final class TRQualificationViewModel: ObservableObject {
 				result[question.questionId] = previousError
 			}
 		}
-
-//		// Top-level result.errors wins if both are present.
-//		if let answerResult = response.result {
-//			for (questionID, message) in answerResult.errors {
-//				if let id = Int(questionID), !message.isEmpty {
-//					result[id] = message
-//				}
-//			}
-//		}
 
 		return result
 	}

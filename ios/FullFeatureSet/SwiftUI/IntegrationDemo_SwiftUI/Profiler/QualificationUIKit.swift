@@ -1,3 +1,10 @@
+//
+//  QualificationUIKit.swift
+//  IntegrationDemo_SwiftUI
+//
+//  Created by Jeroen Verbeek on 09/08/26.
+//
+
 #if canImport(UIKit)
 import UIKit
 import SwiftUI
