@@ -42,6 +42,7 @@ fun MainUi(
     showWallPreview: () -> Unit,
     onGetPlacementDetailsClicked: () -> Unit,
     onStartNativeProfilerActivity: () -> Unit,
+    onStartNativePagingProfilerActivity: () -> Unit,
     initializingStateFlow: StateFlow<Boolean>,
 ) {
 
@@ -115,6 +116,13 @@ fun MainUi(
                     modifier = Modifier.padding(10.dp),
                 ) {
                     Text(text = "Native Profiler")
+                }
+                divider()
+                Button(
+                    onClick = { onStartNativePagingProfilerActivity() },
+                    modifier = Modifier.padding(10.dp),
+                ) {
+                    Text(text = "Paging Native Profiler")
                 }
             }
         }

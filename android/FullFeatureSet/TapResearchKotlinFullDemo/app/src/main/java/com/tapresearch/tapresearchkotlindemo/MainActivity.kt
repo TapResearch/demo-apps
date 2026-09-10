@@ -134,6 +134,9 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
                         onStartNativeProfilerActivity = {
                             startNativeProfilerActivity()
                         },
+                        onStartNativePagingProfilerActivity = {
+                            startNativePagingProfilerActivity()
+                        },
                         initializingStateFlow = initializingStateFlow,
                     )
                 }
@@ -205,6 +208,13 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
 
     private fun startNativeProfilerActivity() {
         val intent = Intent(this, NativeProfilerActivity::class.java)
+        intent.putExtra("apiToken", myApiToken)
+        intent.putExtra("userIdentifier", myUserIdentifier)
+        startActivity(intent)
+    }
+
+    private fun startNativePagingProfilerActivity() {
+        val intent = Intent(this, NativePagingProfilerActivity::class.java)
         intent.putExtra("apiToken", myApiToken)
         intent.putExtra("userIdentifier", myUserIdentifier)
         startActivity(intent)
