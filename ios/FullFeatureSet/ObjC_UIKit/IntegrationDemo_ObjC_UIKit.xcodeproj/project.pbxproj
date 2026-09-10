@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B8C476F5E3CD627ECDAACE9 /* Pods_IntegrationDemo_ObjC_UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC943F9F6E2B222CD2436509 /* Pods_IntegrationDemo_ObjC_UIKit.framework */; };
 		90260F4D2A0F019F00F6FCDF /* PlacementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90260F4C2A0F019F00F6FCDF /* PlacementCell.m */; };
 		9080F7A829A69C9700FFF90C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F7A729A69C9700FFF90C /* AppDelegate.m */; };
 		9080F7AB29A69C9700FFF90C /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F7AA29A69C9700FFF90C /* SceneDelegate.m */; };
@@ -17,6 +16,8 @@
 		9080F7B629A69C9800FFF90C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9080F7B429A69C9800FFF90C /* LaunchScreen.storyboard */; };
 		9080F7B929A69C9800FFF90C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080F7B829A69C9800FFF90C /* main.m */; };
 		90C871DD2CA340C700873E22 /* NativeWallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C871DC2CA340C700873E22 /* NativeWallViewController.m */; };
+		90CC544730533C85000EF85D /* TRQualificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC544530533C85000EF85D /* TRQualificationViewController.m */; };
+		90CC544D30533E77000EF85D /* TapResearchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 90CC544C30533E77000EF85D /* TapResearchSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,13 +47,12 @@
 		9080F7B529A69C9800FFF90C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9080F7B729A69C9800FFF90C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9080F7B829A69C9800FFF90C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		90A628C12ECF9A1C009FCBDA /* IntegrationDemo_ObjC_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntegrationDemo_ObjC_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90A628C12ECF9A1C009FCBDA /* IntegrationDemo_ObjC_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IntegrationDemo_ObjC_UIKit.app; path = "/Users/jeroen/orca/demo-apps/demo-apps/ios/FullFeatureSet/ObjC_UIKit/build/Debug-iphoneos/IntegrationDemo_ObjC_UIKit.app"; sourceTree = "<absolute>"; };
 		90A628C22ECF9A52009FCBDA /* TapResearchToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TapResearchToken.h; sourceTree = "<group>"; };
 		90C871DB2CA340C700873E22 /* NativeWallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeWallViewController.h; sourceTree = "<group>"; };
 		90C871DC2CA340C700873E22 /* NativeWallViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeWallViewController.m; sourceTree = "<group>"; };
-		B143AC2B06A91A0916E48CB0 /* Pods-IntegrationDemo_ObjC_UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationDemo_ObjC_UIKit.debug.xcconfig"; path = "Target Support Files/Pods-IntegrationDemo_ObjC_UIKit/Pods-IntegrationDemo_ObjC_UIKit.debug.xcconfig"; sourceTree = "<group>"; };
-		CF2871019AECE15646FC5EA7 /* Pods-IntegrationDemo_ObjC_UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntegrationDemo_ObjC_UIKit.release.xcconfig"; path = "Target Support Files/Pods-IntegrationDemo_ObjC_UIKit/Pods-IntegrationDemo_ObjC_UIKit.release.xcconfig"; sourceTree = "<group>"; };
-		DC943F9F6E2B222CD2436509 /* Pods_IntegrationDemo_ObjC_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntegrationDemo_ObjC_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		90CC544430533C85000EF85D /* TRQualificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRQualificationViewController.h; sourceTree = "<group>"; };
+		90CC544530533C85000EF85D /* TRQualificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRQualificationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,43 +60,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B8C476F5E3CD627ECDAACE9 /* Pods_IntegrationDemo_ObjC_UIKit.framework in Frameworks */,
+				90CC544D30533E77000EF85D /* TapResearchSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		279DE1E272CDD2068ABDC5B0 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B143AC2B06A91A0916E48CB0 /* Pods-IntegrationDemo_ObjC_UIKit.debug.xcconfig */,
-				CF2871019AECE15646FC5EA7 /* Pods-IntegrationDemo_ObjC_UIKit.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		519A26B928DAC56A5F8E8411 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				DC943F9F6E2B222CD2436509 /* Pods_IntegrationDemo_ObjC_UIKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		9080F79A29A69C9700FFF90C = {
 			isa = PBXGroup;
 			children = (
 				9080F7A529A69C9700FFF90C /* IntegrationDemo_ObjC_UIKit */,
-				519A26B928DAC56A5F8E8411 /* Frameworks */,
-				279DE1E272CDD2068ABDC5B0 /* Pods */,
-				90A628C12ECF9A1C009FCBDA /* IntegrationDemo_ObjC_UIKit.app */,
+				90CC544B30533E77000EF85D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		9080F7A529A69C9700FFF90C /* IntegrationDemo_ObjC_UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				90CC544630533C85000EF85D /* Profiler */,
 				9080F7A629A69C9700FFF90C /* AppDelegate.h */,
 				9080F7A729A69C9700FFF90C /* AppDelegate.m */,
 				9080F7A929A69C9700FFF90C /* SceneDelegate.h */,
@@ -117,6 +99,22 @@
 			path = IntegrationDemo_ObjC_UIKit;
 			sourceTree = "<group>";
 		};
+		90CC544630533C85000EF85D /* Profiler */ = {
+			isa = PBXGroup;
+			children = (
+				90CC544430533C85000EF85D /* TRQualificationViewController.h */,
+				90CC544530533C85000EF85D /* TRQualificationViewController.m */,
+			);
+			path = Profiler;
+			sourceTree = "<group>";
+		};
+		90CC544B30533E77000EF85D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -124,18 +122,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9080F7D229A69C9900FFF90C /* Build configuration list for PBXNativeTarget "IntegrationDemo_ObjC_UIKit" */;
 			buildPhases = (
-				442B1EA1A7DE9E755CD6EA75 /* [CP] Check Pods Manifest.lock */,
 				9080F79F29A69C9700FFF90C /* Sources */,
 				9080F7A029A69C9700FFF90C /* Frameworks */,
 				9080F7A129A69C9700FFF90C /* Resources */,
 				90712EBC2A0ED1C0003D80BC /* Embed Frameworks */,
-				52A68C3B6C6DE8B44A94C46F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = IntegrationDemo_ObjC_UIKit;
+			packageProductDependencies = (
+				90CC544C30533E77000EF85D /* TapResearchSDK */,
+			);
 			productName = IntegrationDemo_ObjC_UIKit;
 			productReference = 90A628C12ECF9A1C009FCBDA /* IntegrationDemo_ObjC_UIKit.app */;
 			productType = "com.apple.product-type.application";
@@ -163,6 +162,9 @@
 				Base,
 			);
 			mainGroup = 9080F79A29A69C9700FFF90C;
+			packageReferences = (
+				90CC544A30533E35000EF85D /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */,
+			);
 			productRefGroup = 9080F79A29A69C9700FFF90C;
 			projectDirPath = "";
 			projectRoot = "";
@@ -185,54 +187,13 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		442B1EA1A7DE9E755CD6EA75 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-IntegrationDemo_ObjC_UIKit-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		52A68C3B6C6DE8B44A94C46F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_ObjC_UIKit/Pods-IntegrationDemo_ObjC_UIKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_ObjC_UIKit/Pods-IntegrationDemo_ObjC_UIKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IntegrationDemo_ObjC_UIKit/Pods-IntegrationDemo_ObjC_UIKit-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		9080F79F29A69C9700FFF90C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				9080F7AE29A69C9700FFF90C /* ViewController.m in Sources */,
+				90CC544730533C85000EF85D /* TRQualificationViewController.m in Sources */,
 				90260F4D2A0F019F00F6FCDF /* PlacementCell.m in Sources */,
 				9080F7A829A69C9700FFF90C /* AppDelegate.m in Sources */,
 				9080F7B929A69C9800FFF90C /* main.m in Sources */,
@@ -375,7 +336,6 @@
 		};
 		9080F7D329A69C9900FFF90C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B143AC2B06A91A0916E48CB0 /* Pods-IntegrationDemo_ObjC_UIKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -403,7 +363,6 @@
 		};
 		9080F7D429A69C9900FFF90C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF2871019AECE15646FC5EA7 /* Pods-IntegrationDemo_ObjC_UIKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -451,6 +410,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		90CC544A30533E35000EF85D /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TapResearch/TapResearch-iOS-SDK";
+			requirement = {
+				branch = "3.8.1--beta01";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		90CC544C30533E77000EF85D /* TapResearchSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90CC544A30533E35000EF85D /* XCRemoteSwiftPackageReference "TapResearch-iOS-SDK" */;
+			productName = TapResearchSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9080F79B29A69C9700FFF90C /* Project object */;
 }

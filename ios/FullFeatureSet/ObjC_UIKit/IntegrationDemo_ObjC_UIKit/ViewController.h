@@ -6,7 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TapResearchSDK/TapResearchSDK.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <TapResearchSDKDelegate>
 
 @end
