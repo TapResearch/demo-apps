@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider as Divider
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -39,6 +38,7 @@ import com.tapresearch.tapsdk.models.TRQualification
 import com.tapresearch.tapsdk.models.TRQualificationsResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import androidx.compose.material3.HorizontalDivider as Divider
 
 data class QualificationAnswerState(
     val values: List<String> = emptyList(),
@@ -46,10 +46,10 @@ data class QualificationAnswerState(
 
 class NativeProfilerActivity : ComponentActivity() {
 
-    private val qualificationsState = MutableStateFlow<TRQualificationsResponse?>(null)
-    private val isSubmittingState = MutableStateFlow(false)
     private lateinit var apiToken: String
     private lateinit var userIdentifier: String
+    private val qualificationsState = MutableStateFlow<TRQualificationsResponse?>(null)
+    private val isSubmittingState = MutableStateFlow(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
