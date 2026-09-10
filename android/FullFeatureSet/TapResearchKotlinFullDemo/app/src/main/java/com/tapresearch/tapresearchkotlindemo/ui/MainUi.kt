@@ -58,8 +58,7 @@ fun MainUi(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .windowInsetsPadding(WindowInsets.safeDrawing)
-                .verticalScroll(scrollState),
+                .windowInsetsPadding(WindowInsets.safeDrawing),
         ) {
 
             if (initializing.value) {
@@ -79,55 +78,62 @@ fun MainUi(
 
             } else {
 
-                UserIdentifierRow(userIdentifier, onSetUserIdentifier)
-                Text(
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    text = "Available Placement(s)",
-                )
-                for (option in buttonOptions) {
-                    Button(
-                        onClick = { openPlacement(option) },
-                        modifier = Modifier.padding(4.dp),
-                    ) {
-                        Text(text = option)
+                        .fillMaxSize()
+                        .verticalScroll(scrollState)
+                ) {
+
+                    UserIdentifierRow(userIdentifier, onSetUserIdentifier)
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        text = "Available Placement(s)",
+                    )
+                    for (option in buttonOptions) {
+                        Button(
+                            onClick = { openPlacement(option) },
+                            modifier = Modifier.padding(4.dp),
+                        ) {
+                            Text(text = option)
+                        }
                     }
-                }
-                divider()
-                Button(
-                    onClick = { sendUserAttributes() },
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    Text(text = "Send User Attributes")
-                }
-                divider()
-                Button(
-                    onClick = { onGetPlacementDetailsClicked() },
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    Text(text = "Get Placement Details")
-                }
-                divider()
-                Button(
-                    onClick = { showWallPreview() },
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    Text(text = "Survey Wall Preview")
-                }
-                divider()
-                Button(
-                    onClick = { onStartNativeProfilerActivity() },
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    Text(text = "Native Profiler")
-                }
-                divider()
-                Button(
-                    onClick = { onStartNativePagingProfilerActivity() },
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    Text(text = "Paging Native Profiler")
+                    divider()
+                    Button(
+                        onClick = { sendUserAttributes() },
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        Text(text = "Send User Attributes")
+                    }
+                    divider()
+                    Button(
+                        onClick = { onGetPlacementDetailsClicked() },
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        Text(text = "Get Placement Details")
+                    }
+                    divider()
+                    Button(
+                        onClick = { showWallPreview() },
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        Text(text = "Survey Wall Preview")
+                    }
+                    divider()
+                    Button(
+                        onClick = { onStartNativeProfilerActivity() },
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        Text(text = "Native Profiler")
+                    }
+                    divider()
+                    Button(
+                        onClick = { onStartNativePagingProfilerActivity() },
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        Text(text = "Paging Native Profiler")
+                    }
                 }
             }
         }
