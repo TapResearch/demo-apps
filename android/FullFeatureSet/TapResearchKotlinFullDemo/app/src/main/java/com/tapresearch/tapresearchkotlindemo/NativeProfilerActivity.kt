@@ -42,7 +42,6 @@ import kotlinx.coroutines.flow.update
 
 data class QualificationAnswerState(
     val values: List<String> = emptyList(),
-    val countryCode: String? = null
 )
 
 class NativeProfilerActivity : ComponentActivity() {
@@ -163,7 +162,7 @@ class NativeProfilerActivity : ComponentActivity() {
                                             state = answers[qual.questionId ?: -1] ?: QualificationAnswerState(),
                                             onStateChanged = { newState ->
                                                 qual.questionId?.let { id ->
-                                                    if (newState.values.isEmpty() && (newState.countryCode == null)) {
+                                                    if (newState.values.isEmpty()) {
                                                         answers.remove(id)
                                                     } else {
                                                         answers[id] = newState

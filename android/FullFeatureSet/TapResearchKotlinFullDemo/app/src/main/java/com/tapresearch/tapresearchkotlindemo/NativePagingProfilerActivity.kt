@@ -42,7 +42,6 @@ import androidx.compose.material3.HorizontalDivider as Divider
 
 data class PagingQualificationAnswerState(
     val values: List<String> = emptyList(),
-    val countryCode: String? = null
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -144,10 +143,11 @@ fun PagingQualificationItem(
 
 class NativePagingProfilerActivity : ComponentActivity() {
 
-    private val qualificationsState = MutableStateFlow<TRQualificationsResponse?>(null)
-    private val isSubmittingState = MutableStateFlow(false)
     private lateinit var apiToken: String
     private lateinit var userIdentifier: String
+    private val qualificationsState = MutableStateFlow<TRQualificationsResponse?>(null)
+    private val isSubmittingState = MutableStateFlow(false)
+    private val submitButtonLabelState = MutableStateFlow("Submit Answer")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -173,7 +173,7 @@ class NativePagingProfilerActivity : ComponentActivity() {
                                     .padding(16.dp),
                                 enabled = answers.containsKey(currentQualification.questionId)
                             ) {
-                                Text("Submit Answer")
+                                Text(submitButtonLabelState.collectAsState().value)
                             }
                         }
                     }
@@ -260,7 +260,7 @@ class NativePagingProfilerActivity : ComponentActivity() {
                                             state = answers[currentQualification.questionId ?: -1] ?: PagingQualificationAnswerState(),
                                             onStateChanged = { newState ->
                                                 currentQualification.questionId?.let { id ->
-                                                    if (newState.values.isEmpty() && (newState.countryCode == null)) {
+                                                    if (newState.values.isEmpty()) {
                                                         answers.remove(id)
                                                     } else {
                                                         answers[id] = newState
@@ -283,6 +283,7 @@ class NativePagingProfilerActivity : ComponentActivity() {
     private fun fetchQualifications() {
         TapResearch.getProfilingQualifications(apiToken, userIdentifier) { response ->
             qualificationsState.update { response }
+            submitButtonLabelState.update { "Submit Answer (${response.qualifications?.size?:0} remaining)" }
         }
     }
 
@@ -296,6 +297,7 @@ class NativePagingProfilerActivity : ComponentActivity() {
         TapResearch.sendProfilingQualifications(apiToken, userIdentifier, submissions) { response ->
             isSubmittingState.update { false }
             qualificationsState.update { response }
+            submitButtonLabelState.update { "Submit Answer (${response.qualifications?.size?:0} remaining)" }
         }
     }
 }
