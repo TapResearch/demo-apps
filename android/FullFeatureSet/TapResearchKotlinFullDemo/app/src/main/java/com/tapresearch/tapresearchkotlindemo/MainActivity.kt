@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity(), TRRewardCallback {
         showRewardToast(rewards)
     }
 
-    private var myUserIdentifier = "tr-sdk-test-user-46183135" // Try a different user identifier by changing the number at the end
+    private var myUserIdentifier = "tr-sdk-test-user-463000" // Try a different user identifier by changing the number at the end
     private val myApiToken = "fb28e5e0572876db0790ecaf6c588598" // Insert your API token here
 
     override fun onCreate(savedInstanceState: Bundle?) {

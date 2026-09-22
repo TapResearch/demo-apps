@@ -281,7 +281,7 @@ class NativePagingProfilerActivity : ComponentActivity() {
     }
 
     private fun fetchQualifications() {
-        TapResearch.getProfilingQualifications(apiToken, userIdentifier) { response ->
+        TapResearch.getProfilingQualifications(apiToken, userIdentifier, null) { response ->
             qualificationsState.update { response }
             submitButtonLabelState.update { "Submit Answer (${response.qualifications?.size?:0} remaining)" }
         }
@@ -294,7 +294,7 @@ class NativePagingProfilerActivity : ComponentActivity() {
         isSubmittingState.update { true }
         val submissions = listOf(TRProfileAnswer(id, state.values))
         
-        TapResearch.sendProfilingQualifications(apiToken, userIdentifier, submissions) { response ->
+        TapResearch.sendProfilingQualifications(apiToken, userIdentifier, null, submissions) { response ->
             isSubmittingState.update { false }
             qualificationsState.update { response }
             submitButtonLabelState.update { "Submit Answer (${response.qualifications?.size?:0} remaining)" }

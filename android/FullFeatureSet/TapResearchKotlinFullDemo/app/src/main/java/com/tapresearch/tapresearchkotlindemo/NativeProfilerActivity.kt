@@ -181,7 +181,7 @@ class NativeProfilerActivity : ComponentActivity() {
     }
 
     private fun fetchQualifications() {
-        TapResearch.getProfilingQualifications(apiToken, userIdentifier) { response ->
+        TapResearch.getProfilingQualifications(apiToken, userIdentifier, null) { response ->
             qualificationsState.update { response }
         }
     }
@@ -191,7 +191,7 @@ class NativeProfilerActivity : ComponentActivity() {
         val submissions = answers.map { (id, state) ->
             TRProfileAnswer(id, state.values)
         }
-        TapResearch.sendProfilingQualifications(apiToken, userIdentifier, submissions) { response ->
+        TapResearch.sendProfilingQualifications(apiToken, userIdentifier, null, submissions) { response ->
             isSubmittingState.update { false }
             qualificationsState.update { response }
         }
