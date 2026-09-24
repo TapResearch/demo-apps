@@ -15,6 +15,11 @@
 		900CBA9B2B77007F009D01D7 /* TapResearchContentDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900CBA9A2B77007F009D01D7 /* TapResearchContentDelegates.swift */; };
 		906A3E422D13DABE0033DC0E /* SurveyWallPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906A3E412D13DABC0033DC0E /* SurveyWallPreview.swift */; };
 		906C91862A97FF1B006AC61C /* TapResearchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 906C91852A97FF1B006AC61C /* TapResearchSDK */; };
+		9097E69630509A90009F5670 /* QualificationUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097E69330509A90009F5670 /* QualificationUIKit.swift */; };
+		9097E69730509A90009F5670 /* QualificationSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097E69130509A90009F5670 /* QualificationSupport.swift */; };
+		9097E69830509A90009F5670 /* QualificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097E69430509A90009F5670 /* QualificationViewModel.swift */; };
+		9097E69930509A90009F5670 /* ExampleIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097E69030509A90009F5670 /* ExampleIntegration.swift */; };
+		9097E69A30509A90009F5670 /* QualificationSurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9097E69230509A90009F5670 /* QualificationSurveyView.swift */; };
 		90A628C02ECF99E6009FCBDA /* TapResearchToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A628BF2ECF99E6009FCBDA /* TapResearchToken.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +45,11 @@
 		900CBA942B76FEB8009D01D7 /* TapResearchSDKDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapResearchSDKDelegates.swift; sourceTree = "<group>"; };
 		900CBA9A2B77007F009D01D7 /* TapResearchContentDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapResearchContentDelegates.swift; sourceTree = "<group>"; };
 		906A3E412D13DABC0033DC0E /* SurveyWallPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyWallPreview.swift; sourceTree = "<group>"; };
+		9097E69030509A90009F5670 /* ExampleIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleIntegration.swift; sourceTree = "<group>"; };
+		9097E69130509A90009F5670 /* QualificationSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualificationSupport.swift; sourceTree = "<group>"; };
+		9097E69230509A90009F5670 /* QualificationSurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualificationSurveyView.swift; sourceTree = "<group>"; };
+		9097E69330509A90009F5670 /* QualificationUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualificationUIKit.swift; sourceTree = "<group>"; };
+		9097E69430509A90009F5670 /* QualificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualificationViewModel.swift; sourceTree = "<group>"; };
 		90A628BF2ECF99E6009FCBDA /* TapResearchToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapResearchToken.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +84,7 @@
 		270EB2CA2A193CA600B775B6 /* IntegrationDemo_SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				9097E69530509A90009F5670 /* Profiler */,
 				906A3E412D13DABC0033DC0E /* SurveyWallPreview.swift */,
 				270EB2CB2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift */,
 				900CBA922B76FE8E009D01D7 /* MainContentView.swift */,
@@ -84,6 +95,18 @@
 				270EB2CF2A193CA900B775B6 /* Assets.xcassets */,
 			);
 			path = IntegrationDemo_SwiftUI;
+			sourceTree = "<group>";
+		};
+		9097E69530509A90009F5670 /* Profiler */ = {
+			isa = PBXGroup;
+			children = (
+				9097E69030509A90009F5670 /* ExampleIntegration.swift */,
+				9097E69130509A90009F5670 /* QualificationSupport.swift */,
+				9097E69230509A90009F5670 /* QualificationSurveyView.swift */,
+				9097E69330509A90009F5670 /* QualificationUIKit.swift */,
+				9097E69430509A90009F5670 /* QualificationViewModel.swift */,
+			);
+			path = Profiler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +191,11 @@
 				906A3E422D13DABE0033DC0E /* SurveyWallPreview.swift in Sources */,
 				270EB2CC2A193CA600B775B6 /* IntegrationDemo_SwiftUIApp.swift in Sources */,
 				900CBA952B76FEB8009D01D7 /* TapResearchSDKDelegates.swift in Sources */,
+				9097E69630509A90009F5670 /* QualificationUIKit.swift in Sources */,
+				9097E69730509A90009F5670 /* QualificationSupport.swift in Sources */,
+				9097E69830509A90009F5670 /* QualificationViewModel.swift in Sources */,
+				9097E69930509A90009F5670 /* ExampleIntegration.swift in Sources */,
+				9097E69A30509A90009F5670 /* QualificationSurveyView.swift in Sources */,
 				900CBA932B76FE8E009D01D7 /* MainContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,8 +403,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TapResearch/TapResearch-iOS-SDK";
 			requirement = {
-				kind = exactVersion;
-				version = "3.8.0--rc0";
+				branch = "3.8.1--beta01";
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

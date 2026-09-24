@@ -7,8 +7,9 @@
 
 #import "ViewController.h"
 #import "PlacementCell.h"
-#import <TapResearchSDK/TapResearchSDK.h>
 #import "NativeWallViewController.h"
+#import "TRQualificationViewController.h"
+#import "TapResearchToken.h"
 
 @interface ViewController ()
 <
@@ -27,6 +28,8 @@ TapResearchGrantBoostResponseDelegate
 
 @property (strong, nonatomic) NSMutableArray *knownPlacements;
 @property NSString *surveysPlacement;
+@property (strong, nonatomic) NSString *apiToken;
+@property (strong, nonatomic) NSString *userIdentifier;
 
 @end
 
@@ -34,6 +37,8 @@ TapResearchGrantBoostResponseDelegate
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.apiToken = TAP_RESEARCH_TOKEN; // API token is now in TapResearchToken.h
+	self.userIdentifier = @"public-demo-test-user-for-2026"; // Replace with your own app's player user id
 
 	self.knownPlacements = @[
 		@"default-placement",
@@ -47,10 +52,34 @@ TapResearchGrantBoostResponseDelegate
 	self.placementTextField.delegate = self;
 	self.boostTextField.placeholder = @"Boost Tag";
 	self.boostTextField.delegate = self;
+
+
+	[TapResearch initializeWithAPIToken:self.apiToken
+						 userIdentifier:self.userIdentifier
+//						 userAttributes:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"a string value", @12, nil]
+//																	forKeys:[NSArray arrayWithObjects:@"some_string", @"some_number", nil]
+//										]
+//				clearPreviousAttributes:YES
+							sdkDelegate:self
+							 completion:^(NSError * _Nullable error) {
+		if (error) {
+			NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
+		}
+	}];
+
+	// Initialize TapResearchSDK without passing user attributes:
+	//[TapResearch initializeWithAPIToken:apiToken userIdentifier:userIdentifier sdkDelegate:self completion:^(NSError * _Nullable error) {
+	//	if (error) {
+	//		NSLog(@"Error on initialize: %ld, %@", (long)error.code, error.localizedDescription);
+	//	}
+	//}];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+
+	UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Profiler" style:UIBarButtonItemStylePlain target:self action:@selector(showProfiler)];
+	[self.navigationItem setLeftBarButtonItem:leftButton];
 
 	UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"Surveys?" style:UIBarButtonItemStylePlain target:self action:@selector(refresh)];
 	[self.navigationItem setRightBarButtonItem:button];
@@ -89,6 +118,12 @@ TapResearchGrantBoostResponseDelegate
 }
 
 //MARK: - Actions and button handlers
+
+-(void)showProfiler {
+	dispatch_async( dispatch_get_main_queue(), ^{
+		[self showProfilingWithAPIToken:self.apiToken userIdentifier:self.userIdentifier];
+	});
+}
 
 -(void)refresh {
 	[self.tableView reloadData];
@@ -218,6 +253,84 @@ TapResearchGrantBoostResponseDelegate
 		else {
 			self.boostStatus.text = [NSString stringWithFormat:@"%@: unkown error", response.boostTag];
 		}
+	}
+}
+
+//MARK: - Profiling example
+
+- (void)showProfilingWithAPIToken:(NSString *)_apiToken
+				   userIdentifier:(NSString *)_userIdentifier {
+
+	__weak typeof(self) weakSelf = self;
+
+	[TapResearch getProfilingQualificationsWithApiToken:_apiToken
+										 userIdentifier:_userIdentifier
+											countryCode:@"US"
+											 completion:^(TRProfileResponse * _Nullable response, NSError * _Nullable error) {
+
+		__strong typeof(weakSelf) self = weakSelf;
+		if (!self) return;
+
+		if (error || !response) {
+			NSLog(@"Unable to load profiling: %@", error);
+			return;
+		}
+		__block UINavigationController *navigationController = nil;
+		__block TRQualificationViewController *questionnaire = nil;
+		
+		dispatch_async( dispatch_get_main_queue(), ^{
+
+			questionnaire = [[TRQualificationViewController alloc] initWithResponse:response submitHandler:^(NSArray<TRProfileAnswer *> * _Nonnull answers, TRQualificationSubmitCompletion  _Nonnull completion) {
+				[TapResearch sendProfilingAnswersWithApiToken:_apiToken
+											   userIdentifier:_userIdentifier
+													  answers:answers
+												  countryCode:@"US"
+												   completion:^(TRProfileResponse * _Nullable response, NSError * _Nullable error) {
+					dispatch_async( dispatch_get_main_queue(), ^{
+						[navigationController dismissViewControllerAnimated:YES completion:nil];
+					});
+				}];
+			} onExit:^{
+				dispatch_async( dispatch_get_main_queue(), ^{
+					[navigationController dismissViewControllerAnimated:YES completion:nil];
+				});
+			} onComplete:^(TRProfileResponse *finalResponse) {
+				NSLog(@"Profiling complete: %@", finalResponse.isProfiled ? @"YES" : @"NO");
+				dispatch_async( dispatch_get_main_queue(), ^{
+					[navigationController dismissViewControllerAnimated:YES completion:nil];
+				});
+			}];
+		});
+
+		dispatch_async( dispatch_get_main_queue(), ^{
+			navigationController = [[UINavigationController alloc] initWithRootViewController:questionnaire];
+			navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
+			[self presentViewController:navigationController animated:YES completion:nil];
+		});
+	}];
+}
+
+//MARK: - TapResearchSDKDelegate
+
+- (void)onTapResearchDidError:(NSError * _Nonnull)error {
+	NSLog(@"onTapResearchDidError() -> %@, %ld", error.localizedDescription, (long)error.code);
+}
+
+- (void)onTapResearchDidReceiveRewards:(NSArray<TRReward *> * _Nonnull)rewards {
+	NSLog(@"onTapResearchDidReceiveRewards(%@)", rewards);
+}
+
+- (void)onTapResearchQuickQuestionResponse:(TRQQDataPayload *)qqPayload {
+	NSLog(@"[%@] onTapResearchQuickQuestionResponse(%@)", NSDate.now.description, qqPayload);
+}
+
+- (void)onTapResearchSdkReady {
+	NSLog(@"onTapResearchSdkReady()");
+
+	NSError *error = [TapResearch sendUserAttributesWithAttributes:@{@"Number" : @12, @"String" : @"Some text", @"Boolean" : @"true"}
+										   clearPreviousAttributes:NO];
+	if (error) {
+		NSLog(@"Error sending user attributes: %ld %@", (long)error.code, error.localizedDescription);
 	}
 }
 

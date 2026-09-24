@@ -6,9 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <TapResearchSDK/TapResearchSDK.h>
+//#import <TapResearchSDK/TapResearchSDK.h>
 
-@interface SceneDelegate : UIResponder <UIWindowSceneDelegate, TapResearchSDKDelegate>
+@interface SceneDelegate : UIResponder <UIWindowSceneDelegate>//, TapResearchSDKDelegate>
 
 @property (strong, nonatomic) UIWindow * window;
 
