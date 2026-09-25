@@ -130,7 +130,7 @@ class SurveyWallPreviewActivity : ComponentActivity(), TRRewardCallback {
         ) {
 
             if (initializing.value) {
-                CenterHeadlineText("Initializing TapResearch SDK")
+                CenterHeadlineText("SDK Initializing")
                 ProgressIndicator() // progress spinney
                 BoxedText("API Token:", myApiToken, "User Identifier:", myUserIdentifier)
             } else {

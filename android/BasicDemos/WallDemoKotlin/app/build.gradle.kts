@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -27,12 +26,13 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+    kotlin {
+        jvmToolchain(17)
     }
-    kotlinOptions {
-        jvmTarget = "11"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
@@ -43,7 +43,7 @@ android {
 dependencies {
 
     // required by tap research sdk
-    implementation("com.tapresearch:tapsdk:3.8.0--rc1")
+    implementation("com.tapresearch:tapsdk:3.8.1--beta01")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("androidx.lifecycle:lifecycle-process:2.6.1")
     implementation("com.google.android.gms:play-services-ads-identifier:18.1.0")
