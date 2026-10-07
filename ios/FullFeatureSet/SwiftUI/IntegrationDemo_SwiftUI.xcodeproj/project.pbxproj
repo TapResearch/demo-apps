@@ -403,8 +403,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TapResearch/TapResearch-iOS-SDK";
 			requirement = {
-				branch = "3.8.1--beta01";
-				kind = branch;
+				kind = exactVersion;
+				version = "3.8.1--beta01";
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

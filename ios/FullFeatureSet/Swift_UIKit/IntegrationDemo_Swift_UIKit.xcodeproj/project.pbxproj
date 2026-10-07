@@ -36,7 +36,7 @@
 
 /* Begin PBXFileReference section */
 		9009072A2AFDD09500512F9E /* TapResearchSDKDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapResearchSDKDelegates.swift; sourceTree = "<group>"; };
-		902059D72A97ED3D00F05BAF /* IntegrationDemo_Swift_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = IntegrationDemo_Swift_UIKit.app; path = "/Users/jeroen/orca/demo-apps/demo-apps/ios/FullFeatureSet/Swift_UIKit/build/Debug-iphoneos/IntegrationDemo_Swift_UIKit.app"; sourceTree = "<absolute>"; };
+		902059D72A97ED3D00F05BAF /* IntegrationDemo_Swift_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntegrationDemo_Swift_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9080F76A29A69C6900FFF90C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9080F76C29A69C6900FFF90C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9080F76E29A69C6900FFF90C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				9080F76929A69C6900FFF90C /* IntegrationDemo_Swift_UIKit */,
+				902059D72A97ED3D00F05BAF /* IntegrationDemo_Swift_UIKit.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -397,8 +398,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TapResearch/TapResearch-iOS-SDK";
 			requirement = {
-				branch = "3.8.1--beta01";
-				kind = branch;
+				kind = exactVersion;
+				version = "3.8.1--beta01";
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
