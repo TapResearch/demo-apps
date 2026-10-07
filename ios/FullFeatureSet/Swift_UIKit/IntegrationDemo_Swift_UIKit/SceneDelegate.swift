@@ -6,40 +6,16 @@
 //
 
 import UIKit
-import TapResearchSDK
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate, LogPrint {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate{
 
 	var window: UIWindow?
-
-	// Token for example is in TapResearchToken.swift
-	let userIdentifier: String = "public-demo-test-user-for-2026" // Replace with your own app's player user id
-
-	let tapDelegates: TapResearchDelegates = TapResearchDelegates()
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 		// Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
 		// If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
 		// This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 		guard let _ = (scene as? UIWindowScene) else { return }
-
-		// Initialize TapResearch
-		let dict: [String:Any] = ["some_string" : "a string value", "some_number" : 12]
-		TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, userAttributes: dict, clearPreviousAttributes: true, sdkDelegate:tapDelegates) { (error: Error?) in
-			if let error = error {
-				self.logPrint(error.localizedDescription)
-			}
-			else {
-				self.logPrint("Intialized - waiting to be ready")
-			}
-		}
-
-		// Initialize TapResearchSDK without passing user attributes:
-		//TapResearch.initialize(withAPIToken: apiToken, userIdentifier: userIdentifier, sdkDelegate: tapDelegates) { (error: NSError?) in
-		//	if let e = error {
-		//		print(e.localizedDescription as Any)
-		//	}
-		//}
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {

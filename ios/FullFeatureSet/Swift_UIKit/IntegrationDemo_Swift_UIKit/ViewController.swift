@@ -23,6 +23,9 @@ class ViewController : UIViewController,
 	@IBOutlet weak var boostTextField: UITextField!
 	@IBOutlet weak var boostStatus: UILabel!
 
+	// Token for example is in TapResearchToken.swift
+	let userIdentifier: String = "public-demo-test-user-for-2026" // Replace with your own app's player user id
+	let tapDelegates: TapResearchDelegates = TapResearchDelegates()
 	var surveysPlacement: String = "earn-center"
 	let showSurveysSegue: String = "ShowSurveys"
 	var knownPlacements: [String] = [
@@ -36,6 +39,21 @@ class ViewController : UIViewController,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		// Initialize TapResearch
+//		let dict: [String:Any] = ["some_string" : "a string value", "some_number" : 12]
+		TapResearch.initialize(withAPIToken: apiToken,
+							   userIdentifier: userIdentifier,
+//							   userAttributes: dict,
+//							   clearPreviousAttributes: true,
+							   sdkDelegate:tapDelegates) { (error: Error?) in
+			if let error = error {
+				self.logPrint(error.localizedDescription)
+			}
+			else {
+				self.logPrint("Intialized - waiting to be ready")
+			}
+		}
+
 		placementTextField.placeholder = "Placement Tag"
 		placementTextField.delegate = self
 		boostTextField.placeholder = "Boost Tag"
@@ -45,6 +63,7 @@ class ViewController : UIViewController,
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
+		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Profiler", style: .plain, target: self, action: #selector(showProfiler))
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Surveys?", style: .plain, target: self, action: #selector(refresh))
 	}
 
@@ -93,6 +112,12 @@ class ViewController : UIViewController,
 
 	@objc func refresh() {
 		tableView.reloadData()
+	}
+
+	@objc func showProfiler() {
+		DispatchQueue.main.async(execute: { () -> Void in
+			self.presentProfilingQuestionnaire(apiToken: apiToken, userIdentifier: self.userIdentifier)
+		})
 	}
 
 	@IBAction func grantBoost() {
@@ -216,4 +241,114 @@ class ViewController : UIViewController,
 		}
 	}
 
+//	func presentProfilingQuestionnaire(apiToken: String, userIdentifier: String) {
+//		Task { @MainActor in
+//			do {
+//				let initialResponse = try await TapResearch.getProfilingQualificationsAsync(
+//					apiToken: apiToken,
+//					userIdentifier: self.userIdentifier,
+//					countryCode: "US"
+//				)
+//
+//				let questionnaire = TRQualificationViewController(
+//					response: initialResponse,
+//					submitHandler: { answers in
+//						try await TapResearch.sendProfilingAnswersAsync(
+//							apiToken: apiToken,
+//							userIdentifier: userIdentifier,
+//							answers: answers,
+//							countryCode: "US"
+//						)
+//					},
+//					onExit: { [weak self = self] in
+//						DispatchQueue.main.async(execute: { () -> Void in
+//							self?.dismiss(animated: true)
+//						})
+//					},
+//					onComplete: { [weak self = self] finalResponse in
+//						print("Profiling complete: \(finalResponse.isProfiled)")
+//						DispatchQueue.main.async(execute: { () -> Void in
+//							self?.dismiss(animated: true)
+//						})
+//					}
+//				)
+//
+//				DispatchQueue.main.async(execute: { () -> Void in
+//					let navigationController = UINavigationController(rootViewController: questionnaire)
+//					navigationController.modalPresentationStyle = .formSheet
+//					self.present(navigationController, animated: true)
+//				})
+//
+//			} catch {
+//				DispatchQueue.main.async(execute: { () -> Void in
+//					let alert = UIAlertController(
+//						title: "Unable to load profiling",
+//						message: error.localizedDescription,
+//						preferredStyle: .alert
+//					)
+//					alert.addAction(UIAlertAction(title: "OK", style: .default))
+//					self.present(alert, animated: true)
+//				})
+//			}
+//		}
+//	}
+
+}
+@MainActor
+extension UIViewController {
+
+	func presentProfilingQuestionnaire(
+		apiToken: String,
+		userIdentifier: String
+	) {
+		Task { @MainActor in
+			do {
+				let initialResponse = try await TapResearch.getProfilingQualificationsAsync(
+					apiToken: apiToken,
+					userIdentifier: UUID().uuidString,
+					countryCode: "US"
+				)
+
+				// Do not present an empty questionnaire for a user who is
+				// already fully profiled (or has no remaining qualifications).
+				guard !initialResponse.isProfiled,
+					  !initialResponse.qualifications.isEmpty else {
+					print("Profiling already complete: \(initialResponse.isProfiled)")
+					return
+				}
+
+				let questionnaire = TRQualificationViewController(
+					response: initialResponse,
+					submitHandler: { answers in
+						try await TapResearch.sendProfilingAnswersAsync(
+							apiToken: apiToken,
+							userIdentifier: userIdentifier,
+							answers: answers,
+							countryCode: "US"
+						)
+					},
+					onExit: { [weak self] in
+						self?.dismiss(animated: true)
+					},
+					onComplete: { [weak self] finalResponse in
+						print("Profiling complete: \(finalResponse.isProfiled)")
+						self?.dismiss(animated: true)
+					}
+				)
+
+				let navigationController = UINavigationController(rootViewController: questionnaire)
+				navigationController.modalPresentationStyle = .formSheet
+				present(navigationController, animated: true)
+
+			} catch {
+				let alert = UIAlertController(
+					title: "Unable to load profiling",
+					message: error.localizedDescription,
+					preferredStyle: .alert
+				)
+				alert.addAction(UIAlertAction(title: "OK", style: .default))
+				present(alert, animated: true)
+			}
+		}
+	}
 }

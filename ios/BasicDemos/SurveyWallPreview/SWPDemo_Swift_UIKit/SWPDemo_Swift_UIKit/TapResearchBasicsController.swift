@@ -72,7 +72,7 @@ class TapResearchBasicsController: UIViewController {
 	@IBAction func showSurveyWallPreviewButtonTapped() {
 
 		if surveyWallHasSurveys {
-			performSegue(ithIdentifier: TapResearchBasicsController.showSurveyWallPreviewSegue, sender: surveyWallPreviewPlacement)
+			performSegue(withIdentifier: TapResearchBasicsController.showSurveyWallPreviewSegue, sender: surveyWallPreviewPlacement)
 			surveyWallHasSurveys = false
 		}
 		else {
