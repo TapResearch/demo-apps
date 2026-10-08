@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TapResearch;
@@ -14,6 +15,8 @@ public class TapResearchExample : MonoBehaviour
     public GameObject wallButton;
     public GameObject boostButton;
     public GameObject bannerButton;
+    public GameObject getQualsButton;
+    public GameObject sendAnswersButton;
     public GameObject qqButton;
     public GameObject interstitialButton;
     public TMP_Text message;
@@ -26,7 +29,7 @@ public class TapResearchExample : MonoBehaviour
     public string tapInterstitialPlacement = "";
     public string tapSurveyWallPreviewPlacement = "earn-center";
     public string tapBoostTag = "boost-3x-1d";
-    public string tapPlayerUserId = "UNIQUE_USER_IDENTIFIER";
+    public string tapPlayerUserId = "UNIQUE_USER_ID42434534121315a";
 
     private string tapAPIToken;
 
@@ -53,6 +56,7 @@ public class TapResearchExample : MonoBehaviour
             TapResearchSDK.TapResearchRewardReceived = TapResearchRewardReceived;
             TapResearchSDK.TapResearchDidError = TapResearchDidError;
             TapResearchSDK.TapResearchSdkReady = TapSdkReady;
+            TapResearchSDK.TapResearchProfileQualificationsReceived = TapProfileResponseReceived;
             screenFader.SetAlpha(0.0f);
             TapResearchSDK.Configure(tapAPIToken, tapPlayerUserId);
         }
@@ -95,6 +99,9 @@ public class TapResearchExample : MonoBehaviour
         bannerButton.SetActive(true);
         qqButton.SetActive(true);
         interstitialButton.SetActive(true);
+        // The profiler functionality is available without needing to init TapResearchSDK
+        //getQualsButton.SetActive(true);
+        //sendAnswersButton.SetActive(true);
 
         if (TapResearchSDK.HasSurveys(tapWallPlacement)) {
             showSurveyWallPreviewButton.SetActive(true);
@@ -120,6 +127,11 @@ public class TapResearchExample : MonoBehaviour
         Debug.Log("TapResearchExample: TapResearch Error:" + error.ErrorCode + " " + error.ErrorDescription + "");
     }
 
+    private void TapProfileResponseReceived(TRProfileResponse response)
+    {
+        Debug.Log("🟡 TapResearchExample: TapResearch profile response:" + JsonUtility.ToJson(response) + " 🟨");
+    }
+    
     // END Callbacks
 
     public void showWallContent()
@@ -154,6 +166,27 @@ public class TapResearchExample : MonoBehaviour
         // If you want to test custom parameters use showWallContentWithParameters().
     }
 
+    public void OnGetQualsButtonClick()
+    {
+        // Debug.Log("🟡 TapResearchExample: TapResearchSDK OnGetQualsButtonClick() attempting to get profile qualifications");
+        TapResearchSDK.GetProfileQualifications(apiToken: tapAPIToken, userIdentifier: tapPlayerUserId, "US");
+    }
+
+    public void OnSendAnswersButtonClick()
+    {
+        // Debug.Log("🟡 TapResearchExample: TapResearchSDK OnSendAnswersButtonClick() attempting to send profile answers");
+        string[] zipCode = new string[]
+        {
+            "90210"
+        };
+        TRProfileAnswer zipCodeAnswer = new TRProfileAnswer(qId: 45, answerValues: zipCode);
+        TRProfileAnswer[] answers = new TRProfileAnswer[]
+        {
+            zipCodeAnswer
+        };
+        TapResearchSDK.SendProfileAnswers(apiToken: tapAPIToken, userIdentifier: tapPlayerUserId, "US", answers: answers);
+    }
+    
     public void OnBoostButtonClick()
     {
         Debug.Log("TapResearchExample: TapResearchSDK OnBoostButtonClick() attempting to apply boost");
