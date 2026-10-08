@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.outlined.Done
@@ -41,12 +43,16 @@ fun MainUi(
     sendUserAttributes: () -> Unit,
     showWallPreview: () -> Unit,
     onGetPlacementDetailsClicked: () -> Unit,
+    onStartNativeProfilerActivity: () -> Unit,
+    onStartNativePagingProfilerActivity: () -> Unit,
     initializingStateFlow: StateFlow<Boolean>,
 ) {
 
     val initializing = initializingStateFlow.collectAsState()
 
     TapResearchKotlinDemoTheme {
+
+        val scrollState = rememberScrollState()
 
         Column(
             modifier = Modifier
@@ -65,59 +71,70 @@ fun MainUi(
                     Text(
                         modifier = Modifier
                             .padding(16.dp),
-                        text = "TapResearch SDK Initializing",
+                        text = "SDK Initializing",
                     )
                     CircularProgressIndicator()
                 }
 
             } else {
 
-                Text(
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    text = "Available Placement(s)",
-                )
+                        .fillMaxSize()
+                        .verticalScroll(scrollState)
+                ) {
 
-                for (option in buttonOptions) {
+                    UserIdentifierRow(userIdentifier, onSetUserIdentifier)
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        text = "Available Placement(s)",
+                    )
+                    for (option in buttonOptions) {
+                        Button(
+                            onClick = { openPlacement(option) },
+                            modifier = Modifier.padding(4.dp),
+                        ) {
+                            Text(text = option)
+                        }
+                    }
+                    divider()
                     Button(
-                        onClick = { openPlacement(option) },
-                        modifier = Modifier.padding(4.dp),
+                        onClick = { sendUserAttributes() },
+                        modifier = Modifier.padding(10.dp),
                     ) {
-                        Text(text = option)
+                        Text(text = "Send User Attributes")
+                    }
+                    divider()
+                    Button(
+                        onClick = { onGetPlacementDetailsClicked() },
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        Text(text = "Get Placement Details")
+                    }
+                    divider()
+                    Button(
+                        onClick = { showWallPreview() },
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        Text(text = "Survey Wall Preview")
+                    }
+                    divider()
+                    Button(
+                        onClick = { onStartNativeProfilerActivity() },
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        Text(text = "Native Profiler")
+                    }
+                    divider()
+                    Button(
+                        onClick = { onStartNativePagingProfilerActivity() },
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        Text(text = "Paging Native Profiler")
                     }
                 }
-
-                divider()
-
-                Button(
-                    onClick = { sendUserAttributes() },
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    Text(text = "Send User Attributes")
-                }
-
-                divider()
-
-                Button(
-                    onClick = { onGetPlacementDetailsClicked() },
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    Text(text = "Get Placement Details")
-                }
-
-                divider()
-
-                Button(
-                    onClick = { showWallPreview() },
-                    modifier = Modifier.padding(10.dp),
-                ) {
-                    Text(text = "Survey Wall Preview")
-                }
-
-                divider()
-
-                UserIdentifierRow(userIdentifier, onSetUserIdentifier)
             }
         }
     }

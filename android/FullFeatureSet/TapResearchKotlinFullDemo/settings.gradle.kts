@@ -9,6 +9,7 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
         maven("https://artifactory.tools.tapresearch.io/artifactory/tapresearch-android-sdk/")
         flatDir {
