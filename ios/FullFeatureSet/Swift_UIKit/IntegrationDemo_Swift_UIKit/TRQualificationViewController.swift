@@ -1,14 +1,13 @@
+//
+//  TRQualificationViewController.swift
+//  IntegrationDemo_Swift_UIKit
+//
+//  Created by Jeroen Verbeek on 10/09/26.
+//
+
 import UIKit
 import TapResearchSDK
 
-/// A pure UIKit questionnaire written in Swift.
-///
-/// It works directly with the SDK's public profiling models:
-/// `TRProfileResponse`, `TRProfileQuestion`, `TRProfileAnswerOption`, and `TRProfileAnswer`.
-///
-/// The response returned by each submission becomes the new source of truth:
-/// accepted questions disappear, invalid questions remain, local invalid answers are retained,
-/// and errors from `result.errors` / `previousError` are shown inline.
 @MainActor
 public final class TRQualificationViewController: UIViewController {
 
@@ -44,12 +43,7 @@ public final class TRQualificationViewController: UIViewController {
 	private let continueButton = UIButton(type: .system)
 	private let spinner = UIActivityIndicatorView(style: .medium)
 
-	public init(
-		response: TRProfileResponse,
-		submitHandler: @escaping SubmitHandler,
-		onExit: ExitHandler? = nil,
-		onComplete: CompletionHandler? = nil
-	) {
+	public init(response: TRProfileResponse, submitHandler: @escaping SubmitHandler, onExit: ExitHandler? = nil, onComplete: CompletionHandler? = nil) {
 		self.response = response
 		self.submitHandler = submitHandler
 		self.exitHandler = onExit
@@ -111,6 +105,7 @@ public final class TRQualificationViewController: UIViewController {
 		contentStack.axis = .vertical
 		contentStack.spacing = 20
 		contentStack.alignment = .fill
+		contentStack.distribution = .fill
 		scrollView.addSubview(contentStack)
 
 		bottomBar.translatesAutoresizingMaskIntoConstraints = false
@@ -171,17 +166,14 @@ public final class TRQualificationViewController: UIViewController {
 			scrollView.bottomAnchor.constraint(equalTo: bottomBar.topAnchor),
 
 			contentStack.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 24),
-			// Pin horizontally to the visible frame, while top/bottom define scrollable content.
-			// This mirrors the Objective-C/UIKit implementation and avoids ambiguous/collapsed
-			// intrinsic sizing for controls such as UIDatePicker(.inline).
 			contentStack.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 24),
 			contentStack.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -24),
 			contentStack.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
 
 			bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			bottomBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			bottomBar.bottomAnchor.constraint(equalTo: safe.bottomAnchor),
-			bottomBar.heightAnchor.constraint(greaterThanOrEqualToConstant: 68),
+			bottomBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			bottomBar.heightAnchor.constraint(equalToConstant: 76 + view.safeAreaInsets.bottom),
 
 			bottomSeparator.topAnchor.constraint(equalTo: bottomBar.topAnchor),
 			bottomSeparator.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor),
@@ -189,12 +181,10 @@ public final class TRQualificationViewController: UIViewController {
 			bottomSeparator.heightAnchor.constraint(equalToConstant: 1 / UIScreen.main.scale),
 
 			backButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: 20),
-			backButton.centerYAnchor.constraint(equalTo: bottomBar.centerYAnchor),
-			backButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+			backButton.centerYAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 38),
 
-			continueButton.trailingAnchor.constraint(equalTo: bottomBar.trailingAnchor, constant: -20),
-			continueButton.centerYAnchor.constraint(equalTo: bottomBar.centerYAnchor),
-			continueButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+			continueButton.trailingAnchor.constraint(equalTo: safe.trailingAnchor, constant: -20),
+			continueButton.centerYAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 38),
 
 			spinner.trailingAnchor.constraint(equalTo: continueButton.leadingAnchor, constant: -10),
 			spinner.centerYAnchor.constraint(equalTo: continueButton.centerYAnchor)
@@ -273,6 +263,13 @@ public final class TRQualificationViewController: UIViewController {
 		let isLast = currentIndex == count - 1
 		continueButton.setTitle(isLast ? "Submit" : "Continue", for: .normal)
 		updateNavigationState()
+
+		// render() can run before the first layout pass (including from viewDidLoad).
+		// Force the newly-added arranged subviews through layout now so the scroll
+		// content size is valid immediately.
+		contentStack.setNeedsLayout()
+		view.setNeedsLayout()
+		view.layoutIfNeeded()
 	}
 
 	private func renderComplete() {
@@ -312,12 +309,6 @@ public final class TRQualificationViewController: UIViewController {
 	}
 
 	private func renderDateQuestion(_ question: TRProfileQuestion) {
-		// Put the date picker in an explicitly-sized container. In a vertical UIStackView inside
-		// a UIScrollView, UIDatePicker's inline style can otherwise occasionally report an
-		// insufficient intrinsic height during the first layout pass and appear to be missing.
-		let pickerContainer = UIView()
-		pickerContainer.translatesAutoresizingMaskIntoConstraints = false
-
 		let picker = UIDatePicker()
 		picker.translatesAutoresizingMaskIntoConstraints = false
 		picker.datePickerMode = .date
@@ -334,22 +325,8 @@ public final class TRQualificationViewController: UIViewController {
 
 		picker.tag = question.questionId
 		picker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-		picker.setContentCompressionResistancePriority(.required, for: .vertical)
-		picker.setContentHuggingPriority(.required, for: .vertical)
+		contentStack.addArrangedSubview(picker)
 
-		pickerContainer.addSubview(picker)
-		NSLayoutConstraint.activate([
-			picker.topAnchor.constraint(equalTo: pickerContainer.topAnchor),
-			picker.leadingAnchor.constraint(equalTo: pickerContainer.leadingAnchor),
-			picker.trailingAnchor.constraint(equalTo: pickerContainer.trailingAnchor),
-			picker.bottomAnchor.constraint(equalTo: pickerContainer.bottomAnchor),
-			// Inline calendars are roughly 320–350 pt high depending on locale/content size.
-			// This minimum prevents the stack view from collapsing the control.
-			pickerContainer.heightAnchor.constraint(greaterThanOrEqualToConstant: 320)
-		])
-		contentStack.addArrangedSubview(pickerContainer)
-
-		// Deliberately do not treat the picker's initial display value as an answer.
 		if draftAnswers[question.questionId] == nil {
 			contentStack.addArrangedSubview(makeLabel(
 				text: "Choose your date of birth to continue.",
@@ -606,24 +583,14 @@ public final class TRQualificationViewController: UIViewController {
 	}
 
 	private static func errors(from response: TRProfileResponse) -> [Int: String] {
-		var errors: [Int: String] = [:]
-
+		var result: [Int: String] = [:]
+		// Per-question error, when provided by the API.
 		for question in response.qualifications {
 			if let previousError = question.previousError, !previousError.isEmpty {
-				errors[question.questionId] = previousError
+				result[question.questionId] = previousError
 			}
 		}
-
-		// Current result.errors takes precedence over previousError.
-		if let result = response.result {
-			for err in result.errors {
-				if !err.error.isEmpty {
-					errors[err.questionId] = err.error
-				}
-			}
-		}
-
-		return errors
+		return result
 	}
 
 	// MARK: - UI helpers

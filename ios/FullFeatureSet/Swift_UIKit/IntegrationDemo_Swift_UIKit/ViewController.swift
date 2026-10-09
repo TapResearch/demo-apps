@@ -116,7 +116,7 @@ class ViewController : UIViewController,
 
 	@objc func showProfiler() {
 		DispatchQueue.main.async(execute: { () -> Void in
-			self.presentProfilingQuestionnaire(apiToken: apiToken, userIdentifier: self.userIdentifier)
+			self.presentProfilingQuestionnaire(apiToken: apiToken, userIdentifier: self.userIdentifier, countryCode: "US")
 		})
 	}
 
@@ -241,73 +241,15 @@ class ViewController : UIViewController,
 		}
 	}
 
-//	func presentProfilingQuestionnaire(apiToken: String, userIdentifier: String) {
-//		Task { @MainActor in
-//			do {
-//				let initialResponse = try await TapResearch.getProfilingQualificationsAsync(
-//					apiToken: apiToken,
-//					userIdentifier: self.userIdentifier,
-//					countryCode: "US"
-//				)
-//
-//				let questionnaire = TRQualificationViewController(
-//					response: initialResponse,
-//					submitHandler: { answers in
-//						try await TapResearch.sendProfilingAnswersAsync(
-//							apiToken: apiToken,
-//							userIdentifier: userIdentifier,
-//							answers: answers,
-//							countryCode: "US"
-//						)
-//					},
-//					onExit: { [weak self = self] in
-//						DispatchQueue.main.async(execute: { () -> Void in
-//							self?.dismiss(animated: true)
-//						})
-//					},
-//					onComplete: { [weak self = self] finalResponse in
-//						print("Profiling complete: \(finalResponse.isProfiled)")
-//						DispatchQueue.main.async(execute: { () -> Void in
-//							self?.dismiss(animated: true)
-//						})
-//					}
-//				)
-//
-//				DispatchQueue.main.async(execute: { () -> Void in
-//					let navigationController = UINavigationController(rootViewController: questionnaire)
-//					navigationController.modalPresentationStyle = .formSheet
-//					self.present(navigationController, animated: true)
-//				})
-//
-//			} catch {
-//				DispatchQueue.main.async(execute: { () -> Void in
-//					let alert = UIAlertController(
-//						title: "Unable to load profiling",
-//						message: error.localizedDescription,
-//						preferredStyle: .alert
-//					)
-//					alert.addAction(UIAlertAction(title: "OK", style: .default))
-//					self.present(alert, animated: true)
-//				})
-//			}
-//		}
-//	}
-
 }
+
 @MainActor
 extension UIViewController {
 
-	func presentProfilingQuestionnaire(
-		apiToken: String,
-		userIdentifier: String
-	) {
+	func presentProfilingQuestionnaire(apiToken: String, userIdentifier: String, countryCode: String) {
 		Task { @MainActor in
 			do {
-				let initialResponse = try await TapResearch.getProfilingQualificationsAsync(
-					apiToken: apiToken,
-					userIdentifier: UUID().uuidString,
-					countryCode: "US"
-				)
+				let initialResponse = try await TapResearch.getProfilingQualificationsAsync(apiToken: apiToken, userIdentifier: userIdentifier, countryCode: countryCode)
 
 				// Do not present an empty questionnaire for a user who is
 				// already fully profiled (or has no remaining qualifications).
@@ -320,12 +262,7 @@ extension UIViewController {
 				let questionnaire = TRQualificationViewController(
 					response: initialResponse,
 					submitHandler: { answers in
-						try await TapResearch.sendProfilingAnswersAsync(
-							apiToken: apiToken,
-							userIdentifier: userIdentifier,
-							answers: answers,
-							countryCode: "US"
-						)
+						try await TapResearch.sendProfilingAnswersAsync(apiToken: apiToken, userIdentifier: userIdentifier, answers: answers, countryCode: countryCode)
 					},
 					onExit: { [weak self] in
 						self?.dismiss(animated: true)
@@ -341,14 +278,11 @@ extension UIViewController {
 				present(navigationController, animated: true)
 
 			} catch {
-				let alert = UIAlertController(
-					title: "Unable to load profiling",
-					message: error.localizedDescription,
-					preferredStyle: .alert
-				)
+				let alert = UIAlertController(title: "Unable to load profiling", message: error.localizedDescription, preferredStyle: .alert)
 				alert.addAction(UIAlertAction(title: "OK", style: .default))
 				present(alert, animated: true)
 			}
 		}
 	}
+
 }
