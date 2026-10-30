@@ -15,3 +15,10 @@
 
 -keep class androidx.work.** { *; }
 -dontwarn androidx.work.**
+
+-keep class com.google.android.gms.ads.identifier.** { *; }
+-dontwarn com.google.android.gms.ads.identifier.**
+
+# If your app is a Unity game
+-keep class com.unity3d.** { *; }
+-dontwarn com.unity3d.**
