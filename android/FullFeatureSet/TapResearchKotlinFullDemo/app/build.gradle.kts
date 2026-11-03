@@ -24,7 +24,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -59,7 +60,7 @@ android {
 
 dependencies {
     // required by tap research sdk
-    implementation("com.tapresearch:tapsdk:3.8.1--beta01")
+    implementation("com.tapresearch:tapsdk:3.8.1--beta03")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("androidx.lifecycle:lifecycle-process:2.7.0")
     implementation("com.google.android.gms:play-services-ads-identifier:18.1.0")
