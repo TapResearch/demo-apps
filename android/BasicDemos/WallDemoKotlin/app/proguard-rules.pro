@@ -5,13 +5,8 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
--keep class androidx.startup.InitializationProvider { *; }
--keep class * implements androidx.startup.Initializer { *; }
-
--keep class androidx.work.** { *; }
--dontwarn androidx.work.**
+-keep class * extends androidx.room.RoomDatabase { void <init>(); }
 
 # Only applies to unity games
 -keep class com.unity3d.** { *; }
 -dontwarn com.unity3d.**
-
